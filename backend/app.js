@@ -41,31 +41,31 @@ app.use(
     verify: (req, res, buffer) => (req["rawBody"] = buffer),
   })
 );
-// app.use(
-//   session({
-//     store: new RedisStore({ client: redisClient }),
-//     secret: CONSTANTS.KEY_SESSION,
-//     resave: process.env.NODE_ENV === "PRODUCTION" ? true : false,
-//     saveUninitialized: true,
-//     cookie: {
-//       secure: process.env.NODE_ENV === "PRODUCTION" ? true : false,
-//       httpOnly: true,
-//       maxAge: CONSTANTS._5_MINUTES,
-//     },
-//   })
-// );
-// app.use(
-//   compression({
-//     level: 6,
-//     threshold: 100 * 1000,
-//     filter: (req, res) => {
-//       if (req.headers["x-no-compression"]) {
-//         return false;
-//       }
-//       return compression.filter(req, res);
-//     },
-//   })
-// );
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: CONSTANTS.KEY_SESSION,
+    resave: process.env.NODE_ENV === "PRODUCTION" ? true : false,
+    saveUninitialized: true,
+    cookie: {
+      secure: process.env.NODE_ENV === "PRODUCTION" ? true : false,
+      httpOnly: true,
+      maxAge: CONSTANTS._5_MINUTES,
+    },
+  })
+);
+app.use(
+  compression({
+    level: 6,
+    threshold: 100 * 1000,
+    filter: (req, res) => {
+      if (req.headers["x-no-compression"]) {
+        return false;
+      }
+      return compression.filter(req, res);
+    },
+  })
+);
 // ------------------------- Users ------------------------- //
 
 // //!! USER_ROUTE
