@@ -66,10 +66,10 @@ app.use(
 // ------------------------- Users ------------------------- //
 
 // //!! USER_ROUTE
-// const users_routes = require("./src/v1/user_api/routes/user.routes");
+const users_routes = require("./src/v1/user_api/routes/user.routes");
 
 // //!Route USer
-// app.use("/api", users_routes);
+app.use("/api", users_routes);
 
 // // ------------------------- Admins ------------------------- //
 // //!! ADMIN_ROUTE
