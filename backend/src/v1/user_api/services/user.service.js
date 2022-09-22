@@ -1,4 +1,8 @@
-const HELPER = require("../../../v1/utils/helper");
+const {
+  createAccessToken,
+  createRefreshToken,
+  randomString,
+} = require("../../utils/helper");
 const CONSTANTS = require("../../configs/constants");
 const {
   LoginEmail,
@@ -34,8 +38,8 @@ module.exports = {
         success: result_user?.success,
       };
     }
-    const accessToken = HELPER.createAccessToken({ id: result_user._id });
-    const refreshToken = HELPER.createRefreshToken({ id: result_user._id });
+    const accessToken = createAccessToken({ id: result_user._id });
+    const refreshToken = createRefreshToken({ id: result_user._id });
     saveCookies(res, refreshToken);
     return {
       status: 200,
@@ -51,8 +55,8 @@ module.exports = {
     const { name, email, picture } = user_google.payload;
     let result_user = await LoginGoogle(email);
     if (result_user) {
-      const accessToken = HELPER.createAccessToken({ id: result_user._id });
-      const refreshToken = HELPER.createRefreshToken({ id: result_user._id });
+      const accessToken = createAccessToken({ id: result_user._id });
+      const refreshToken = createRefreshToken({ id: result_user._id });
       saveCookies(res, refreshToken);
       return {
         status: 200,
@@ -63,7 +67,7 @@ module.exports = {
         },
       };
     } else {
-      var password = HELPER.randomString(10);
+      var password = randomString(10);
       let newUser = await RegisterSocial({
         name,
         email,
@@ -76,8 +80,8 @@ module.exports = {
           success: false,
         };
       }
-      const accessToken = HELPER.createAccessToken({ id: newUser._id });
-      const refreshToken = HELPER.createRefreshToken({ id: newUser._id });
+      const accessToken = createAccessToken({ id: newUser._id });
+      const refreshToken = createRefreshToken({ id: newUser._id });
       saveCookies(res, refreshToken);
       return {
         status: 200,
