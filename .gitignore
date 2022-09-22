@@ -1,0 +1,19 @@
+###! Frontend ###
+/frontend/node_modules
+/frontend/.env
+/frontend/.git
+
+
+###! backend ###
+/backend/node_modules
+/backend/.env
+/backend/data
+/backend/mongo-entrypoint
+/backend/mongoconfig
+/backend/db_data
+/backend/data
+
+
+###! General ###
+.env
+.env.docker

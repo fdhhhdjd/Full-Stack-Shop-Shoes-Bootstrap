@@ -1,0 +1,97 @@
+version: "3.7"
+
+services:
+###! Backend ###
+  backend:
+    container_name: backend
+    depends_on:
+      - mongodb
+      - redis
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./backend
+    environment:
+      PORT: '${PORT}' 
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    env_file:
+      - .env
+    command: npm run dev
+    networks:
+      - shopshoe
+
+###! NoSql: MongoDB ###  
+  mongodb:
+    image: mongo
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MONGO_PORT: '${MONGO_PORT}'
+      MONGODB_URL: '${MONGODB_URL}'
+      MONGO_USER: '${MONGO_USER}'
+      MONGO_PASSWORD: '${MONGO_PASSWORD}'
+    volumes:
+      - ./backend/mongo-entrypoint:/docker-entrypoint-initdb.d
+      - ./backend/data:/data/db
+      - ./backend/mongoconfig:/data/configdb
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}    
+
+    networks:
+      - shopshoe
+
+###! Redis ###  
+  redis:
+    image: redis:6.2
+    restart: always
+    environment:
+      REDIS_PASSWORD: '${REDIS_PASSWORD}'
+    env_file:
+      - .env
+    networks:
+      - shopshoe 
+###! Frontend ###
+  frontend:
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+    container_name: frontend
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    ports:
+      - 3001:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - shopshoe
+###! WebServer:NGINX ###     
+  nginx:
+    image: nginx:1.21.3
+    container_name: nginx
+    depends_on:
+      - backend
+      - frontend
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "8084:80"
+    networks: 
+      - shopshoe 
+      
+###! Networks general ###
+networks:
+    shopshoe:
+      driver: bridge

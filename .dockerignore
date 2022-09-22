@@ -1,0 +1,3 @@
+backend/db_data
+minio_data
+.env
