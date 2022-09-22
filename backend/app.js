@@ -18,7 +18,7 @@ const CONSTANTS = require("./src/v1/configs/constants");
 Mongo_DB();
 
 //! Variable
-let redisClient = new Redis();
+// let redisClient = new Redis();
 
 //! used library
 const app = express();
@@ -41,44 +41,44 @@ app.use(
     verify: (req, res, buffer) => (req["rawBody"] = buffer),
   })
 );
-app.use(
-  session({
-    store: new RedisStore({ client: redisClient }),
-    secret: CONSTANTS.KEY_SESSION,
-    resave: process.env.NODE_ENV === "PRODUCTION" ? true : false,
-    saveUninitialized: true,
-    cookie: {
-      secure: process.env.NODE_ENV === "PRODUCTION" ? true : false,
-      httpOnly: true,
-      maxAge: CONSTANTS._5_MINUTES,
-    },
-  })
-);
-app.use(
-  compression({
-    level: 6,
-    threshold: 100 * 1000,
-    filter: (req, res) => {
-      if (req.headers["x-no-compression"]) {
-        return false;
-      }
-      return compression.filter(req, res);
-    },
-  })
-);
+// app.use(
+//   session({
+//     store: new RedisStore({ client: redisClient }),
+//     secret: CONSTANTS.KEY_SESSION,
+//     resave: process.env.NODE_ENV === "PRODUCTION" ? true : false,
+//     saveUninitialized: true,
+//     cookie: {
+//       secure: process.env.NODE_ENV === "PRODUCTION" ? true : false,
+//       httpOnly: true,
+//       maxAge: CONSTANTS._5_MINUTES,
+//     },
+//   })
+// );
+// app.use(
+//   compression({
+//     level: 6,
+//     threshold: 100 * 1000,
+//     filter: (req, res) => {
+//       if (req.headers["x-no-compression"]) {
+//         return false;
+//       }
+//       return compression.filter(req, res);
+//     },
+//   })
+// );
 // ------------------------- Users ------------------------- //
 
-//!! USER_ROUTE
-const users_routes = require("./src/v1/user_api/routes/user.routes");
+// //!! USER_ROUTE
+// const users_routes = require("./src/v1/user_api/routes/user.routes");
 
-//!Route USer
-app.use("/api", users_routes);
+// //!Route USer
+// app.use("/api", users_routes);
 
-// ------------------------- Admins ------------------------- //
-//!! ADMIN_ROUTE
-const admins_routes = require("./src/v1/admin_api/routes/admin.routes");
+// // ------------------------- Admins ------------------------- //
+// //!! ADMIN_ROUTE
+// const admins_routes = require("./src/v1/admin_api/routes/admin.routes");
 
-//!Route Admin
-app.use("/api", admins_routes);
+// //!Route Admin
+// app.use("/api", admins_routes);
 
 module.exports = app;
