@@ -73,9 +73,9 @@ app.use("/api", users_routes);
 
 // // ------------------------- Admins ------------------------- //
 // //!! ADMIN_ROUTE
-// const admins_routes = require("./src/v1/admin_api/routes/admin.routes");
+const admins_routes = require("./src/v1/admin_api/routes/admin.routes");
 
 // //!Route Admin
-// app.use("/api", admins_routes);
+app.use("/api", admins_routes);
 
 module.exports = app;
