@@ -3,7 +3,7 @@ const {
   createAccessToken,
   createRefreshToken,
   // randomString,
-} = require("../../utils/helper");
+} = require("./helper");
 // const {
 //   LoginEmail,
 //   LoginPhone,
