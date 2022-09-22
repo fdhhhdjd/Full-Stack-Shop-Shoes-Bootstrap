@@ -31,26 +31,26 @@ const userCtrl = {
       });
     }
   },
-  // loginUserGoogle: async (req, res) => {
-  //   try {
-  //     const { tokenId } = req.body;
-  //     const { status, success, element } = await checkLoginGoogle({
-  //       tokenId,
-  //       res,
-  //     });
-  //     return res.status(status).json({
-  //       status,
-  //       success,
-  //       msg: returnReasons(status.toString()),
-  //       element,
-  //     });
-  //   } catch (error) {
-  //     return res.status(503).json({
-  //       status: 503,
-  //       success: false,
-  //       element: returnReasons("503"),
-  //     });
-  //   }
-  // },
+  loginUserGoogle: async (req, res) => {
+    try {
+      const { tokenId } = req.body;
+      const { status, success, element } = await checkLoginGoogle({
+        tokenId,
+        res,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
 };
 module.exports = userCtrl;
