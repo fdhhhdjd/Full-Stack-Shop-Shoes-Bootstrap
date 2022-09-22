@@ -1,4 +1,4 @@
-const HELPER = require("../../utils/helper");
+const HELPER = require("../../utils/helper.js");
 const CONSTANTS = require("../../configs/constants");
 const {
   LoginEmail,

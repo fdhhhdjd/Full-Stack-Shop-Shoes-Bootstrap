@@ -6,7 +6,7 @@ const sendEmail = require("../services/sendEmail.service");
 const PASSWORD = require("../../utils/password");
 const Users = require("../../models/userModel");
 const CONFIGS = require("../../configs/config");
-const HELPER = require("../../utils/helper");
+const HELPER = require("../../utils/helper.js");
 
 module.exports = {
   LoginEmail: async (email_phone, password) => {
