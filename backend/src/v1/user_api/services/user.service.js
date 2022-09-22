@@ -40,7 +40,7 @@ module.exports = {
     }
     const accessToken = createAccessToken({ id: result_user._id });
     const refreshToken = createRefreshToken({ id: result_user._id });
-    saveCookies(res, refreshToken);
+    // saveCookies(res, refreshToken);
     return {
       status: 200,
       success: true,
