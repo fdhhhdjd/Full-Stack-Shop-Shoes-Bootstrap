@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const userCtrl = require("../../user_api/controllers/user.controllers");
+const userCtrl = require("../controllers/user.controllers");
 //! Login Email,Phone
 router.post("/user/login", userCtrl.loginUser);
 //! Login Google
