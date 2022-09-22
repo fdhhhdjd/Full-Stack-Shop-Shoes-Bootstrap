@@ -1,5 +1,5 @@
 const dotenv = require("dotenv");
-const app = require("./app");
+const app = require("./app.js");
 dotenv.config({ path: __dirname + "../.env" });
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({ path: "../.env" });
