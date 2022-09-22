@@ -37,5 +37,8 @@
     "stripe": "^8.219.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
