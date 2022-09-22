@@ -11,14 +11,11 @@ const bodyParser = require("body-parser");
 const compression = require("compression");
 const cron = require("node-cron");
 //! Import
-require("./src/v1/db/redis_db");
+const REDIS = require("./src/v1/db/redis_db");
 const Mongo_DB = require("./src/v1/db/mongo_db");
 const CONSTANTS = require("./src/v1/configs/constants");
 //! Connect
 Mongo_DB();
-
-//! Variable
-let redisClient = new Redis();
 
 //! used library
 const app = express();
@@ -43,7 +40,7 @@ app.use(
 );
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
+    store: new RedisStore({ client: REDIS }),
     secret: CONSTANTS.KEY_SESSION,
     resave: process.env.NODE_ENV === "PRODUCTION" ? true : false,
     saveUninitialized: true,
@@ -69,10 +66,10 @@ app.use(
 // ------------------------- Users ------------------------- //
 
 // //!! USER_ROUTE
-// const users_routes = require("./src/v1/user_api/routes/user.routes");
+const users_routes = require("./src/v1/user_api/routes/user.routes");
 
 // //!Route USer
-// app.use("/api", users_routes);
+app.use("/api", users_routes);
 
 // // ------------------------- Admins ------------------------- //
 // //!! ADMIN_ROUTE

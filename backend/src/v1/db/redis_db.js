@@ -13,6 +13,7 @@ const REDIS = new IOREDIS({
 });
 
 REDIS.on("connect", () => {
+  console.log("----------", CONFIGS);
   console.log("Client connected to redis Push...");
 });
 REDIS.on("ready", () => {
