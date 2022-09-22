@@ -18,7 +18,7 @@ const CONSTANTS = require("./src/v1/configs/constants");
 Mongo_DB();
 
 //! Variable
-// let redisClient = new Redis();
+let redisClient = new Redis();
 
 //! used library
 const app = express();
