@@ -4,7 +4,7 @@ dotenv.config({ path: __dirname + "../.env" });
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({ path: "../.env" });
 }
-app.get("/api", (req, res) => {
+app.get("/api/", (req, res) => {
   const health_check = {
     uptime: process.uptime(),
     message: "Tài Đẹp trai ",
