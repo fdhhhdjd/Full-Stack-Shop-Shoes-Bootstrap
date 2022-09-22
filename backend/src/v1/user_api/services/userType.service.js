@@ -1,13 +1,12 @@
 "use strict";
 const { v4: uuidv4 } = require("uuid");
 
-const { comparePassword } = require("../../utils/password");
 const { checkUserExit, checkPhoneExit } = require("../../utils/storage");
 const sendEmail = require("../services/sendEmail.service");
 const PASSWORD = require("../../utils/password");
 const Users = require("../../models/userModel");
 const CONFIGS = require("../../configs/config");
-// const HELPER = require("../../utils/helper");
+const HELPER = require("../../utils/helper");
 
 module.exports = {
   LoginEmail: async (email_phone, password) => {
@@ -52,7 +51,7 @@ module.exports = {
   },
   LoginPhone: async (email_phone) => {
     try {
-      // const check_phone = HELPER.isVietnamesePhoneNumber(email_phone);
+      const check_phone = HELPER.isVietnamesePhoneNumber(email_phone);
       if (!check_phone) {
         return {
           status: 306,
