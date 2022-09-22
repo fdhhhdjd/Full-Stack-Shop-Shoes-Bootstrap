@@ -2,7 +2,7 @@ const { returnReasons } = require("../../middlewares/handleError");
 const {
   checkLoginUser,
   checkLoginGoogle,
-} = require("../services/user.service");
+} = require("../../user_api/services/user.service");
 
 const userCtrl = {
   loginUser: async (req, res) => {
