@@ -1,9 +1,9 @@
+const CONSTANTS = require("../../configs/constants");
 const {
   createAccessToken,
   createRefreshToken,
   randomString,
 } = require("../../utils/helper");
-const CONSTANTS = require("../../configs/constants");
 const {
   LoginEmail,
   LoginPhone,
