@@ -1,9 +1,9 @@
 // const CONSTANTS = require("../../configs/constants");
-const {
-  createAccessToken,
-  createRefreshToken,
-  // randomString,
-} = require("./helper");
+// const {
+//   createAccessToken,
+//   createRefreshToken,
+//   // randomString,
+// } = require("../../utils/helper");
 // const {
 //   LoginEmail,
 //   LoginPhone,
@@ -38,8 +38,8 @@ module.exports = {
         success: result_user?.success,
       };
     }
-    const accessToken = createAccessToken({ id: result_user._id });
-    const refreshToken = createRefreshToken({ id: result_user._id });
+    // const accessToken = createAccessToken({ id: result_user._id });
+    // const refreshToken = createRefreshToken({ id: result_user._id });
     // saveCookies(res, refreshToken);
     return {
       status: 200,
