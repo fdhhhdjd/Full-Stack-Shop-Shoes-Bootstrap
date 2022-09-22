@@ -1,7 +1,6 @@
 "use strict";
 const { v4: uuidv4 } = require("uuid");
 
-const { isVietnamesePhoneNumber } = require("../../utils/helper");
 const { comparePassword } = require("../../utils/password");
 const { checkUserExit, checkPhoneExit } = require("../../utils/storage");
 const sendEmail = require("../services/sendEmail.service");
@@ -53,7 +52,7 @@ module.exports = {
   },
   LoginPhone: async (email_phone) => {
     try {
-      const check_phone = isVietnamesePhoneNumber(email_phone);
+      const check_phone = HELPER.isVietnamesePhoneNumber(email_phone);
       if (!check_phone) {
         return {
           status: 306,

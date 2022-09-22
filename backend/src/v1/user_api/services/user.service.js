@@ -1,4 +1,5 @@
-const HELPER = require("../../utils/helper");
+const dotenv = require("dotenv");
+const HELPER = require("../../utils/helper.js");
 const CONSTANTS = require("../../configs/constants");
 const {
   LoginEmail,
