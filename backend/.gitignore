@@ -1,0 +1,13 @@
+
+
+
+###! backend ###
+node_modules
+.env
+data
+mongo-entrypoint
+mongoconfig
+db_data
+data
+
+
