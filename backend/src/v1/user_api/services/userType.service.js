@@ -5,7 +5,7 @@ const sendEmail = require("../services/sendEmail.service");
 const PASSWORD = require("../../utils/password");
 const Users = require("../../models/userModel");
 const CONFIGS = require("../../configs/config");
-const HELPER = require("../../utils/Helper.js");
+// const HELPER = require("../../utils/Helper.js");
 
 module.exports = {
   LoginEmail: async (email_phone, password) => {
@@ -50,13 +50,13 @@ module.exports = {
   },
   LoginPhone: async (email_phone) => {
     try {
-      const check_phone = HELPER.isVietnamesePhoneNumber(email_phone);
-      if (!check_phone) {
-        return {
-          status: 306,
-          success: false,
-        };
-      }
+      // const check_phone = HELPER.isVietnamesePhoneNumber(email_phone);
+      // if (!check_phone) {
+      //   return {
+      //     status: 306,
+      //     success: false,
+      //   };
+      // }
       const user_phone = await STORAGE.checkPhoneExit(email_phone);
       return user_phone;
     } catch (error) {
