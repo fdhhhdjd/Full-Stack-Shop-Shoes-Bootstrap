@@ -6,7 +6,9 @@
 // LoginGoogle,
 // RegisterSocial,
 // } = require("./userType.service");
-const { UserSpam } = require("../../user_api/services/userspam.services");
+const {
+  UserSpam,
+} = require("../../../../../backend/src/v1/user_api/services/userspam.services");
 // const { callDataGoogle, saveCookies } = require("../../utils/storage");
 
 module.exports = {
