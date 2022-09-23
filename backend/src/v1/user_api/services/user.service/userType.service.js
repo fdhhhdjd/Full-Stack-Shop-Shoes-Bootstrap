@@ -1,6 +1,5 @@
 "use strict";
 const { v4: uuidv4 } = require("uuid");
-
 const STORAGE = require("../../../utils/storage");
 const sendEmail = require("../user.service/sendEmail.service");
 const PASSWORD = require("../../../utils/password");
