@@ -1,11 +1,11 @@
 // const HELPER = require("../../utils/Helper");
 // const CONSTANTS = require("../../configs/constants");
-const {
-  LoginEmail,
-  LoginPhone,
-  // LoginGoogle,
-  // RegisterSocial,
-} = require("./userType.service");
+// const {
+//   LoginEmail,
+//   LoginPhone,
+// LoginGoogle,
+// RegisterSocial,
+// } = require("./userType.service");
 // const { UserSpam } = require("./userSpam.service");
 // const { callDataGoogle, saveCookies } = require("../../utils/storage");
 
@@ -24,9 +24,9 @@ module.exports = {
     // }
     let result_user = null;
     if (email_phone.includes("@") == true) {
-      result_user = await LoginEmail(email_phone, password);
+      // result_user = await LoginEmail(email_phone, password);
     } else {
-      result_user = await LoginPhone(email_phone);
+      // result_user = await LoginPhone(email_phone);
     }
     if (!result_user || result_user.success === false) {
       return {
