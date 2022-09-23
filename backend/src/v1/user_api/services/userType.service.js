@@ -10,15 +10,15 @@ const { v4: uuidv4 } = require("uuid");
 
 module.exports = {
   LoginEmail: async (email_phone, password) => {
-    try {
-      // const recapCha = await STORAGE.validateHuman(token);
-      // if (!recapCha) {
-      //   return {
-      //     status: 402,
-      //     success: false,
-      //     element: "You Check RecapCha Fail ",
-      //   };
-      // }
+    // try {
+    // const recapCha = await STORAGE.validateHuman(token);
+    // if (!recapCha) {
+    //   return {
+    //     status: 402,
+    //     success: false,
+    //     element: "You Check RecapCha Fail ",
+    //   };
+    // }
     //   const user_email = await checkUserExit(email_phone);
     //   if (!user_email)
     //     return {
