@@ -2,12 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "./server.js",
+      "src": "server.js",
       "use": "@now/node"
     }
   ],
   "routes": [
-    { "handle": "filesystem" },
     {
       "src": "/api/(.*)",
       "dest": "server.js"
