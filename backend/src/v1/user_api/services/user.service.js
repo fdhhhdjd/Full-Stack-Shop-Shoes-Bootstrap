@@ -6,8 +6,8 @@ const {
   LoginGoogle,
   RegisterSocial,
 } = require("./userType.service");
-// const { UserSpam } = require("./userSpam.service");
-// const { callDataGoogle, saveCookies } = require("../../utils/storage");
+const { UserSpam } = require("./userSpam.service");
+const { callDataGoogle, saveCookies } = require("../../utils/storage");
 
 module.exports = {
   checkLoginUser: async ({ email_phone, password, token, GetIPUser, res }) => {
@@ -28,12 +28,12 @@ module.exports = {
     } else {
       result_user = await LoginPhone(email_phone);
     }
-    // if (!result_user || result_user.success === false) {
-    //   return {
-    //     status: result_user?.status,
-    //     success: result_user?.success,
-    //   };
-    // }
+    if (!result_user || result_user.success === false) {
+      return {
+        status: result_user?.status,
+        success: result_user?.success,
+      };
+    }
     const accessToken = HELPER.createAccessToken({ id: result_user._id });
     const refreshToken = HELPER.createRefreshToken({ id: result_user._id });
     // saveCookies(res, refreshToken);

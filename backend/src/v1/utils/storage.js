@@ -1,7 +1,7 @@
+const { OAuth2Client } = require("google-auth-library");
 const CONSTANTS = require("../configs/constants");
 const CONFIGS = require("../configs/config");
-const Users = require("../../v1/models/userModel");
-const { OAuth2Client } = require("google-auth-library");
+const Users = require("../models/userModel");
 const CLIENT_ID = CONFIGS.GOOGLE_CLIENT_IDS;
 const client = new OAuth2Client(CLIENT_ID);
 module.exports = {
