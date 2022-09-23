@@ -6,22 +6,22 @@ const {
   LoginGoogle,
   RegisterSocial,
 } = require("./userType.service");
-const { UserSpam } = require("./userSpam.service");
+// const { UserSpam } = require("./userSpam.service");
 const { callDataGoogle, saveCookies } = require("../../utils/storage");
 
 module.exports = {
   checkLoginUser: async ({ email_phone, password, token, GetIPUser, res }) => {
-    const { status, _ttl, msg } = UserSpam(GetIPUser);
-    if (status === 400) {
-      return {
-        status,
-        success: false,
-        element: {
-          _ttl,
-          msg,
-        },
-      };
-    }
+    // const { status, _ttl, msg } = UserSpam(GetIPUser);
+    // if (status === 400) {
+    //   return {
+    //     status,
+    //     success: false,
+    //     element: {
+    //       _ttl,
+    //       msg,
+    //     },
+    //   };
+    // }
     let result_user = null;
     if (email_phone.includes("@") == true) {
       result_user = await LoginEmail(email_phone, password);
