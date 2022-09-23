@@ -159,4 +159,16 @@ module.exports = {
       expiresIn: CONTAINS.EXPIRES_REFRESH_TOKEN,
     });
   },
+  /** Create refresh token
+   * Time Vietnamese
+   *
+   * @param {string} headers
+   *
+   * @returns {string}
+   */
+  //* Replace URL
+  getURIFromTemplate(template, data) {
+    const { userID, accessToken } = data;
+    return eval("`" + template.replace(/`/g, "\\`") + "`");
+  },
 };

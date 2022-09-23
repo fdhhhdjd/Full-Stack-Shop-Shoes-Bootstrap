@@ -1,7 +1,7 @@
 const nodeMailer = require("nodemailer");
 const hbs = require("nodemailer-express-handlebars");
 const path = require("path");
-const CONFIGS = require("../../configs/config");
+const CONFIGS = require("../../../configs/config");
 require("dotenv").config();
 const sendEmail = async (options) => {
   const transporter = nodeMailer.createTransport({
