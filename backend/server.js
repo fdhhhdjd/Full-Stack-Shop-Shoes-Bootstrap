@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 app.get("/api/", (req, res) => {
   const health_check = {
     uptime: process.uptime(),
-    message: "Tài Đẹp trai ",
+    message: "Tài Đẹp trai. ",
     timestamp: Date.now(),
   };
   return res.send(health_check);
