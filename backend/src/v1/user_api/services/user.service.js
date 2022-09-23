@@ -1,33 +1,33 @@
 const HELPER = require("../../utils/Helper");
 // const CONSTANTS = require("../../configs/constants");
-// const {
-//   LoginEmail,
-//   LoginPhone,
-//   LoginGoogle,
-//   RegisterSocial,
-// } = require("./userType.service");
+const {
+  LoginEmail,
+  LoginPhone,
+  LoginGoogle,
+  RegisterSocial,
+} = require("./userType.service");
 // const { UserSpam } = require("./userSpam.service");
 // const { callDataGoogle, saveCookies } = require("../../utils/storage");
 
 module.exports = {
   checkLoginUser: async ({ email_phone, password, token, GetIPUser, res }) => {
     const { status, _ttl, msg } = UserSpam(GetIPUser);
-    // if (status === 400) {
-    //   return {
-    //     status,
-    //     success: false,
-    //     element: {
-    //       _ttl,
-    //       msg,
-    //     },
-    //   };
-    // }
-    // let result_user = null;
-    // if (email_phone.includes("@") == true) {
-    //   result_user = await LoginEmail(email_phone, password);
-    // } else {
-    //   result_user = await LoginPhone(email_phone);
-    // }
+    if (status === 400) {
+      return {
+        status,
+        success: false,
+        element: {
+          _ttl,
+          msg,
+        },
+      };
+    }
+    let result_user = null;
+    if (email_phone.includes("@") == true) {
+      result_user = await LoginEmail(email_phone, password);
+    } else {
+      result_user = await LoginPhone(email_phone);
+    }
     // if (!result_user || result_user.success === false) {
     //   return {
     //     status: result_user?.status,

@@ -1,12 +1,12 @@
 "use strict";
 const { v4: uuidv4 } = require("uuid");
 
-const { checkUserExit, checkPhoneExit } = require("../../utils/storage");
-const sendEmail = require("../services/sendEmail.service");
-const PASSWORD = require("../../utils/password");
-const Users = require("../../models/userModel");
-const CONFIGS = require("../../configs/config");
-const HELPER = require("../../utils/Helper.js");
+// const { checkUserExit, checkPhoneExit } = require("../../utils/storage");
+// const sendEmail = require("../services/sendEmail.service");
+// const PASSWORD = require("../../utils/password");
+// const Users = require("../../models/userModel");
+// const CONFIGS = require("../../configs/config");
+// const HELPER = require("../../utils/Helper.js");
 
 module.exports = {
   LoginEmail: async (email_phone, password) => {
@@ -19,35 +19,35 @@ module.exports = {
       //     element: "You Check RecapCha Fail ",
       //   };
       // }
-      const user_email = await checkUserExit(email_phone);
-      if (!user_email)
-        return {
-          status: 305,
-          success: false,
-        };
-      if (user_email.verified === false) {
-        return {
-          status: 400,
-          success: false,
-        };
-      }
-      const user_password = await PASSWORD.comparePassword(
-        password,
-        user_email?.password
-      );
-      console.log(user_password);
-      if (!user_password) {
-        return {
-          status: 403,
-          success: false,
-        };
-      }
-      return user_email;
-    } catch (error) {
-      return {
-        status: 503,
-      };
-    }
+    //   const user_email = await checkUserExit(email_phone);
+    //   if (!user_email)
+    //     return {
+    //       status: 305,
+    //       success: false,
+    //     };
+    //   if (user_email.verified === false) {
+    //     return {
+    //       status: 400,
+    //       success: false,
+    //     };
+    //   }
+    //   const user_password = await PASSWORD.comparePassword(
+    //     password,
+    //     user_email?.password
+    //   );
+    //   console.log(user_password);
+    //   if (!user_password) {
+    //     return {
+    //       status: 403,
+    //       success: false,
+    //     };
+    //   }
+    //   return user_email;
+    // } catch (error) {
+    //   return {
+    //     status: 503,
+    //   };
+    // }
   },
   LoginPhone: async (email_phone) => {
     try {
