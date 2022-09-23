@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const path = require("path");
-const Redis = require("ioredis");
 const session = require("express-session");
 let RedisStore = require("connect-redis")(session);
 const bodyParser = require("body-parser");

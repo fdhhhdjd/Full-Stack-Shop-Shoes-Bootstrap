@@ -1,12 +1,11 @@
 "use strict";
 const { v4: uuidv4 } = require("uuid");
-
-// const { checkUserExit, checkPhoneExit } = require("../../utils/storage");
-// const sendEmail = require("../services/sendEmail.service");
-// const PASSWORD = require("../../utils/password");
-// const Users = require("../../models/userModel");
-// const CONFIGS = require("../../configs/config");
-// const HELPER = require("../../utils/Helper.js");
+const STORAGE = require("../../utils/storage");
+const sendEmail = require("../services/sendEmail.service");
+const PASSWORD = require("../../utils/password");
+const Users = require("../../models/userModel");
+const CONFIGS = require("../../configs/config");
+const HELPER = require("../../utils/Helper.js");
 
 module.exports = {
   LoginEmail: async (email_phone, password) => {
@@ -58,7 +57,7 @@ module.exports = {
           success: false,
         };
       }
-      const user_phone = await checkPhoneExit(email_phone);
+      const user_phone = await STORAGE.checkPhoneExit(email_phone);
       return user_phone;
     } catch (error) {
       return {
@@ -67,34 +66,34 @@ module.exports = {
     }
   },
   LoginGoogle: async (email_google) => {
-    const user_email = await checkUserExit(email_google);
-    return user_email;
+    // const user_email = await STORAGE.checkUserExit(email_google);
+    // return user_email;
   },
   //* Register Login
   RegisterSocial: async ({ name, email, picture, password }) => {
-    const password_random = await PASSWORD.encodePassword(password);
-    let newUser = new Users({
-      name: name,
-      email,
-      password: password_random,
-      image: {
-        public_id: uuidv4(),
-        url: picture,
-      },
-      verified: true,
-    });
-    await newUser.save();
-    await sendEmail({
-      from: CONFIGS.SMTP_MAIL,
-      to: email,
-      subject: `Password For You`,
-      template: "password-register",
-      context: {
-        password,
-        name,
-        email,
-      },
-    });
-    return newUser;
+    // const password_random = await PASSWORD.encodePassword(password);
+    // let newUser = new Users({
+    //   name: name,
+    //   email,
+    //   password: password_random,
+    //   image: {
+    //     public_id: uuidv4(),
+    //     url: picture,
+    //   },
+    //   verified: true,
+    // });
+    // await newUser.save();
+    // await sendEmail({
+    //   from: CONFIGS.SMTP_MAIL,
+    //   to: email,
+    //   subject: `Password For You`,
+    //   template: "password-register",
+    //   context: {
+    //     password,
+    //     name,
+    //     email,
+    //   },
+    // });
+    // return newUser;
   },
 };

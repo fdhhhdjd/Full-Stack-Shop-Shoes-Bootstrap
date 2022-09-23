@@ -3,11 +3,11 @@ const HELPER = require("../../utils/Helper");
 const {
   LoginEmail,
   LoginPhone,
-  LoginGoogle,
-  RegisterSocial,
+  // LoginGoogle,
+  // RegisterSocial,
 } = require("./userType.service");
 // const { UserSpam } = require("./userSpam.service");
-const { callDataGoogle, saveCookies } = require("../../utils/storage");
+// const { callDataGoogle, saveCookies } = require("../../utils/storage");
 
 module.exports = {
   checkLoginUser: async ({ email_phone, password, token, GetIPUser, res }) => {
