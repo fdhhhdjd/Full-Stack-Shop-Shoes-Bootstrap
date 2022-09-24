@@ -102,6 +102,7 @@ module.exports = {
       maxAge: CONSTANTS._7_DAY,
     });
   },
+  //*Handle RefetchToken
   async GenerateRefreshToken(user) {
     const refresh = await get(user.id);
     if (refresh) {

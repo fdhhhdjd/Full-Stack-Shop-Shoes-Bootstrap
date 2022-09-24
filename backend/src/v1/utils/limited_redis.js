@@ -51,7 +51,7 @@ const get = (key) => {
  * @returns {json} "
  */
 const set = (key, value) => {
-  return REDIS.get(key, value, (err, result) => {
+  return REDIS.set(key, value, (err, result) => {
     if (err) {
       err;
     }
@@ -167,7 +167,6 @@ const addDelayEventOrder = ({ orderId, delay }) => {
   );
 };
 const saveTokenRedis = (orderId, value, delay) => {
-  console.log(orderId, delay);
   return REDIS.set(orderId, value, "EX", delay, (err, result) => {
     if (err) {
       err;

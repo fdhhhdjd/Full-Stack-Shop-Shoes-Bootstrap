@@ -1,7 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { Button } from "@material-ui/core";
-
+import logo from "./logo.svg";
+import { API_ADMIN } from "./v1/admin_ui/contexts/GlobalStateAdmin";
+import CONFIGS from "./v1/configs/config";
+import { API_USER } from "./v1/user_ui/contexts/GlobalStateUser";
 function App() {
   return (
     <div className="App">
@@ -16,7 +17,8 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Hello 123 456 789 10 12 14
+          <h1>{API_USER}</h1>
+          <h1>{API_ADMIN}</h1>
         </a>
       </header>
     </div>

@@ -7,11 +7,15 @@ const {
   checkRegisterUser,
   CreateNewAcceptToken,
   LogoutRemoveAllUser,
+  HandleProfile,
 } = require("../../user_api/services/user.service/user.service");
 const {
   CheckVerificationUser,
 } = require("../services/user.service/checkAuthUser.service");
 const userCtrl = {
+  //*--------------- Authentication Users ---------------
+
+  //* Login Email and Phone
   loginUser: async (req, res) => {
     try {
       const { email_phone, password, token } = req.body;
@@ -40,6 +44,7 @@ const userCtrl = {
       });
     }
   },
+  //* Login Google
   loginUserGoogle: async (req, res) => {
     try {
       const { tokenId } = req.body;
@@ -61,6 +66,7 @@ const userCtrl = {
       });
     }
   },
+  //* Login Facebook
   loginUserFacebook: async (req, res) => {
     try {
       const { userID, accessToken } = req.body;
@@ -83,6 +89,7 @@ const userCtrl = {
       });
     }
   },
+  //* Registers
   registerUser: async (req, res) => {
     try {
       const {
@@ -120,6 +127,7 @@ const userCtrl = {
       });
     }
   },
+  //* Verification Email
   verifyEmail: async (req, res) => {
     try {
       const { userId, uniqueString } = req.params;
@@ -139,6 +147,7 @@ const userCtrl = {
       });
     }
   },
+  //* New AcceptToken
   createNewAccessTokens: async (req, res) => {
     try {
       const user_id = req.user.id;
@@ -159,6 +168,7 @@ const userCtrl = {
       });
     }
   },
+  //* Logout
   LogoutUser: async (req, res) => {
     try {
       const user_id = req.user.id;
@@ -169,6 +179,32 @@ const userCtrl = {
         token,
         session,
         res,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+
+  //*--------------- Information Users ---------------
+
+  //* Profile User
+  ProfileUser: async (req, res) => {
+    try {
+      const user_id = req.user.id;
+      const session = req.session.users.id;
+      const { status, success, element } = await HandleProfile({
+        user_id,
+        session,
       });
       return res.status(status).json({
         status,

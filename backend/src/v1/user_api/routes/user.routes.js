@@ -24,4 +24,7 @@ router.get(
 );
 //*------------- Logout Account Users -------------
 router.get("/user/logout", VerifyAcceptToken, userCtrl.LogoutUser);
+//*------------- Informatio Users -------------
+router.get("/user/profile", VerifyAcceptToken, userCtrl.ProfileUser);
+
 module.exports = router;

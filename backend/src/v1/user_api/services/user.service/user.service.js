@@ -26,10 +26,13 @@ const {
   createUser,
   NewAcceptToken,
 } = require("./createEditDeleteUser.service");
+const { getProfileId } = require("./getalluser.service");
+const { get } = require("../../../utils/limited_redis");
 const sendEmail = require("./sendEmail.service");
 const PASSWORD = require("../../../utils/password");
 const CONFIGS = require("../../../configs/config");
 module.exports = {
+  //*--------------- Handle Authentication Users  ---------------
   checkLoginUser: async ({
     email_phone,
     password,
@@ -257,6 +260,31 @@ module.exports = {
       status: 200,
       success: true,
       element: { msg: "Logged out success" },
+    };
+  },
+  //*--------------- Handle Information Users  ---------------
+  HandleProfile: async ({ user_id, session }) => {
+    let profile_user_id = await get(`userId:${user_id}`);
+    if (profile_user_id) {
+      return {
+        status: 200,
+        success: true,
+        element: JSON.parse(profile_user_id),
+      };
+    }
+    if (session) {
+      const user = await getProfileId(session);
+      return {
+        status: 200,
+        success: true,
+        element: user,
+      };
+    }
+    const user = await getProfileId(user_id);
+    return {
+      status: 200,
+      success: true,
+      element: user,
     };
   },
 };
