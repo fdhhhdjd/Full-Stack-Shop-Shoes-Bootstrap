@@ -164,23 +164,21 @@
 
 - Xóa ảnh người dùng trên cloud : post --> http://localhost:5000/api/destroyImageUser
 
-## Customer:
+## Authentication Users:
 
-- Đăng ký tài khoản khách hàng: post --> http://localhost:5000/api/auth/register
+- Register Users: post --> http://localhost:5000/api/user/register
 
-- Xác thực email đăng ký: get --> http://localhost:5000/api/auth/verify/:userId/:uniqueString
+- Verification Users: get --> http://localhost:5000/api/user/verify/:userId/:uniqueString
 
-- Đăng nhập tài khoản khách hàng : post --> http://localhost:5000/api/auth/login
+- Login Email and Phone: post --> http://localhost:5000/api/user/login
 
-- Đăng nhập tài khoản bằng phone: post --> http://localhost:5000/api/auth/loginPhone
+- Logout Users : get --> http://localhost:5000/api/user/logout
 
-- Đăng xuất tài khoản: get --> http://localhost:5000/api/auth/logout
-
-- Xem profile: get --> http://localhost:5000/api/auth/profile
+- Profile Users : get --> http://localhost:5000/api/user/profile
 
 - Chỉnh sửa profile: patch --> http://localhost:5000/api/auth/profile/update
 
-- Refresh token : get --> http://localhost:5000/api/auth/refresh_token
+- New Acceptoken  : get --> http://localhost:5000/api/user/new/accessToken
 
 - Thay đổi mật khẩu : patch --> http://localhost:5000/api/auth/changePassword
 
@@ -188,9 +186,9 @@
 
 - Link reset mật khẩu khi quên: put --> http://localhost:5000/api/auth/password/reset/:token
 
-- Đăng nhập google tài khoản khách hàng: post --> http://localhost:5000/api/auth/loginGoogle
+- Login Google Users : post --> http://localhost:5000/api/user/login/google
 
-- Đăng nhập facebook tài khoản khách hàng: post --> http://localhost:5000/api/auth/loginFacebook
+- Login Facebook Users: post --> http://localhost:5000/api/user/login/facebook
 
 - Thêm giày vào giỏ hàng: patch --> http://localhost:5000/api/auth/addCart
 
