@@ -36,7 +36,7 @@
 
 ## SUPORT CONTACT:https://profile-forme.surge.sh/
 
-## 1. API dành cho admin
+## 1. API Admin
 
 ## Admin
 
@@ -156,7 +156,7 @@
 
 - Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
 
-## 2. API dành cho khách hàng
+## 2. API Users
 
 ## Upload:
 
