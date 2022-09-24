@@ -1,6 +1,8 @@
 const Users = require("../../../models/userModel");
 const UserVerifications = require("../../../models/userVerificationModel");
 const CONSTANTS = require("../../../configs/constants");
+const { GenerateRefreshToken } = require("../../../utils/storage");
+const HELPER = require("../../../utils/helper");
 // ** Delete Verification
 const deleteVerification = async (userId) => {
   await UserVerifications.deleteOne({ userId });
@@ -30,6 +32,7 @@ const deleteVerificationAndUser = async (userId) => {
   await Users.deleteOne({ _id: userId });
   return true;
 };
+//** Update Verification CheckEmail */
 const UpdateVerificationUser = async (userId) => {
   await Users.findOneAndUpdate(
     { _id: userId },
@@ -41,6 +44,10 @@ const UpdateVerificationUser = async (userId) => {
   await deleteVerification(userId);
   return true;
 };
+//** Create_acceptToken */
+const NewAcceptToken = (user) => {
+  return HELPER.createAccessToken(user);
+};
 module.exports = {
   //* CreateUser
   createUser,
@@ -48,4 +55,6 @@ module.exports = {
   deleteVerificationAndUser,
   // ** Update User Check Verification
   UpdateVerificationUser,
+  //** New access TokenId */
+  NewAcceptToken,
 };

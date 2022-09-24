@@ -166,6 +166,15 @@ const addDelayEventOrder = ({ orderId, delay }) => {
     }
   );
 };
+const saveTokenRedis = (orderId, value, delay) => {
+  console.log(orderId, delay);
+  return REDIS.set(orderId, value, "EX", delay, (err, result) => {
+    if (err) {
+      err;
+    }
+    result;
+  });
+};
 
 module.exports = {
   incr,
@@ -179,4 +188,5 @@ module.exports = {
   decrby,
   exists,
   incrby,
+  saveTokenRedis,
 };

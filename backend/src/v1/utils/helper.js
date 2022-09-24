@@ -171,4 +171,29 @@ module.exports = {
     const { userID, accessToken } = data;
     return eval("`" + template.replace(/`/g, "\\`") + "`");
   },
+  /** Take user access token
+   * Time Vietnamese
+   *
+   * @param {string} body
+   *
+   * @returns {object}
+   */
+  //* Verify AcceptToken
+  VerifyAccToken(token) {
+    return jwt.verify(token, CONFIGS.ACCESS_TOKEN_SECRET);
+  },
+  /** Take user access token
+   * Time Vietnamese
+   *
+   * @param {string} body
+   *
+   * @returns {object}
+   */
+  //* Verify RefreshToken
+  VerifyRefreshToken(token) {
+    return jwt.verify(token, CONFIGS.REFRESH_TOKEN_SECRET);
+  },
+  decodeJWT(token) {
+    return jwt.decode(token, CONFIGS.JWT_KEY);
+  },
 };

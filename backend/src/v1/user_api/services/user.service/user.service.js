@@ -17,16 +17,27 @@ const {
   callDataGoogle,
   saveCookies,
   callDataFacebook,
+  GenerateRefreshToken,
 } = require("../../../utils/storage");
 const {
   Verification,
 } = require("../../services/user.service/newVerification.service");
-const { createUser } = require("./createEditDeleteUser.service");
+const {
+  createUser,
+  NewAcceptToken,
+} = require("./createEditDeleteUser.service");
 const sendEmail = require("./sendEmail.service");
 const PASSWORD = require("../../../utils/password");
 const CONFIGS = require("../../../configs/config");
 module.exports = {
-  checkLoginUser: async ({ email_phone, password, token, GetIPUser, res }) => {
+  checkLoginUser: async ({
+    email_phone,
+    password,
+    token,
+    GetIPUser,
+    res,
+    session,
+  }) => {
     const { status, _ttl, msg } = UserSpam(GetIPUser);
     if (status === 400) {
       return {
@@ -51,8 +62,13 @@ module.exports = {
         element: result_user.element,
       };
     }
+    session.users = {
+      id: result_user._id,
+      email: email_phone,
+    };
+    session.save();
     const accessToken = createAccessToken({ id: result_user._id });
-    const refreshToken = createRefreshToken({ id: result_user._id });
+    const refreshToken = await GenerateRefreshToken({ id: result_user._id });
     saveCookies(res, refreshToken);
     return {
       status: 200,
@@ -69,7 +85,8 @@ module.exports = {
     let result_user = await CheckEmail(email);
     if (result_user) {
       const accessToken = createAccessToken({ id: result_user._id });
-      const refreshToken = createRefreshToken({ id: result_user._id });
+      // const refreshToken = createRefreshToken({ id: result_user._id });
+      const refreshToken = await GenerateRefreshToken({ id: result_user._id });
       saveCookies(res, refreshToken);
       return {
         status: 200,
@@ -112,7 +129,9 @@ module.exports = {
     let result_user = await CheckEmail(email);
     if (result_user) {
       const accessToken = createAccessToken({ id: result_user._id });
-      const refreshToken = createRefreshToken({ id: result_user._id });
+      // const refreshToken = createRefreshToken({ id: result_user._id });
+      const refreshToken = await GenerateRefreshToken({ id: result_user._id });
+
       saveCookies(res, refreshToken);
       return {
         status: 200,
@@ -183,7 +202,7 @@ module.exports = {
       date_of_birth,
       phone_number
     );
-    const resetPasswordUrl = `http://localhost:5000/`;
+    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/`;
 
     const currentUrl = resetPasswordUrl;
     const uniqueString = uuidv4() + newUser.id;
@@ -216,6 +235,28 @@ module.exports = {
       element: {
         msg: `Verification email sent to ${email} `,
       },
+    };
+  },
+  CreateNewAcceptToken: async ({ user_id }) => {
+    const newAccessTokens = NewAcceptToken({ user_id });
+    return {
+      status: 200,
+      success: true,
+      element: {
+        accessToken: newAccessTokens,
+      },
+    };
+  },
+  LogoutRemoveAllUser: async ({ user_id, token, session, res }) => {
+    res.clearCookie("refreshtoken", {
+      path: "/api/auth/refresh_token",
+    });
+    session.destroy();
+    console.log(session);
+    return {
+      status: 200,
+      success: true,
+      element: { msg: "Logged out success" },
     };
   },
 };

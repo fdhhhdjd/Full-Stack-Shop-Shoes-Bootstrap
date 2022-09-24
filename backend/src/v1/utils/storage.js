@@ -4,7 +4,11 @@ const CONFIGS = require("../configs/config");
 const Users = require("../models/userModel");
 const UserVerifications = require("../models/userVerificationModel");
 const HELPER = require("../utils/helper");
+const REDIS = require("../db/redis_db");
 const { OAuth2Client } = require("google-auth-library");
+const { createRefreshToken } = require("../utils/helper");
+const { get, saveTokenRedis } = require("../utils/limited_redis");
+const CONTAINS = require("../configs/constants");
 const CLIENT_ID = CONFIGS.GOOGLE_CLIENT_IDS;
 const client = new OAuth2Client(CLIENT_ID);
 module.exports = {
@@ -97,5 +101,14 @@ module.exports = {
       path: "/api/auth/refresh_token",
       maxAge: CONSTANTS._7_DAY,
     });
+  },
+  async GenerateRefreshToken(user) {
+    const refresh = await get(user.id);
+    if (refresh) {
+      return refresh;
+    }
+    const refreshToken = createRefreshToken(user);
+    await saveTokenRedis(user.id, refreshToken, CONTAINS._7_DAY);
+    return refreshToken;
   },
 };

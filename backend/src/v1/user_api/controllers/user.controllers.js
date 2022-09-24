@@ -5,6 +5,8 @@ const {
   checkLoginGoogle,
   checkLoginFacebook,
   checkRegisterUser,
+  CreateNewAcceptToken,
+  LogoutRemoveAllUser,
 } = require("../../user_api/services/user.service/user.service");
 const {
   CheckVerificationUser,
@@ -15,12 +17,14 @@ const userCtrl = {
       const { email_phone, password, token } = req.body;
       const GetIPUser =
         req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+      let session = req.session;
       const { status, success, element } = await checkLoginUser({
         email_phone,
         password,
         token,
         GetIPUser,
         res,
+        session,
       });
       return res.status(status).json({
         status,
@@ -127,6 +131,51 @@ const userCtrl = {
           path.resolve(__dirname, "../../views/thankyou.html")
         );
       }
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+  createNewAccessTokens: async (req, res) => {
+    try {
+      const user_id = req.user.id;
+      const { status, success, element } = await CreateNewAcceptToken({
+        user_id,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+  LogoutUser: async (req, res) => {
+    try {
+      const user_id = req.user.id;
+      const token = req.token;
+      const session = req.session;
+      const { status, success, element } = await LogoutRemoveAllUser({
+        user_id,
+        token,
+        session,
+        res,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
     } catch (error) {
       return res.status(503).json({
         status: 503,
