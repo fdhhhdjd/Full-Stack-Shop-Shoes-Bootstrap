@@ -180,11 +180,11 @@
 
 - New Acceptoken  : get --> http://localhost:5000/api/user/new/accessToken
 
-- Thay đổi mật khẩu : patch --> http://localhost:5000/api/auth/changePassword
+- Change Password  : post --> http://localhost:5000/api/user/change/password
 
-- Quên mật khẩu tài khoản khách hàng: post --> http://localhost:5000/api/auth/forget
+- Forget: post --> http://localhost:5000/api/user/forget
 
-- Link reset mật khẩu khi quên: put --> http://localhost:5000/api/auth/password/reset/:token
+- Reset Passwrod : post --> http://localhost:5000/api/user/password/reset/:token
 
 - Login Google Users : post --> http://localhost:5000/api/user/login/google
 

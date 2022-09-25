@@ -223,11 +223,34 @@ const userCtrl = {
       });
     }
   },
+  // * Update Profile
+  UpdateProfile: async (req, res) => {
+    try {
+      const user_id = req.user.id;
+      const session = req.session.users.id;
+      const { status, success, element } = await HandleProfile({
+        user_id,
+        session,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
 
   //*--------------- Forget,Reset Users ---------------
 
   //* Forget Password User
-  ForgetPassword: async (req, res, next) => {
+  ForgetPassword: async (req, res) => {
     try {
       const { email } = req.body;
       const { status, success, element } = await HandleForgerPasswordUser({
@@ -250,7 +273,7 @@ const userCtrl = {
     }
   },
   //* Reset Password User
-  ResetPassword: async (req, res, next) => {
+  ResetPassword: async (req, res) => {
     try {
       const { password, confirmPassword } = req.body;
       const token = req.params.token;
@@ -273,7 +296,7 @@ const userCtrl = {
       });
     }
   },
-  ChangePassword: async (req, res, next) => {
+  ChangePassword: async (req, res) => {
     try {
       const { password, oldPassword, confirmPassword } = req.body;
       const user_id = req.user.id;

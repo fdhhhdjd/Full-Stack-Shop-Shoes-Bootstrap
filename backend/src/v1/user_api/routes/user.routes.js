@@ -31,6 +31,8 @@ router.get("/user/logout", VerifyAcceptToken, userCtrl.LogoutUser);
 //*------------- Information Users -------------
 //! Profile Users
 router.get("/user/profile", VerifyAcceptToken, userCtrl.ProfileUser);
+//! Update Users
+router.post("/user/update/profile", VerifyAcceptToken, userCtrl.ProfileUser);
 
 //*------------- Forget,reset,change Account Users -------------
 //! Forget Password Users
