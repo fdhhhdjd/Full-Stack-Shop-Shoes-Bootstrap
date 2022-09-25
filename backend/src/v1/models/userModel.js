@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
+const CONSTANTS = require("../configs/constants");
+const HELPER = require("../utils/helper");
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -88,15 +90,12 @@ const UserSchema = new mongoose.Schema(
 );
 UserSchema.methods.getResetPasswordToken = function () {
   //! tạo mã thông báo
-  const resetToken = crypto.randomBytes(20).toString("hex");
+  const resetToken = HELPER.resetTokens();
 
   //! Thêm resetPasswordToken vào userSchema
-  this.resetPasswordToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  this.resetPasswordToken = HELPER.resetPasswordToken(resetToken);
 
-  this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+  this.resetPasswordExpire = Date.now() + CONSTANTS._15_MINUTES;
 
   return resetToken;
 };

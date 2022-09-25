@@ -8,6 +8,9 @@ const {
   CreateNewAcceptToken,
   LogoutRemoveAllUser,
   HandleProfile,
+  HandleForgerPasswordUser,
+  HandleResetPasswordUser,
+  HandleChangePassword,
 } = require("../../user_api/services/user.service/user.service");
 const {
   CheckVerificationUser,
@@ -205,6 +208,80 @@ const userCtrl = {
       const { status, success, element } = await HandleProfile({
         user_id,
         session,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+
+  //*--------------- Forget,Reset Users ---------------
+
+  //* Forget Password User
+  ForgetPassword: async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      const { status, success, element } = await HandleForgerPasswordUser({
+        email,
+        req,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+        error,
+      });
+    }
+  },
+  //* Reset Password User
+  ResetPassword: async (req, res, next) => {
+    try {
+      const { password, confirmPassword } = req.body;
+      const token = req.params.token;
+      const { status, success, element } = await HandleResetPasswordUser({
+        password,
+        confirmPassword,
+        token,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+  ChangePassword: async (req, res, next) => {
+    try {
+      const { password, oldPassword, confirmPassword } = req.body;
+      const user_id = req.user.id;
+      const { status, success, element } = await HandleChangePassword({
+        password,
+        oldPassword,
+        confirmPassword,
+        user_id,
       });
       return res.status(status).json({
         status,

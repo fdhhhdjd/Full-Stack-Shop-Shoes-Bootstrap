@@ -11,7 +11,12 @@ const {
   CheckEmail,
   RegisterSocial,
 } = require("./userType.service");
-const { CheckRegister } = require("./checkAuthUser.service");
+const {
+  CheckRegister,
+  CheckForget,
+  CheckResetPassword,
+  CheckChangePassword,
+} = require("./checkAuthUser.service");
 const { UserSpam } = require("./userSpam.service");
 const {
   callDataGoogle,
@@ -25,12 +30,14 @@ const {
 const {
   createUser,
   NewAcceptToken,
+  UpdatePassword,
 } = require("./createEditDeleteUser.service");
 const { getProfileId } = require("./getalluser.service");
 const { get } = require("../../../utils/limited_redis");
 const sendEmail = require("./sendEmail.service");
 const PASSWORD = require("../../../utils/password");
 const CONFIGS = require("../../../configs/config");
+const CONSTANTS = require("../../../configs/constants");
 module.exports = {
   //*--------------- Handle Authentication Users  ---------------
   checkLoginUser: async ({
@@ -260,6 +267,126 @@ module.exports = {
       status: 200,
       success: true,
       element: { msg: "Logged out success" },
+    };
+  },
+  HandleForgerPasswordUser: async ({ email, req }) => {
+    const { status, success, element } = await CheckForget({
+      email,
+    });
+    if (!success) {
+      return {
+        status,
+        success,
+        element,
+      };
+    }
+    let user = element;
+    const resetToken = user.getResetPasswordToken();
+
+    await user.save({ validateBeforeSave: CONSTANTS.DELETED_DISABLE });
+    const resetPasswordUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/user/password/reset/${resetToken}`;
+    try {
+      await sendEmail({
+        from: CONFIGS.SMTP_MAIL,
+        to: email,
+        subject: `Forgot Password`,
+        template: "forgot-password",
+        attachments: [
+          {
+            filename: "netflix.jpg",
+            path: path.resolve("./src/v1/views", "images", "netflix.jpg"),
+            cid: "netflix_logo",
+          },
+          {
+            filename: "question.png",
+            path: path.resolve("./src/v1/views", "images", "question.png"),
+            cid: "question_img",
+          },
+        ],
+        context: {
+          resetPasswordUrl,
+        },
+      });
+      return {
+        status: 200,
+        success: true,
+        element: {
+          msg: `Email sent to ${user.email} successfully`,
+        },
+      };
+    } catch (error) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
+
+      await user.save({ validateBeforeSave: CONSTANTS.DELETED_ENABLE });
+      return {
+        status: 503,
+        success: false,
+      };
+    }
+  },
+  HandleResetPasswordUser: async ({ password, confirmPassword, token }) => {
+    const { status, success, element } = await CheckResetPassword({
+      password,
+      confirmPassword,
+      token,
+    });
+    if (!success) {
+      return {
+        status,
+        success,
+        element,
+      };
+    }
+    let user = element;
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    const salt = await PASSWORD.genSalt();
+    const passwordHash = await PASSWORD.encodeResetPassword(
+      user.password,
+      salt
+    );
+    await UpdatePassword(user.id, passwordHash);
+    return {
+      status: 200,
+      success: true,
+      element: {
+        msg: "Reset successfully",
+      },
+    };
+  },
+  HandleChangePassword: async ({
+    password,
+    oldPassword,
+    confirmPassword,
+    user_id,
+  }) => {
+    const { status, success, element } = await CheckChangePassword({
+      password,
+      oldPassword,
+      confirmPassword,
+      user_id,
+    });
+    if (!success) {
+      return {
+        status,
+        success,
+        element,
+      };
+    }
+    let user = element;
+    const salt = await PASSWORD.genSalt();
+    const passwordHash = await PASSWORD.encodeResetPassword(password, salt);
+    await UpdatePassword(user.id, passwordHash);
+    return {
+      status: 200,
+      success: true,
+      element: {
+        msg: "Change Password Successfully 😂!",
+      },
     };
   },
   //*--------------- Handle Information Users  ---------------

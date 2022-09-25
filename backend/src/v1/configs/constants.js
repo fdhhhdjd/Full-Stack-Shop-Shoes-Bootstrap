@@ -2,6 +2,7 @@ module.exports = {
   //! milisecond / second
   _1_MINUTES: 60 * 1000,
   _5_MINUTES: 5 * 60 * 1000,
+  _15_MINUTES: 15 * 60 * 1000,
   _45_MINUTES: 45 * 60 * 1000,
   _1_DAY: 24 * 60 * 60 * 1000,
   _7_DAY: 7 * 24 * 60 * 60 * 1000,
@@ -21,6 +22,9 @@ module.exports = {
 
   //! Bcrypt setting
   SALT_ROUNDS: 10,
+
+  //! Reset Token
+  CRYPTO_TOKEN: 20,
 
   //! EXPIRES_TOKEN
   EXPIRES_ACCESS_TOKEN: process.env.EXPIRES_ACCESS_TOKEN,

@@ -4,8 +4,9 @@ const {
 } = require("./createEditDeleteUser.service");
 const STORAGE = require("../../../utils/storage");
 const HELPER = require("../../../utils/helper");
+const PASSWORD = require("../../../utils/password");
 const { checkVerification } = require("../../../utils/storage");
-const { comparePassword } = require("../../../utils/password");
+const { getProfileId } = require("./getalluser.service");
 module.exports = {
   CheckRegister: async ({
     email,
@@ -14,6 +15,16 @@ module.exports = {
     confirmPassword,
     date_of_birth,
   }) => {
+    const checkEmail = HELPER.validateEmail(email);
+    if (!checkEmail) {
+      return {
+        status: 307,
+        success: false,
+        element: {
+          msg: "Invalid Email",
+        },
+      };
+    }
     const user_email_exits = await STORAGE.checkUserExit(email);
 
     if (user_email_exits) {
@@ -111,7 +122,10 @@ module.exports = {
           success: false,
         };
       } else {
-        const isMatch = await comparePassword(uniqueString, hashedUniqueString);
+        const isMatch = await PASSWORD.comparePassword(
+          uniqueString,
+          hashedUniqueString
+        );
         if (isMatch) {
           await UpdateVerificationUser(userId);
           return {
@@ -136,5 +150,161 @@ module.exports = {
         },
       };
     }
+  },
+  CheckForget: async ({ email }) => {
+    const checkEmail = HELPER.validateEmail(email);
+    if (!checkEmail) {
+      return {
+        status: 307,
+        success: false,
+        element: {
+          msg: "Invalid Email",
+        },
+      };
+    }
+    const user_email_exits = await STORAGE.checkUserExit(email);
+    if (!user_email_exits) {
+      return {
+        status: 307,
+        success: false,
+      };
+    }
+    return {
+      success: true,
+      element: user_email_exits,
+    };
+  },
+  CheckResetPassword: async ({ password, confirmPassword, token }) => {
+    const resetPasswordToken = HELPER.resetPasswordToken(token);
+    const user = await STORAGE.CheckUserExpired(resetPasswordToken);
+    if (!user) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Reset Password Token is invalid or has been expired",
+        },
+      };
+    }
+    if (!password && !confirmPassword) {
+      return {
+        status: 403,
+        success: false,
+        element: {
+          msg: "Password or confirmPassword are not empty.",
+        },
+      };
+    }
+
+    if (password.length < 6) {
+      return {
+        status: 401,
+        success: false,
+        element: {
+          msg: "Password is at least 6 characters long. ",
+        },
+      };
+    }
+
+    const user_password = HELPER.isPassword(password);
+    if (!user_password) {
+      return {
+        status: 401,
+        success: false,
+        element: {
+          msg: "Password not safe. ",
+        },
+      };
+    }
+    if (confirmPassword !== password) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Password and confirm password does not match!",
+        },
+      };
+    }
+    return {
+      success: true,
+      element: user,
+    };
+  },
+  CheckChangePassword: async ({
+    password,
+    oldPassword,
+    confirmPassword,
+    user_id,
+  }) => {
+    const user = await getProfileId(user_id);
+    if (!password)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Password are not empty.",
+        },
+      };
+
+    if (!confirmPassword)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: " Confirm are not empty.",
+        },
+      };
+
+    if (!oldPassword)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Old Password are not empty.",
+        },
+      };
+
+    if (password.length < 6)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Password is at least 6 characters long.",
+        },
+      };
+
+    const reg = HELPER.isPassword(password);
+    if (!reg) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Includes 6 characters, uppercase, lowercase and some and special characters.",
+        },
+      };
+    }
+    if (confirmPassword !== password) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Password and confirm password does not match!",
+        },
+      };
+    }
+    const isMatch = await PASSWORD.comparePassword(oldPassword, user.password);
+    if (!isMatch) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: " Old Password Incorrect",
+        },
+      };
+    }
+    return {
+      success: true,
+      element: user,
+    };
   },
 };

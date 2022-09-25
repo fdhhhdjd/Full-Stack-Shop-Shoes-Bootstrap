@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const CONSTANT = require("../configs/constants");
+const CONSTANTS = require("../configs/constants");
 
 module.exports = {
   /**
@@ -10,8 +10,18 @@ module.exports = {
    *
    */
   encodePassword: (password) => {
-    return bcrypt.hash(password, CONSTANT.SALT_ROUNDS);
+    return bcrypt.hash(password, CONSTANTS.SALT_ROUNDS);
   },
+  /**
+   * Encode reset password
+   *
+   * @param {string} random
+   *
+   */
+  encodeResetPassword: async (password, salt) => {
+    return bcrypt.hash(password, salt);
+  },
+
   /**
    * Compare Password
    *
@@ -19,5 +29,13 @@ module.exports = {
    */
   comparePassword: (password_text, password_hash) => {
     return bcrypt.compare(password_text, password_hash);
+  },
+  /**
+   * gen salt
+   *
+   * @returns {string}
+   */
+  genSalt: async () => {
+    return bcrypt.genSalt(CONSTANTS.SALT_ROUNDS);
   },
 };

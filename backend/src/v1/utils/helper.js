@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const CONTAINS = require("../configs/constants");
 const CONFIGS = require("../configs/config");
 module.exports = {
@@ -190,10 +191,38 @@ module.exports = {
    * @returns {object}
    */
   //* Verify RefreshToken
+  /** verification
+   *
+   * @param {string} token
+   *
+   * @returns {string}
+   */
+
   VerifyRefreshToken(token) {
     return jwt.verify(token, CONFIGS.REFRESH_TOKEN_SECRET);
   },
+  //*  Decode Password
+  /**
+   *
+   * @param {string} token
+   *
+   * @returns {string}
+   */
   decodeJWT(token) {
     return jwt.decode(token, CONFIGS.JWT_KEY);
+  },
+  //* Key crypto
+  /**
+   * @returns {string} random
+   */
+  resetTokens() {
+    return crypto.randomBytes(CONTAINS.CRYPTO_TOKEN).toString("hex");
+  },
+  //* Key crypto password
+  /** token password reset
+   * @returns {string} random
+   */
+  resetPasswordToken(resetToken) {
+    return crypto.createHash("sha256").update(resetToken).digest("hex");
   },
 };

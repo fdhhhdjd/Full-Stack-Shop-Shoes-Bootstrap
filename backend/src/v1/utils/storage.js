@@ -1,14 +1,12 @@
 const fetch = require("node-fetch");
+const { OAuth2Client } = require("google-auth-library");
+const { createRefreshToken } = require("../utils/helper");
+const { get, saveTokenRedis } = require("../utils/limited_redis");
 const CONSTANTS = require("../configs/constants");
 const CONFIGS = require("../configs/config");
 const Users = require("../models/userModel");
 const UserVerifications = require("../models/userVerificationModel");
 const HELPER = require("../utils/helper");
-const REDIS = require("../db/redis_db");
-const { OAuth2Client } = require("google-auth-library");
-const { createRefreshToken } = require("../utils/helper");
-const { get, saveTokenRedis } = require("../utils/limited_redis");
-const CONTAINS = require("../configs/constants");
 const CLIENT_ID = CONFIGS.GOOGLE_CLIENT_IDS;
 const client = new OAuth2Client(CLIENT_ID);
 module.exports = {
@@ -95,9 +93,9 @@ module.exports = {
   //* cookie
   saveCookies(res, refreshToken) {
     res.cookie("refreshtoken", refreshToken, {
-      httpOnly: process.env.NODE_ENV === "PRODUCTION" ? true : false,
-      sameSite: process.env.NODE_ENV === "PRODUCTION" ? true : false,
-      secure: process.env.NODE_ENV === "PRODUCTION" ? true : false,
+      httpOnly: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
+      sameSite: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
+      secure: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       path: "/api/auth/refresh_token",
       maxAge: CONSTANTS._7_DAY,
     });
@@ -109,7 +107,14 @@ module.exports = {
       return refresh;
     }
     const refreshToken = createRefreshToken(user);
-    await saveTokenRedis(user.id, refreshToken, CONTAINS._7_DAY);
+    await saveTokenRedis(user.id, refreshToken, CONSTANTS._7_DAY);
     return refreshToken;
+  },
+  async CheckUserExpired(resetPasswordToken) {
+    const user = await Users.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+    return user;
   },
 };

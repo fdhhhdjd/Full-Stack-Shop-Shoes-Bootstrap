@@ -1,5 +1,9 @@
 module.exports = {
   /**
+   * * Environment Settings
+   */
+  NODE_ENV: process.env.NODE_ENV,
+  /**
    * * SMTP Settings
    */
   SMTP_HOST: process.env.SMPT_HOST,
