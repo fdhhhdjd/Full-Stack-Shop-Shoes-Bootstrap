@@ -176,7 +176,7 @@
 
 - Profile Users : get --> http://localhost:5000/api/user/profile
 
-- Chỉnh sửa profile: patch --> http://localhost:5000/api/auth/profile/update
+- Upload Profile: patch --> http://localhost:5000/api/user/update/profile
 
 - New Acceptoken  : get --> http://localhost:5000/api/user/new/accessToken
 
