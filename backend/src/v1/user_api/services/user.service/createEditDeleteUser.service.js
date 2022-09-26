@@ -1,8 +1,9 @@
+const { getProfileId } = require("./getalluser.service");
 const Users = require("../../../models/userModel");
 const UserVerifications = require("../../../models/userVerificationModel");
 const CONSTANTS = require("../../../configs/constants");
-const { GenerateRefreshToken } = require("../../../utils/storage");
 const HELPER = require("../../../utils/helper");
+
 // ** Delete Verification
 const deleteVerification = async (userId) => {
   await UserVerifications.deleteOne({ userId });
@@ -25,6 +26,29 @@ const createUser = async (
     phone_number,
   });
   return await newUser.save();
+};
+//* Update Profile */
+const UpdateProfile = async ({
+  name,
+  image,
+  phone_number,
+  sex,
+  date_of_birth,
+  user_id,
+}) => {
+  await Users.findOneAndUpdate(
+    { _id: user_id },
+    {
+      name,
+      image,
+      phone_number,
+      sex,
+      date_of_birth,
+    }
+  );
+  let userId = user_id;
+  await getProfileId(userId);
+  return true;
 };
 //** Delete User And Verification */
 const deleteVerificationAndUser = async (userId) => {
@@ -67,4 +91,6 @@ module.exports = {
   NewAcceptToken,
   //* Update Password
   UpdatePassword,
+  //* Update Profile
+  UpdateProfile,
 };

@@ -11,6 +11,7 @@ const {
   HandleForgerPasswordUser,
   HandleResetPasswordUser,
   HandleChangePassword,
+  HandleUploadProfile,
 } = require("../../user_api/services/user.service/user.service");
 const {
   CheckVerificationUser,
@@ -226,11 +227,15 @@ const userCtrl = {
   // * Update Profile
   UpdateProfile: async (req, res) => {
     try {
+      const { name, image, phone_number, sex, date_of_birth } = req.body;
       const user_id = req.user.id;
-      const session = req.session.users.id;
-      const { status, success, element } = await HandleProfile({
+      const { status, success, element } = await HandleUploadProfile({
+        name,
+        image,
+        phone_number,
+        sex,
+        date_of_birth,
         user_id,
-        session,
       });
       return res.status(status).json({
         status,

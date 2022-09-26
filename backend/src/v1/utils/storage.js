@@ -28,6 +28,7 @@ module.exports = {
       ["305", CONSTANTS.STATUS_CODE_305],
       ["306", CONSTANTS.STATUS_CODE_306],
       ["307", CONSTANTS.STATUS_CODE_307],
+      ["308", CONSTANTS.STATUS_CODE_308],
       ["403", CONSTANTS.STATUS_CODE_403],
       ["404", CONSTANTS.STATUS_CODE_404],
       ["503", CONSTANTS.STATUS_CODE_503],
@@ -56,9 +57,10 @@ module.exports = {
     });
     return user;
   },
-  //* Users email
-  async checkPhoneExit(phone_number) {
-    const user = await Users.findOne({
+  //* async check User Exit Except User main
+  async checkPhoneExitExceptUserMain(user_id, phone_number) {
+    const user = await Users.find({
+      _id: { $ne: user_id },
       phone_number: phone_number,
       role: CONSTANTS.ACCOUNT_USER,
     });

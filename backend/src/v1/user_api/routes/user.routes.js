@@ -32,7 +32,7 @@ router.get("/user/logout", VerifyAcceptToken, userCtrl.LogoutUser);
 //! Profile Users
 router.get("/user/profile", VerifyAcceptToken, userCtrl.ProfileUser);
 //! Update Users
-router.post("/user/update/profile", VerifyAcceptToken, userCtrl.ProfileUser);
+router.post("/user/update/profile", VerifyAcceptToken, userCtrl.UpdateProfile);
 
 //*------------- Forget,reset,change Account Users -------------
 //! Forget Password Users
