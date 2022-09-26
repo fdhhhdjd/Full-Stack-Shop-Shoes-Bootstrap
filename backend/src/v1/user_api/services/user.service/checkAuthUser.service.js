@@ -2,11 +2,14 @@ const {
   deleteVerificationAndUser,
   UpdateVerificationUser,
 } = require("./createEditDeleteUser.service");
+
 const STORAGE = require("../../../utils/storage");
 const HELPER = require("../../../utils/helper");
 const PASSWORD = require("../../../utils/password");
-const { checkVerification } = require("../../../utils/storage");
-const { getProfileId } = require("./getalluser.service");
+const {
+  checkVerification,
+  checkPhoneExitExceptUserMain,
+} = require("../../../utils/storage");
 module.exports = {
   CheckRegister: async ({
     email,
@@ -305,6 +308,77 @@ module.exports = {
     return {
       success: true,
       element: user,
+    };
+  },
+  CheckUpdateProfile: async ({
+    name,
+    image,
+    phone_number,
+    sex,
+    date_of_birth,
+    user_id,
+  }) => {
+    if ((!name, !image, !phone_number, !sex, !date_of_birth)) {
+      return {
+        status: 308,
+        success: false,
+        element: {
+          msg: "Invalid Empty",
+        },
+      };
+    }
+    if (isNaN(phone_number)) {
+      return {
+        status: 306,
+        success: false,
+        element: {
+          msg: "Phone is must be number.",
+        },
+      };
+    }
+    const check_phone_vietnamese = HELPER.isVietnamesePhoneNumber(phone_number);
+    if (!check_phone_vietnamese) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Incorrect phone number.",
+        },
+      };
+    }
+    const checkPhoneUserExit = await STORAGE.checkPhoneExitExceptUserMain(
+      user_id,
+      phone_number
+    );
+    if (checkPhoneUserExit.length > 0) {
+      return {
+        status: 306,
+        success: false,
+        element: {
+          msg: "Phone Exited",
+        },
+      };
+    }
+    const check_date = HELPER.validateDate(date_of_birth);
+    if (!date_of_birth) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Please Choose A Date.",
+        },
+      };
+    } else if (!check_date) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Incorrect Date .",
+        },
+      };
+    }
+    return {
+      success: true,
     };
   },
 };
