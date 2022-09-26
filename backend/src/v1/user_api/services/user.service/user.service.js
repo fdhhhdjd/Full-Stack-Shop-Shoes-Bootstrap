@@ -16,6 +16,7 @@ const {
   CheckForget,
   CheckResetPassword,
   CheckChangePassword,
+  CheckUpdateProfile,
 } = require("./checkAuthUser.service");
 const { UserSpam } = require("./userSpam.service");
 const {
@@ -31,6 +32,7 @@ const {
   createUser,
   NewAcceptToken,
   UpdatePassword,
+  UpdateProfile,
 } = require("./createEditDeleteUser.service");
 const { getProfileId } = require("./getalluser.service");
 const { get } = require("../../../utils/limited_redis");
@@ -262,7 +264,6 @@ module.exports = {
       path: "/api/auth/refresh_token",
     });
     session.destroy();
-    console.log(session);
     return {
       status: 200,
       success: true,
@@ -412,6 +413,45 @@ module.exports = {
       status: 200,
       success: true,
       element: user,
+    };
+  },
+  HandleUploadProfile: async ({
+    name,
+    image,
+    phone_number,
+    sex,
+    date_of_birth,
+    user_id,
+  }) => {
+    const { status, success, element } = await CheckUpdateProfile({
+      name,
+      image,
+      phone_number,
+      sex,
+      date_of_birth,
+      user_id,
+    });
+    if (!success) {
+      return {
+        status,
+        success,
+        element,
+      };
+    }
+    await UpdateProfile({
+      name,
+      image,
+      phone_number,
+      sex,
+      date_of_birth,
+      user_id,
+    });
+    return {
+      status: 200,
+      success: true,
+      element: {
+        msg: "Updated Profile Successfully !",
+      },
     };
   },
 };

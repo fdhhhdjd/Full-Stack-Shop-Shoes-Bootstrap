@@ -47,6 +47,7 @@ module.exports = {
   STATUS_CODE_305: "User not found",
   STATUS_CODE_306: "Phone is not exists",
   STATUS_CODE_307: "Email is not exists",
+  STATUS_CODE_308: "Invalid is empty",
   STATUS_CODE_400: "Request not valid NotFound ",
   STATUS_CODE_401: "Unauthorized Correct",
   STATUS_CODE_403: "Wrong password",
