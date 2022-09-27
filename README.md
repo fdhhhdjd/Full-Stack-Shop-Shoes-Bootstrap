@@ -40,11 +40,9 @@
 
 ## Admin
 
-- Đăng ký tài khoản admin: post --> http://localhost:5000/api/auth/registerAdmin
+- Register admin: post --> http://localhost:5000/api/admin/register
 
-- Xác thực email đăng ký: get --> http://localhost:5000/api/auth/verify/:userId/:uniqueString
-
-- Đăng nhập tài khoản admin: post --> http://localhost:5000/api/auth/loginAdmin
+- Login admin: post --> http://localhost:5000/api/admin/login
 
 - Đăng xuất tài khoản: get --> http://localhost:5000/api/auth/logoutAdmin
 
@@ -52,13 +50,11 @@
 
 - Chỉnh sửa profile: patch --> http://localhost:5000/api/auth/profile/update
 
-- Refresh token : get --> http://localhost:5000/api/auth/admin/refreshTokenAdmin
+- New access Token : get --> http://localhost:5000/api/admin/new/access
 
 - Thay đổi mật khẩu : patch --> http://localhost:5000/api/auth/changePassword
 
-- Quên mật khẩu tài khoản admin: post --> http://localhost:5000/api/auth/ForgetAdmin
-
-- Link reset mật khẩu khi quên: put --> http://localhost:5000/api/auth/password/reset/:token
+- Forget password admin: post --> http://localhost:5000/api/admin/forget
 
 - Đăng nhập google tài khoản admin: post --> http://localhost:5000/api/auth/loginGoogleAdmin
 
@@ -198,7 +194,7 @@
 
 ## Category
 
-- Xem tất cả thể loại category : get --> http://localhost:5000/api/category/all
+- Get all category : get --> http://localhost:5000/api/category
 
 ## Feedback
 
@@ -206,9 +202,9 @@
 
 ## Product
 
-- Xem tất cả sản phẩm: get --> http://localhost:5000/api/product/getAll
+- Get all product: get --> http://localhost:5000/api/product
 
-- Xem chi tiết sản phẩm : get --> http://localhost:5000/api/product/getId/:id
+- Get Product detail : get --> http://localhost:5000/api/product/detail/:id
 
 - Chỉnh sửa comment review : put --> http://localhost:5000/api/product/:productId/update/review/:commentId
 
