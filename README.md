@@ -46,11 +46,11 @@
 
 - Login admin: post --> http://localhost:5000/api/admin/login
 
-- Đăng xuất tài khoản: get --> http://localhost:5000/api/auth/logoutAdmin
+- logout admin: get --> http://localhost:5000/api/admin/logout
 
 - Get Profile Admin: get --> http://localhost:5000/api/admin/profile
 
-- Chỉnh sửa profile: patch --> http://localhost:5000/api/auth/profile/update
+- update profile: post --> http://localhost:5000/api/update/profile
 
 - New access Token : get --> http://localhost:5000/api/admin/new/access
 
