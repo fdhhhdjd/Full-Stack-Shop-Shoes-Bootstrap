@@ -82,13 +82,13 @@
 
 ## Category
 
-- Xem tất cả loại categorys : get --> http://localhost:5000/api/category/categorys
+- Get all category: get --> http://localhost:5000/api/category
 
-- Tạo thêm 1 loại categorys: post --> http://localhost:5000/api/category/categorys
+- Create category: post --> http://localhost:5000/api/category/create
 
-- Cập nhập loại categorys: patch --> http://localhost:5000/api/category/categorys/:id
+- Update category: post --> http://localhost:5000/api/category/edit/:id
 
-- Xóa loại categorys: delete --> http://localhost:5000/api/category/categorys/:id
+- Delete category: delete --> http://localhost:5000/api/category/delete/:id
 
 ## Carousel
 
@@ -118,15 +118,15 @@
 
 ## Product
 
-- Xem tất cả sản phẩm: get --> http://localhost:5000/api/product/getAll
+- Get all product(Sort,filter,page) : get --> http://localhost:5000/api/product
 
-- Xem chi tiết sản phẩm : get --> http://localhost:5000/api/product/getId/:id
+- Get detail product : get --> http://localhost:5000/api/product/getId/:id
 
-- Thêm sản phẩm mới : post --> http://localhost:5000/api/product/create
+- Create product : post --> http://localhost:5000/api/product/create
 
-- Cập nhập sản phẩm : put --> http://localhost:5000/api/product/update/:id
+- Update product : put --> http://localhost:5000/api/product/update/:id
 
-- Xóa sản phẩm: delete --> http://localhost:5000/api/product/delete/:id
+- Delete product : delete --> http://localhost:5000/api/product/delete/:id
 
 ## Payment
 
