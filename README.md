@@ -42,11 +42,13 @@
 
 - Register admin: post --> http://localhost:5000/api/admin/register
 
+- Verification OTP: post --> http://localhost:5000/api/admin/verification/otp
+
 - Login admin: post --> http://localhost:5000/api/admin/login
 
 - Đăng xuất tài khoản: get --> http://localhost:5000/api/auth/logoutAdmin
 
-- Xem profile: get --> http://localhost:5000/api/auth/profile
+- Get Profile Admin: get --> http://localhost:5000/api/admin/profile
 
 - Chỉnh sửa profile: patch --> http://localhost:5000/api/auth/profile/update
 
@@ -56,7 +58,7 @@
 
 - Forget password admin: post --> http://localhost:5000/api/admin/forget
 
-- Đăng nhập google tài khoản admin: post --> http://localhost:5000/api/auth/loginGoogleAdmin
+- Login google Admin: post --> http://localhost:5000/api/admin/login/google
 
 - Lấy ra danh sách khách hàng: get --> http://localhost:5000/api/auth/getAllUser
 
