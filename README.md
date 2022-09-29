@@ -12,7 +12,7 @@
 
 ## WebSite (Hosting):https://shopshoes.cf
 
-## Tài Khoản thanh toán tiền chuyển khoản
+## Tài Khoản thanh toán tiền chuyển khoản.
 
 ## Tk: nguyentientai@gmail.com
 
