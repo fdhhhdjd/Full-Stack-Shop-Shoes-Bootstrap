@@ -35,7 +35,7 @@ const {
   UpdateProfile,
 } = require("./createEditDeleteUser.service");
 const { getProfileId } = require("./getalluser.service");
-const { get } = require("../../../utils/limited_redis");
+const { get, RedisPub } = require("../../../utils/limited_redis");
 const sendEmail = require("./sendEmail.service");
 const PASSWORD = require("../../../utils/password");
 const CONFIGS = require("../../../configs/config");
@@ -222,24 +222,13 @@ module.exports = {
     await Verification({ newUser, hashedUniqueString });
     const confirmEmailUrl =
       currentUrl + "api/user/verify/" + newUser.id + "/" + uniqueString;
-    if (confirmEmailUrl) {
-      await sendEmail({
-        from: CONFIGS.SMTP_MAIL,
-        to: email,
-        subject: `Verify Your Email`,
-        template: "confirm-email",
-        attachments: [
-          {
-            filename: "netflix.png",
-            path: path.resolve("./src/v1/views", "images", "netflix.jpg"),
-            cid: "netflix_logo",
-          },
-        ],
-        context: {
-          confirmEmailUrl,
-        },
-      });
-    }
+    await RedisPub(
+      "user_register",
+      JSON.stringify({
+        confirmEmailUrl,
+        email,
+      })
+    );
     return {
       status: 200,
       success: true,
@@ -287,45 +276,20 @@ module.exports = {
     const resetPasswordUrl = `${req.protocol}://${req.get(
       "host"
     )}/user/password/reset/${resetToken}`;
-    try {
-      await sendEmail({
-        from: CONFIGS.SMTP_MAIL,
-        to: email,
-        subject: `Forgot Password`,
-        template: "forgot-password",
-        attachments: [
-          {
-            filename: "netflix.jpg",
-            path: path.resolve("./src/v1/views", "images", "netflix.jpg"),
-            cid: "netflix_logo",
-          },
-          {
-            filename: "question.png",
-            path: path.resolve("./src/v1/views", "images", "question.png"),
-            cid: "question_img",
-          },
-        ],
-        context: {
-          resetPasswordUrl,
-        },
-      });
-      return {
-        status: 200,
-        success: true,
-        element: {
-          msg: `Email sent to ${user.email} successfully`,
-        },
-      };
-    } catch (error) {
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpire = undefined;
-
-      await user.save({ validateBeforeSave: CONSTANTS.DELETED_ENABLE });
-      return {
-        status: 503,
-        success: false,
-      };
-    }
+    await RedisPub(
+      "user_forget_password",
+      JSON.stringify({
+        resetPasswordUrl,
+        email,
+      })
+    );
+    return {
+      status: 200,
+      success: true,
+      element: {
+        msg: `Email sent to ${user.email} successfully`,
+      },
+    };
   },
   HandleResetPasswordUser: async ({ password, confirmPassword, token }) => {
     const { status, success, element } = await CheckResetPassword({

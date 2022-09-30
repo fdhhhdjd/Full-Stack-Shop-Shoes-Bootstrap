@@ -6,6 +6,7 @@ const PASSWORD = require("../../../utils/password");
 const Users = require("../../../models/userModel");
 const CONFIGS = require("../../../configs/config");
 const HELPER = require("../../../utils/helper.js");
+const { RedisPub } = require("../../../utils/limited_redis");
 
 module.exports = {
   LoginEmail: async (email_phone, password) => {
@@ -85,17 +86,14 @@ module.exports = {
       verified: true,
     });
     await newUser.save();
-    await sendEmail({
-      from: CONFIGS.SMTP_MAIL,
-      to: email,
-      subject: `Password For You`,
-      template: "password-register",
-      context: {
+    await RedisPub(
+      "user_register_password_google_facebook",
+      JSON.stringify({
         password,
         name,
         email,
-      },
-    });
+      })
+    );
     return newUser;
   },
 };
