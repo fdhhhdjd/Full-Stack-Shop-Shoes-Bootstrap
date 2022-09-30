@@ -12,7 +12,7 @@
 
 ## WebSite (Hosting):https://shopshoes.cf
 
-## Tài Khoản thanh toán tiền chuyển khoản
+## Tài Khoản thanh toán tiền chuyển khoản.
 
 ## Tk: nguyentientai@gmail.com
 
@@ -32,7 +32,7 @@
 
 ## STK: 1651002972052
 
-## Chi Nhánh: NGAN HANG TMCP AN BINH (ABBANK)
+## Chi Nhánh: NGAN HANG TMCP AN BINH (ABBANK).
 
 ## SUPORT CONTACT:https://profile-forme.surge.sh/
 
@@ -40,27 +40,25 @@
 
 ## Admin
 
-- Đăng ký tài khoản admin: post --> http://localhost:5000/api/auth/registerAdmin
+- Register admin: post --> http://localhost:5000/api/admin/register
 
-- Xác thực email đăng ký: get --> http://localhost:5000/api/auth/verify/:userId/:uniqueString
+- Verification OTP: post --> http://localhost:5000/api/admin/verification/otp
 
-- Đăng nhập tài khoản admin: post --> http://localhost:5000/api/auth/loginAdmin
+- Login admin: post --> http://localhost:5000/api/admin/login
 
-- Đăng xuất tài khoản: get --> http://localhost:5000/api/auth/logoutAdmin
+- logout admin: get --> http://localhost:5000/api/admin/logout
 
-- Xem profile: get --> http://localhost:5000/api/auth/profile
+- Get Profile Admin: get --> http://localhost:5000/api/admin/profile
 
-- Chỉnh sửa profile: patch --> http://localhost:5000/api/auth/profile/update
+- update profile: post --> http://localhost:5000/api/update/profile
 
-- Refresh token : get --> http://localhost:5000/api/auth/admin/refreshTokenAdmin
+- New access Token : get --> http://localhost:5000/api/admin/new/access
 
 - Thay đổi mật khẩu : patch --> http://localhost:5000/api/auth/changePassword
 
-- Quên mật khẩu tài khoản admin: post --> http://localhost:5000/api/auth/ForgetAdmin
+- Forget password admin: post --> http://localhost:5000/api/admin/forget
 
-- Link reset mật khẩu khi quên: put --> http://localhost:5000/api/auth/password/reset/:token
-
-- Đăng nhập google tài khoản admin: post --> http://localhost:5000/api/auth/loginGoogleAdmin
+- Login google Admin: post --> http://localhost:5000/api/admin/login/google
 
 - Lấy ra danh sách khách hàng: get --> http://localhost:5000/api/auth/getAllUser
 
@@ -84,13 +82,13 @@
 
 ## Category
 
-- Xem tất cả loại categorys : get --> http://localhost:5000/api/category/categorys
+- Get all category: get --> http://localhost:5000/api/category
 
-- Tạo thêm 1 loại categorys: post --> http://localhost:5000/api/category/categorys
+- Create category: post --> http://localhost:5000/api/category/create
 
-- Cập nhập loại categorys: patch --> http://localhost:5000/api/category/categorys/:id
+- Update category: post --> http://localhost:5000/api/category/edit/:id
 
-- Xóa loại categorys: delete --> http://localhost:5000/api/category/categorys/:id
+- Delete category: delete --> http://localhost:5000/api/category/delete/:id
 
 ## Carousel
 
@@ -120,15 +118,15 @@
 
 ## Product
 
-- Xem tất cả sản phẩm: get --> http://localhost:5000/api/product/getAll
+- Get all product(Sort,filter,page) : get --> http://localhost:5000/api/product
 
-- Xem chi tiết sản phẩm : get --> http://localhost:5000/api/product/getId/:id
+- Get detail product : get --> http://localhost:5000/api/product/getId/:id
 
-- Thêm sản phẩm mới : post --> http://localhost:5000/api/product/create
+- Create product : post --> http://localhost:5000/api/product/create
 
-- Cập nhập sản phẩm : put --> http://localhost:5000/api/product/update/:id
+- Update product : put --> http://localhost:5000/api/product/update/:id
 
-- Xóa sản phẩm: delete --> http://localhost:5000/api/product/delete/:id
+- Delete product : delete --> http://localhost:5000/api/product/delete/:id
 
 ## Payment
 
@@ -176,7 +174,7 @@
 
 - Profile Users : get --> http://localhost:5000/api/user/profile
 
-- Chỉnh sửa profile: patch --> http://localhost:5000/api/auth/profile/update
+- Upload Profile: patch --> http://localhost:5000/api/user/update/profile
 
 - New Acceptoken  : get --> http://localhost:5000/api/user/new/accessToken
 
@@ -198,7 +196,7 @@
 
 ## Category
 
-- Xem tất cả thể loại category : get --> http://localhost:5000/api/category/all
+- Get all category : get --> http://localhost:5000/api/user/category
 
 ## Feedback
 
@@ -206,9 +204,9 @@
 
 ## Product
 
-- Xem tất cả sản phẩm: get --> http://localhost:5000/api/product/getAll
+- Get all product: get --> http://localhost:5000/api/product
 
-- Xem chi tiết sản phẩm : get --> http://localhost:5000/api/product/getId/:id
+- Get Product detail : get --> http://localhost:5000/api/product/detail/:id
 
 - Chỉnh sửa comment review : put --> http://localhost:5000/api/product/:productId/update/review/:commentId
 

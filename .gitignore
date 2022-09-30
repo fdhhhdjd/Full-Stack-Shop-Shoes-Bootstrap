@@ -17,3 +17,5 @@
 ###! General ###
 .env
 .env.docker
+
+dump.rdb
