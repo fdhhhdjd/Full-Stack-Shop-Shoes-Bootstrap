@@ -196,7 +196,7 @@
 
 ## Category
 
-- Get all category : get --> http://localhost:5000/api/category
+- Get all category : get --> http://localhost:5000/api/user/category
 
 ## Feedback
 
