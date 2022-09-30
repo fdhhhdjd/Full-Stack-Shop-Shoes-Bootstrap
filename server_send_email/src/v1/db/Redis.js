@@ -1,11 +1,18 @@
 const IOREDIS = require("ioredis");
-const { REDIS_PORT, REDIS_HOST } = process.env;
+const CONFIGS = require("../configs/configs");
+// const REDIS = new IOREDIS({
+//   port: CONFIGS.REDIS_PORT,
+//   host: CONFIGS.REDIS_HOST,
+// });
 const REDIS = new IOREDIS({
-  port: REDIS_PORT,
-  host: REDIS_HOST,
+  port: CONFIGS.REDIS_PORT,
+  host: CONFIGS.REDIS_HOST,
+  user: CONFIGS.REDIS_USER,
+  password: CONFIGS.REDIS_PASSWORD,
 });
 
 REDIS.on("connect", () => {
+  // console.log("----------", CONFIGS);
   console.log("Client connected to redis Push...");
 });
 REDIS.on("ready", () => {
