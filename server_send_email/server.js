@@ -17,10 +17,10 @@ const {
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
   const healthcheck = {
     uptime: process.uptime(),
-    message: "Server Send Email",
+    message: "Server Send Email ",
     timestamp: Date.now(),
   };
   return res.send(healthcheck);
