@@ -118,15 +118,15 @@
 
 ## Product
 
-- Get all product(Sort,filter,page) : get --> http://localhost:5000/api/product
+- Get all product(Sort,filter,page) : get --> http://localhost:5000/api/admin/product
 
-- Get detail product : get --> http://localhost:5000/api/product/getId/:id
+- Get detail product : get --> http://localhost:5000/api/admin/product/getId/:id
 
-- Create product : post --> http://localhost:5000/api/product/create
+- Create product : post --> http://localhost:5000/api/admin/product/create
 
-- Update product : put --> http://localhost:5000/api/product/update/:id
+- Update product : put --> http://localhost:5000/api/admin/product/update/:id
 
-- Delete product : delete --> http://localhost:5000/api/product/delete/:id
+- Delete product : delete --> http://localhost:5000/api/admin/product/delete/:id
 
 ## Payment
 
@@ -206,11 +206,14 @@
 
 - Get all product: get --> http://localhost:5000/api/product
 
-- Get Product detail : get --> http://localhost:5000/api/product/detail/:id
+- Get Product detail : get --> http://localhost:5000/api/review/create/:id
+## Review
 
-- Chỉnh sửa comment review : put --> http://localhost:5000/api/product/:productId/update/review/:commentId
+- Comment Product: post -->http://localhost:5000/api/review/create/:id
 
-- Xóa comment : delete --> http://localhost:5000/api/product/:productId/delete/review/:commentId
+- Edit comment review : post --> http://localhost:5000/api/review/:productId/update/:commentId
+
+- Delete comment : delete --> http://localhost:5000/api/review/:productId/delete/:commentId
 
 ## Payment
 
