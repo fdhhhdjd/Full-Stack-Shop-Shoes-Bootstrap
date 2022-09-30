@@ -6,10 +6,7 @@ const {
 const STORAGE = require("../../../utils/storage");
 const HELPER = require("../../../utils/helper");
 const PASSWORD = require("../../../utils/password");
-const {
-  checkVerification,
-  checkPhoneExitExceptUserMain,
-} = require("../../../utils/storage");
+const { checkVerification } = require("../../../utils/storage");
 module.exports = {
   CheckRegister: async ({
     email,
@@ -56,7 +53,7 @@ module.exports = {
       };
     }
     const user_phone_exits = await STORAGE.checkPhoneExit(phone_number);
-    if (user_phone_exits) {
+    if (user_phone_exits.length > 0) {
       return {
         status: 306,
         success: false,

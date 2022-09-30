@@ -50,8 +50,8 @@ const get = (key) => {
  *
  * @returns {json} "
  */
-const set = (key, value) => {
-  return REDIS.set(key, value, (err, result) => {
+const set = (key, value, time) => {
+  return REDIS.set(key, value, "EX", time, (err, result) => {
     if (err) {
       err;
     }

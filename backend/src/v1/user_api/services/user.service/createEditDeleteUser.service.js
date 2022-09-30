@@ -1,4 +1,4 @@
-const { getProfileId } = require("./getalluser.service");
+const { updateProfileId } = require("./getalluser.service");
 const Users = require("../../../models/userModel");
 const UserVerifications = require("../../../models/userVerificationModel");
 const CONSTANTS = require("../../../configs/constants");
@@ -47,7 +47,9 @@ const UpdateProfile = async ({
     }
   );
   let userId = user_id;
-  await getProfileId(userId);
+  if (userId) {
+    await updateProfileId(userId);
+  }
   return true;
 };
 //** Delete User And Verification */

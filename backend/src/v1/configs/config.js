@@ -31,6 +31,10 @@ module.exports = {
   REDIS_HOST: process.env.REDIS_HOST,
   REDIS_USER: process.env.REDIS_USER,
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+  /**
+   * * rabbit_mq caching Settings
+   */
+  RABBIT_MQ: process.env.RABBIT_MQ,
 
   /**
    * * Cloudinary settings

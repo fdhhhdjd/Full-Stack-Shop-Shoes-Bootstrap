@@ -205,7 +205,7 @@ const userCtrl = {
   ProfileUser: async (req, res) => {
     try {
       const user_id = req.user.id;
-      const session = req.session.users.id;
+      const session = req.session;
       const { status, success, element } = await HandleProfile({
         user_id,
         session,
@@ -252,7 +252,7 @@ const userCtrl = {
     }
   },
 
-  //*--------------- Forget,Reset Users ---------------
+  //*--------------- Forget,Reset,Change Users ---------------
 
   //* Forget Password User
   ForgetPassword: async (req, res) => {
@@ -301,6 +301,7 @@ const userCtrl = {
       });
     }
   },
+  //* Change Password User
   ChangePassword: async (req, res) => {
     try {
       const { password, oldPassword, confirmPassword } = req.body;

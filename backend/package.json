@@ -8,6 +8,7 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "amqplib": "^0.10.3",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
@@ -31,6 +32,7 @@
     "nodemailer": "^6.7.2",
     "nodemailer-express-handlebars": "^4.0.0",
     "nodemon": "^2.0.20",
+    "otp-generator": "^4.0.0",
     "stripe": "^8.219.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0"
