@@ -5,6 +5,8 @@ const { get, saveTokenRedis } = require("../utils/limited_redis");
 const CONSTANTS = require("../configs/constants");
 const CONFIGS = require("../configs/config");
 const Users = require("../models/userModel");
+const Category = require("../models/CategoryModel");
+const Products = require("../models/ProductModel");
 const UserVerifications = require("../models/userVerificationModel");
 const HELPER = require("../utils/helper");
 const CLIENT_ID = CONFIGS.GOOGLE_CLIENT_IDS;
@@ -53,7 +55,15 @@ module.exports = {
   async checkUserExit(email) {
     const user = await Users.findOne({
       email: email,
-      role: CONSTANTS.ACCOUNT_USER,
+      // role: CONSTANTS.ACCOUNT_USER,
+    });
+    return user;
+  },
+  //* Users email admin
+  async checkAdminExit(email) {
+    const user = await Users.findOne({
+      email: email,
+      role: CONSTANTS.ACCOUNT_ADMIN,
     });
     return user;
   },
@@ -65,6 +75,41 @@ module.exports = {
       role: CONSTANTS.ACCOUNT_USER,
     });
     return user;
+  },
+  //* async check Product Exit Except Product main
+  async checkProductExit(name) {
+    const user = await Products.find({
+      name,
+    });
+    return user;
+  },
+  //* Product check Exit
+  async checkProductExitExceptUserMain(product_id, name) {
+    const user = await Products.find({
+      _id: { $ne: product_id },
+      name,
+    });
+    return user;
+  },
+  //* check phone exit
+  async checkPhoneExit(phone_number) {
+    const user = await Users.find({
+      phone_number: phone_number,
+    });
+    return user;
+  },
+  //* Check exit category
+  async checkCategoryExit(name) {
+    return await Category.findOne({ name });
+  },
+  //* Check exit ExitExcept
+
+  async checkCategoryExitExceptUserMain(category_id, name) {
+    const categories = await Category.find({
+      _id: { $ne: category_id },
+      name,
+    });
+    return categories;
   },
   //* Check verification
   async checkVerification(userId) {
@@ -91,7 +136,13 @@ module.exports = {
       method: "GET",
     }).then((response) => response.json());
   },
-
+  //* check role user_id
+  async checkRoleUserId({ user_id }) {
+    await Users.findOne({
+      _id: user_id,
+      role: CONSTANTS.ACCOUNT_ADMIN,
+    });
+  },
   //* cookie
   saveCookies(res, refreshToken) {
     res.cookie("refreshtoken", refreshToken, {
@@ -112,6 +163,7 @@ module.exports = {
     await saveTokenRedis(user.id, refreshToken, CONSTANTS._7_DAY);
     return refreshToken;
   },
+  //* Check user reset Expired
   async CheckUserExpired(resetPasswordToken) {
     const user = await Users.findOne({
       resetPasswordToken,

@@ -6,8 +6,7 @@ module.exports = {
       userId: newUser.id,
       uniqueString: hashedUniqueString,
       createdAt: Date.now(),
-      // expiresAt: Date.now() + CONSTANTS._45_MINUTES,
-      expiresAt: Date.now() + 10,
+      expiresAt: Date.now() + CONSTANTS._45_MINUTES,
     });
     return await newVerification.save();
   },

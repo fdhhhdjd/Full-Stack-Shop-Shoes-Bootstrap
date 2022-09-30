@@ -225,4 +225,14 @@ module.exports = {
   resetPasswordToken(resetToken) {
     return crypto.createHash("sha256").update(resetToken).digest("hex");
   },
+  /** Random Number
+   * Time Vietnamese
+   *
+   * @param {number}
+   *
+   * @returns {number} random 1->100
+   */
+  randomNumber() {
+    return Math.floor(Math.random() * 99) + 1;
+  },
 };

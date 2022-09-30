@@ -97,7 +97,6 @@ module.exports = {
     let result_user = await CheckEmail(email);
     if (result_user) {
       const accessToken = createAccessToken({ id: result_user._id });
-      // const refreshToken = createRefreshToken({ id: result_user._id });
       const refreshToken = await GenerateRefreshToken({ id: result_user._id });
       saveCookies(res, refreshToken);
       return {
@@ -400,14 +399,15 @@ module.exports = {
         element: JSON.parse(profile_user_id),
       };
     }
-    if (session) {
-      const user = await getProfileId(session);
+    if (session?.users?.id) {
+      const { user } = await getProfileId(session);
       return {
         status: 200,
         success: true,
         element: user,
       };
     }
+
     const user = await getProfileId(user_id);
     return {
       status: 200,

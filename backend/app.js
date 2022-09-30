@@ -11,6 +11,7 @@ const cron = require("node-cron");
 //! Import
 const REDIS = require("./src/v1/db/redis_db");
 const Mongo_DB = require("./src/v1/db/mongo_db");
+const connect_amqp = require("./src/v1/db/rabbitmq");
 const CONSTANTS = require("./src/v1/configs/constants");
 //! Connect
 Mongo_DB();
@@ -61,19 +62,47 @@ app.use(
     },
   })
 );
-// ------------------------- Users ------------------------- //
 
-// //!! USER_ROUTE
+//* ------------------------- Users ------------------------- //
+
+// !! USER_ROUTES
 const users_routes = require("./src/v1/user_api/routes/user.routes");
 
-// //!Route USer
 app.use("/api", users_routes);
 
-// // ------------------------- Admins ------------------------- //
-// //!! ADMIN_ROUTE
-// const admins_routes = require("./src/v1/admin_api/routes/admin.routes");
+//* ------------------------- Products ------------------------- //
 
-// //!Route Admin
-// app.use("/api", admins_routes);
+// !! PRODUCT_ROUTES
+const products_routes = require("./src/v1/user_api/routes/product.routes");
+
+app.use("/api", products_routes);
+
+//* ------------------------- Category ------------------------- //
+
+// !! CATEGORY_ROUTES
+const category_routes = require("./src/v1/user_api/routes/categories.routes");
+
+app.use("/api", category_routes);
+
+// !! REVIEW_ROUTES
+const user_review = require("./src/v1/user_api/routes/review.routes");
+
+app.use("/api", user_review);
+
+//* ------------------------- Admins ------------------------- //
+//!! ADMIN_ROUTE
+const admins_routes = require("./src/v1/admin_api/routes/admin.routes");
+
+//!Route Admin
+app.use("/api", admins_routes);
+
+//!Product Admin
+const product_routes = require("./src/v1/admin_api/routes/product_admin.route");
+app.use("/api", product_routes);
+
+// !! CATEGORY_ROUTES
+const category_routes_admin = require("./src/v1/admin_api/routes/categories.routes");
+
+app.use("/api", category_routes_admin);
 
 module.exports = app;
