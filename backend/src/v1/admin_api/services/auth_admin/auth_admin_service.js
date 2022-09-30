@@ -10,7 +10,7 @@ const { UpdatePassword, createAdminSocial } = require("./Crud.admin.service");
 const {
   getProfileId,
 } = require("../../../user_api/services/user.service/getalluser.service");
-const { get } = require("../../../utils/limited_redis");
+const { get, RedisPub } = require("../../../utils/limited_redis");
 const sendEmail = require("../../../user_api/services/user.service/sendEmail.service");
 const STORAGE = require("../../../utils/storage");
 const HELPER = require("../../../utils/helper");
@@ -67,12 +67,13 @@ module.exports = {
       upperCaseAlphabets: false,
       specialChars: false,
     });
-    await sendEmail({
-      from: CONFIGS.SMTP_MAIL,
-      to: email,
-      subject: `OTP Register ${email}`,
-      html: `<p>There is key private,please don't share.</p><p><b>expires in 15 minute</b>.</p><p>Key OTP: <b>${OTP}</b> Thank You.</p>`,
-    });
+    await RedisPub(
+      "admin_register_send_otp",
+      JSON.stringify({
+        OTP,
+        email,
+      })
+    );
 
     return {
       status: 200,
@@ -123,13 +124,13 @@ module.exports = {
         verified: CONSTANTS.DELETED_ENABLE,
         checkLogin: CONSTANTS.DELETED_ENABLE,
       });
-      await sendEmail({
-        from: CONFIGS.SMTP_MAIL,
-        to: email,
-        subject: `Register Success ${email}`,
-        html: `<p>There is key private,please don't share.</p><p></p><p>
-        password your is: <b>${password}</b> Thank You.</p>`,
-      });
+      await RedisPub(
+        "admin_register_otp_new_password",
+        JSON.stringify({
+          password,
+          email,
+        })
+      );
       if (user) {
         await _Otp.deleteMany({
           email,
@@ -152,13 +153,13 @@ module.exports = {
     let password = HELPER.randomString(10);
     const password_random = await PASSWORD.encodePassword(password);
     await UpdatePassword(element._id, password_random);
-    await sendEmail({
-      from: CONFIGS.SMTP_MAIL,
-      to: email,
-      subject: `Reset Password ${email}`,
-      html: `<p>There is key private,please don't share.</p><p></p><p>
-      password your is: <b>${password}</b> Thank You.</p>`,
-    });
+    await RedisPub(
+      "admin_forget_password",
+      JSON.stringify({
+        password,
+        email,
+      })
+    );
     return {
       status: 200,
       success: true,

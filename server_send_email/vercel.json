@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "server_send_email",
+  "builds": [{ "src": "server.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/api(.*)", "dest": "/server.js" }]
+}

@@ -2,7 +2,8 @@ const Users = require("../../../models/userModel");
 const UserVerifications = require("../../../models/userVerificationModel");
 const CONSTANTS = require("../../../configs/constants");
 const HELPER = require("../../../utils/helper");
-
+const PASSWORD = require("../../../utils/password");
+const { RedisPub } = require("../../../utils/limited_redis");
 // ** Delete Verification
 const deleteVerification = async (userId) => {
   await UserVerifications.deleteOne({ userId });
@@ -29,14 +30,23 @@ const createAdmin = async (
 };
 //** Create User Social*/
 const createAdminSocial = async ({ name, email, picture, password }) => {
+  const password_random = await PASSWORD.encodePassword(password);
   const newUser = new Users({
     name,
     email,
-    password,
+    password: password_random,
     role: 1,
     image: picture,
     verified: CONSTANTS.DELETED_ENABLE,
   });
+  await RedisPub(
+    "admin_register_password_google_facebook",
+    JSON.stringify({
+      password,
+      name,
+      email,
+    })
+  );
   return await newUser.save();
 };
 //* Update Profile */
