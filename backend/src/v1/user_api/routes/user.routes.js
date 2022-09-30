@@ -20,7 +20,7 @@ router.get("/user/verify/:userId/:uniqueString", userCtrl.verifyEmail);
 
 //*------------- Create New AccessToken -------------
 //! New Access Token
-router.get(
+router.post(
   "/user/new/accessToken",
   VerifyRefreshToken,
   userCtrl.createNewAccessTokens
