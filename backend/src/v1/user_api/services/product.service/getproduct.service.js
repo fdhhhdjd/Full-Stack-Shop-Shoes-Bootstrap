@@ -9,7 +9,7 @@ module.exports = {
       return JSON.parse(product_user_redis);
     }
     const number_random = HELPER.randomNumber();
-    const product_user = await Products.find().aggregate([
+    const product_user = await Products.aggregate([
       {
         $project: {
           doc: "$$ROOT",
