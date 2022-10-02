@@ -1,6 +1,7 @@
 "use strict";
 
 const REDIS = require("../db/redis_db");
+const CONSTANTS = require("../configs/constants");
 /**
  * @author Nguyen Tiến Tài
  *
@@ -193,6 +194,7 @@ const hmset = (user_id, product_id, quantity) => {
       if (err) {
         err;
       }
+      ExpireCart(user_id);
       result;
     }
   );
@@ -245,6 +247,19 @@ const sumQuantity = ({ user_id }) => {
     0
   );
 };
+//? Expire
+const ExpireCart = (user_id) => {
+  return REDIS.expire(
+    `cartUserId:${user_id}`,
+    CONSTANTS._1_HOURS_REDIS,
+    (err, result) => {
+      if (err) {
+        err;
+      }
+      result;
+    }
+  );
+};
 module.exports = {
   incr,
   ttl,
@@ -265,4 +280,5 @@ module.exports = {
   sumQuantity,
   hlen,
   delCart,
+  ExpireCart,
 };

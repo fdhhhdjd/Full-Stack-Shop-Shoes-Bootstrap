@@ -10,6 +10,12 @@ module.exports = {
   _1_HOURS_S: 60 * 60,
   _1_YEAR: 365 * 24 * 60 * 60 * 1000,
 
+  //! Time Redis
+  _1_MINUTES_REDIS: 100,
+  _1_HOURS_REDIS: 4500,
+  _1_DAYS_REDIS: 108000,
+  _7_DAYS_REDIS: 6 * 108000,
+
   _DEFAULT_CACHE_TIME: 15,
 
   //!Delete Flag

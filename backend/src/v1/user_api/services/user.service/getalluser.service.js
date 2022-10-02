@@ -13,7 +13,7 @@ const getProfileId = async (userId) => {
     await set(
       `userId:${userId}`,
       JSON.stringify(user),
-      CONTAINS._1_DAY + random_number
+      CONTAINS._1_DAYS_REDIS + random_number
     );
   }
   return user;

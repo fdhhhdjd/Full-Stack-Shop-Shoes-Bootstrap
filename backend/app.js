@@ -89,6 +89,10 @@ const user_review = require("./src/v1/user_api/routes/review.routes");
 
 app.use("/api", user_review);
 
+// !! FEEDBACK_ROUTES
+const user_feedback = require("./src/v1/user_api/routes/feedback.routes");
+
+app.use("/api", user_feedback);
 //* ------------------------- Admins ------------------------- //
 //!! ADMIN_ROUTE
 const admins_routes = require("./src/v1/admin_api/routes/admin.routes");
@@ -104,5 +108,10 @@ app.use("/api", product_routes);
 const category_routes_admin = require("./src/v1/admin_api/routes/categories.routes");
 
 app.use("/api", category_routes_admin);
+
+// !!  FEEDBACK_ROUTES
+const feedback_routes_admin = require("./src/v1/admin_api/routes/feedback.route");
+
+app.use("/api", feedback_routes_admin);
 
 module.exports = app;

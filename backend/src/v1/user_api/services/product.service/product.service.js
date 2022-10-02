@@ -5,6 +5,7 @@ const {
   hgetall,
   hlen,
   sumQuantity,
+  exists,
 } = require("../../../utils/limited_redis");
 const {
   getallProductUser,
@@ -53,6 +54,16 @@ module.exports = {
     };
   },
   handleGetAddToCart: async ({ user_id }) => {
+    const cart_exit = await exists(`cartUserId:${user_id}`);
+    if (cart_exit === 0) {
+      return {
+        status: 200,
+        success: true,
+        element: {
+          msg: "Cart Empty !!!",
+        },
+      };
+    }
     const data = await hgetall(user_id);
     const data_length = await hlen(user_id);
     const quantity_sum = await sumQuantity({ user_id });

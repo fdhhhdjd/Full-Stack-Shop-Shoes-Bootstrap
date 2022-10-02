@@ -160,7 +160,7 @@ module.exports = {
       return refresh;
     }
     const refreshToken = createRefreshToken(user);
-    await saveTokenRedis(user.id, refreshToken, CONSTANTS._7_DAY);
+    await saveTokenRedis(user.id, refreshToken, CONSTANTS._7_DAYS_REDIS);
     return refreshToken;
   },
   //* Check user reset Expired
