@@ -74,9 +74,21 @@ const deleteProduct = async (product_id) => {
 const resetCreateEditRedis = async () => {
   const random_number = HELPER.randomNumber();
   await del("product_user");
-  const product_user = await Products.find().sort({
-    createdAt: 1,
-  });
+  const product_user = await Products.aggregate([
+    {
+      $project: {
+        doc: "$$ROOT",
+        latest: {
+          $cond: {
+            if: { $gt: ["$createdAt", "$updatedAt"] },
+            then: "$createdAt",
+            else: "$updatedAt",
+          },
+        },
+      },
+    },
+    { $sort: { latest: -1 } },
+  ]);
   await set(
     "product_user",
     JSON.stringify(product_user),
