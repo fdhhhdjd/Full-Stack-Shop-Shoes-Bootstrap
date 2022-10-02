@@ -188,8 +188,6 @@
 
 - Login Facebook Users: post --> http://localhost:5000/api/user/login/facebook
 
-- Thêm giày vào giỏ hàng: patch --> http://localhost:5000/api/auth/addCart
-
 - Lịch sử đơn hàng của khách hàng : --> http://localhost:5000/api/auth/history
 
 - Cho người dùng nhập mật khẩu mới khi login GG FB thay vì register:patch --> http://localhost:5000/api/auth/changePasswordGgFb
@@ -197,6 +195,16 @@
 ## Category
 
 - Get all category : get --> http://localhost:5000/api/user/category
+
+## Cart 
+
+- Add to cart : post --> http://localhost:5000/api/product/add/cart
+
+- InDeCrement Cart product --> http://localhost:5000/api/product/indecrement/cart
+
+- Del Cart Product -> http://localhost:5000/api/product/del/cart
+
+- Get cart users: ->http://localhost:5000/api/product/get/cart
 
 ## Feedback
 
@@ -207,6 +215,7 @@
 - Get all product: get --> http://localhost:5000/api/product
 
 - Get Product detail : get --> http://localhost:5000/api/review/create/:id
+
 ## Review
 
 - Comment Product: post -->http://localhost:5000/api/review/create/:id
