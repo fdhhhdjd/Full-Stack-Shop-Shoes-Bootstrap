@@ -183,7 +183,68 @@ const RedisPub = (name, value) => {
     result;
   });
 };
-
+//? Redis Add
+const hmset = (user_id, product_id, quantity) => {
+  return REDIS.hmset(
+    `cartUserId:${user_id}`,
+    product_id,
+    quantity,
+    (err, result) => {
+      if (err) {
+        err;
+      }
+      result;
+    }
+  );
+};
+//? Get All user add
+const hgetall = (user_id) => {
+  return REDIS.hgetall(`cartUserId:${user_id}`, (err, result) => {
+    if (err) {
+      return err;
+    }
+    return result;
+  });
+};
+//? increase and decrease quantity
+const hincrby = (user_id, product_id, quantity) => {
+  return REDIS.hincrby(
+    `cartUserId:${user_id}`,
+    product_id,
+    quantity,
+    (err, result) => {
+      if (err) {
+        err;
+      }
+      result;
+    }
+  );
+};
+//? length  cart
+const hlen = (user_id) => {
+  return REDIS.hlen(`cartUserId:${user_id}`, (err, result) => {
+    if (err) {
+      err;
+    }
+    result;
+  });
+};
+//? Dele cart
+const delCart = (user_id, product_id) => {
+  return REDIS.hdel(`cartUserId:${user_id}`, product_id, (err, result) => {
+    if (err) {
+      err;
+    }
+    result;
+  });
+};
+//? sum quantity user
+const sumQuantity = ({ user_id }) => {
+  return REDIS.eval(
+    `local sum = 0 local i=1 local a1 = redis.call('hvals','cartUserId:${user_id}') while(a1[i]) do sum=sum+a1[i] i=i+1 end return sum`,
+    0
+  );
+};
 module.exports = {
   incr,
   ttl,
@@ -198,4 +259,10 @@ module.exports = {
   incrby,
   saveTokenRedis,
   RedisPub,
+  hmset,
+  hgetall,
+  hincrby,
+  sumQuantity,
+  hlen,
+  delCart,
 };

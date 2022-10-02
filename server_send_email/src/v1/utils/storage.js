@@ -1,12 +1,8 @@
 const nodeMailer = require("nodemailer");
 const hbs = require("nodemailer-express-handlebars");
-const sgMail = require("@sendgrid/mail");
 const path = require("path");
 const CONFIGS = require("../configs/configs");
 require("dotenv").config();
-const API_KEY =
-  "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";
-sgMail.setApiKey(API_KEY);
 const sendEmail = async (options) => {
   const transporter = nodeMailer.createTransport({
     host: CONFIGS.SMTP_HOST,
