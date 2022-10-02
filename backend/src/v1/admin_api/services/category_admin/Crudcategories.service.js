@@ -15,7 +15,7 @@ module.exports = {
     await set(
       "categories",
       JSON.stringify(category),
-      CONSTANTS._1_DAY + number_random
+      CONSTANTS._1_DAYS_REDIS + number_random
     );
     return category;
   },

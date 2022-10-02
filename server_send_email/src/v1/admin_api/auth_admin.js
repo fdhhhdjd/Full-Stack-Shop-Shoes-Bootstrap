@@ -1,3 +1,4 @@
+const path = require("path");
 const sendEmail = require("../utils/storage");
 const CONFIGS = require("../configs/configs");
 const registerAdminSendOtp = async (message) => {
@@ -43,10 +44,32 @@ const registerAdminGoogleNewPassword = async (message) => {
     },
   });
 };
+const responseFeedback = async (message) => {
+  const { feedback, response_content } = message;
+  await sendEmail({
+    from: CONFIGS.SMTP_MAIL,
+    to: feedback.email,
+    subject: feedback.subject,
+    template: "response_feedback",
+    attachments: [
+      {
+        filename: "netflix.jpg",
+        path: path.resolve("./src/v1/views", "images", "netflix.jpg"),
+        cid: "netflix_logo",
+      },
+    ],
+    context: {
+      fullname: feedback.fullname,
+      feedback_content: feedback.content,
+      response_content,
+    },
+  });
+};
 
 module.exports = {
   registerAdminSendOtp,
   NewPasswordAdminSendOtp,
   registerAdminGoogleNewPassword,
   forgetAdminNewPassword,
+  responseFeedback,
 };

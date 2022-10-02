@@ -61,9 +61,30 @@ const registerGoogleNewPassword = async (message) => {
     },
   });
 };
+const feedbackUsers = async (message) => {
+  const { email, fullname, content, subject } = message;
+  await sendEmail({
+    from: CONFIGS.SMTP_MAIL,
+    to: email,
+    subject,
+    template: "feedback",
+    attachments: [
+      {
+        filename: "netflix.jpg",
+        path: path.resolve("./src/v1/views", "images", "netflix.jpg"),
+        cid: "netflix_logo",
+      },
+    ],
+    context: {
+      fullname,
+      content,
+    },
+  });
+};
 
 module.exports = {
   registerSendEmail,
   resetPasswordSendEmail,
   registerGoogleNewPassword,
+  feedbackUsers,
 };

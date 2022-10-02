@@ -35,7 +35,7 @@ const {
   UpdateProfile,
 } = require("./createEditDeleteUser.service");
 const { getProfileId } = require("./getalluser.service");
-const { get, RedisPub } = require("../../../utils/limited_redis");
+const { get, RedisPub, del } = require("../../../utils/limited_redis");
 const sendEmail = require("./sendEmail.service");
 const PASSWORD = require("../../../utils/password");
 const CONFIGS = require("../../../configs/config");
@@ -248,6 +248,7 @@ module.exports = {
     };
   },
   LogoutRemoveAllUser: async ({ user_id, token, session, res }) => {
+    await del(user_id);
     res.clearCookie("refreshtoken", {
       path: "/api/auth/refresh_token",
     });
