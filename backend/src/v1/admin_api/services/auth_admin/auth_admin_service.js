@@ -10,7 +10,7 @@ const { UpdatePassword, createAdminSocial } = require("./Crud.admin.service");
 const {
   getProfileId,
 } = require("../../../user_api/services/user.service/getalluser.service");
-const { get, RedisPub } = require("../../../utils/limited_redis");
+const { get, RedisPub, del } = require("../../../utils/limited_redis");
 const sendEmail = require("../../../user_api/services/user.service/sendEmail.service");
 const STORAGE = require("../../../utils/storage");
 const HELPER = require("../../../utils/helper");
@@ -239,6 +239,7 @@ module.exports = {
     }
   },
   handleLogoutAdmin: async ({ user_id, token, session, res }) => {
+    await del(`cartUserId:${user_id}`);
     res.clearCookie("refreshtoken", {
       path: "/api/auth/refresh_token",
     });

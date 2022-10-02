@@ -6,6 +6,7 @@ const {
   registerSendEmail,
   resetPasswordSendEmail,
   registerGoogleNewPassword,
+  feedbackUsers,
 } = require("./src/v1/user_api/auth_user");
 const REDIS = require("./src/v1/db/Redis");
 const {
@@ -13,6 +14,7 @@ const {
   NewPasswordAdminSendOtp,
   registerAdminGoogleNewPassword,
   forgetAdminNewPassword,
+  responseFeedback,
 } = require("./src/v1/admin_api/auth_admin");
 const app = express();
 app.use(express.json());
@@ -40,6 +42,9 @@ REDIS.on("pmessage", (pattern, channel, message) => {
     case "user_register_password_google_facebook":
       registerGoogleNewPassword(JSON.parse(message));
       break;
+    case "user_feedback":
+      feedbackUsers(JSON.parse(message));
+      break;
   }
 });
 //!Admin
@@ -59,6 +64,9 @@ REDIS.on("pmessage", (pattern, channel, message) => {
       break;
     case "admin_forget_password":
       forgetAdminNewPassword(JSON.parse(message));
+      break;
+    case "admin_response_feedback":
+      responseFeedback(JSON.parse(message));
       break;
   }
 });

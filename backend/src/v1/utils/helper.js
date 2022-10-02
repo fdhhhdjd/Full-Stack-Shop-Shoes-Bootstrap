@@ -121,6 +121,16 @@ module.exports = {
   getCurrentTimeJP() {
     return new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" });
   },
+  /**
+   * Time Vietnamese
+   *
+   *
+   * @returns {date}
+   */
+
+  createToISOString() {
+    return new Date().toISOString();
+  },
 
   /** sleep web
    * Time Vietnamese
