@@ -115,6 +115,6 @@ const resetRedisProduct = async () => {
   await set(
     "product_user",
     JSON.stringify(product_user),
-    CONTAINS._1_DAY + random_number
+    CONTAINS._1_DAYS_REDIS + random_number
   );
 };

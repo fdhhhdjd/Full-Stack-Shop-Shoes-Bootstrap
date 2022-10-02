@@ -7,6 +7,7 @@ const CONFIGS = require("../configs/config");
 const Users = require("../models/userModel");
 const Category = require("../models/CategoryModel");
 const Products = require("../models/ProductModel");
+const Carousels = require("../models/CarouselModel");
 const UserVerifications = require("../models/userVerificationModel");
 const HELPER = require("../utils/helper");
 const CLIENT_ID = CONFIGS.GOOGLE_CLIENT_IDS;
@@ -76,20 +77,37 @@ module.exports = {
     });
     return user;
   },
-  //* async check Product Exit Except Product main
+  //* Product check Exit
+
   async checkProductExit(name) {
     const user = await Products.find({
       name,
     });
     return user;
   },
-  //* Product check Exit
+  //* async check Product Exit Except Product main
+
   async checkProductExitExceptUserMain(product_id, name) {
     const user = await Products.find({
       _id: { $ne: product_id },
       name,
     });
     return user;
+  },
+  //* Carousel check Exit Except Product main
+  async checkCarouselExitExceptUserMain(_id, heading) {
+    const carousel = await Carousels.find({
+      _id: { $ne: _id },
+      heading,
+    });
+    return carousel;
+  },
+  //* Carousel check Exit
+  async checkCarouselExit(heading) {
+    const carousel = await Carousels.find({
+      heading,
+    });
+    return carousel;
   },
   //* check phone exit
   async checkPhoneExit(phone_number) {
