@@ -2,7 +2,7 @@ const router = require("express").Router();
 const voucherCtrl = require("../controllers/voucher.controllers");
 const VerifyAcceptToken = require("../../middlewares/VerifyAcceptToken.middleware");
 
-//* payment paypal
+//* Add voucher
 router.post("/user/voucher", VerifyAcceptToken, voucherCtrl.addVoucher);
 
 //* Del voucher
