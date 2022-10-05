@@ -80,7 +80,7 @@
 
 - Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
 
-## Category
+## Categories
 
 - Get all category: get --> http://localhost:5000/api/category
 
@@ -90,7 +90,7 @@
 
 - Delete category: delete --> http://localhost:5000/api/category/delete/:id
 
-## Carousel
+## Carousels
 
 - Get all Carousels: get --> http://localhost:5000/api/admin/carousel
 
@@ -100,7 +100,7 @@
 
 - Delete Carousel: delete --> http://localhost:5000/api/admin/carousel/delete/:id
 
-## Voucher
+## Vouchers
 
 - Get all Vouchers : get --> http://localhost:5000/api/admin/voucher
 
@@ -110,7 +110,7 @@
 
 - Delete Vouchers: delete --> http://localhost:5000/api/admin/voucher/delete/:id
 
-## FeedBack
+## FeedBacks
 
 - Get all feedback: get --> http://localhost:5000/api/feedback
 
@@ -120,7 +120,7 @@
 
 - Filter Feedback: post --> http://localhost:5000/api/feedback/filter
 
-## Product
+## Products
 
 - Get all product(Sort,filter,page) : get --> http://localhost:5000/api/admin/product
 
@@ -132,7 +132,7 @@
 
 - Delete product : delete --> http://localhost:5000/api/admin/product/delete/:id
 
-## Payment
+## Payments
 
 - Lấy ra toàn bộ đơn hàng: get --> http://localhost:5000/api/payment/payments
 
@@ -190,11 +190,11 @@
 
 - Cho người dùng nhập mật khẩu mới khi login GG FB thay vì register:patch --> http://localhost:5000/api/auth/changePasswordGgFb
 
-## Category
+## Categories
 
 - Get all category : get --> http://localhost:5000/api/user/category
 
-## Cart 
+## Carts
 
 - Add to cart : post --> http://localhost:5000/api/product/add/cart
 
@@ -204,17 +204,17 @@
 
 - Get cart users: ->http://localhost:5000/api/product/get/cart
 
-## Feedback
+## Feedbacks
 
 - Send Feedback : post --> http://localhost:5000/api/feedback/send
 
-## Product
+## Products
 
 - Get all product: get --> http://localhost:5000/api/product
 
 - Get Product detail : get --> http://localhost:5000/api/review/create/:id
 
-## Review
+## Reviews
 
 - Comment Product: post -->http://localhost:5000/api/review/create/:id
 
@@ -222,13 +222,13 @@
 
 - Delete comment : delete --> http://localhost:5000/api/review/:productId/delete/:commentId
 
-## Voucher
+## Vouchers
 
 - Add voucher: post --> http://localhost:5000/api/user/voucher
 
 - Del voucher: get --> http://localhost:5000/api/user/voucher/del
 
-## Payment
+## Payments
 
 - Payment paypal: post --> http://localhost:5000/api/payment/paypal
 
