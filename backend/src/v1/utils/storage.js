@@ -8,6 +8,7 @@ const Users = require("../models/userModel");
 const Category = require("../models/CategoryModel");
 const Products = require("../models/ProductModel");
 const Carousels = require("../models/CarouselModel");
+const Vouchers = require("../models/VoucherModel");
 const UserVerifications = require("../models/userVerificationModel");
 const HELPER = require("../utils/helper");
 const CLIENT_ID = CONFIGS.GOOGLE_CLIENT_IDS;
@@ -220,5 +221,18 @@ module.exports = {
         error
       );
     }
+  },
+  //* Check voucher exit
+  async checkVoucherExit(title) {
+    return await Vouchers.find({
+      title,
+    });
+  },
+  //* Voucher check Exit Except  main
+  async checkVoucherExitExceptUserMain(voucher_id, title) {
+    return await Vouchers.find({
+      _id: { $ne: voucher_id },
+      title,
+    });
   },
 };

@@ -208,7 +208,7 @@
 
 ## Feedback
 
-- Gui feed back : post --> http://localhost:5000/api/feedback/send
+- Send Feedback : post --> http://localhost:5000/api/feedback/send
 
 ## Product
 
@@ -224,16 +224,18 @@
 
 - Delete comment : delete --> http://localhost:5000/api/review/:productId/delete/:commentId
 
+## Voucher
+
+- Add voucher: post --> http://localhost:5000/api/user/voucher
+
+- Del voucher: get --> http://localhost:5000/api/user/voucher/del
+
 ## Payment
 
-- Thanh toán đơn hàng bằng Paypal: post --> http://localhost:5000/api/payment/payments
+- Payment paypal: post --> http://localhost:5000/api/payment/paypal
 
 - Tính tiền bằng Stripe Quản lý bắng Stripe: post --> http://localhost:5000/api/payment/paymentStripe
 
-- Xóa mem payment : patch -->http://localhost:5000/api/payment/deletePayments/:id
+- Payment checkStock : get --> http://localhost:5000/api/payment/check/stock
 
-- Check Password khi xóa : Post -->http://localhost:5000/api/payment/checkPass
-
-## Share User and Admin
-
-- Xóa cache redis: Post -->http://localhost:5000/api/redis/cache
+- Payment total : Post -->http://localhost:5000/api/payment/total
