@@ -36,6 +36,12 @@
 
 ## SUPORT CONTACT:https://profile-forme.surge.sh/
 
+## Upload General
+
+- Upload Storage : post --> http://localhost:5000/api/upload
+
+- Destroy Storage: post --> http://localhost:5000/api/destroy
+
 ## 1. API Admin
 
 ## Admin
@@ -50,11 +56,11 @@
 
 - Get Profile Admin: get --> http://localhost:5000/api/admin/profile
 
-- update profile: post --> http://localhost:5000/api/update/profile
+- Update profile: post --> http://localhost:5000/api/admin/update/profile
 
 - New access Token : get --> http://localhost:5000/api/admin/new/access
 
-- Thay đổi mật khẩu : patch --> http://localhost:5000/api/auth/changePassword
+- Change Password : post --> http://localhost:5000/api/admin/change/password
 
 - Forget password admin: post --> http://localhost:5000/api/admin/forget
 
@@ -74,12 +80,6 @@
 
 - Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
 
-## Upload:
-
-- Upload ảnh người dùng : post --> http://localhost:5000/api/uploadImageUser
-
-- Xóa ảnh người dùng trên cloud : post --> http://localhost:5000/api/destroyImageUser
-
 ## Category
 
 - Get all category: get --> http://localhost:5000/api/category
@@ -92,23 +92,23 @@
 
 ## Carousel
 
-- Xem tất cả loại Carousel: get --> http://localhost:5000/api/carousel/carousels
+- Get all Carousels: get --> http://localhost:5000/api/admin/carousel
 
-- Tạo thêm 1 loại Carousels: post --> http://localhost:5000/api/carousel/carousels
+- Create Carousels: post --> http://localhost:5000/api/admin/carousel/create
 
-- Cập nhập loại Carousel: patch --> http://localhost:5000/api/carousel/carousels/:id
+- Upload Carousel: patch --> http://localhost:5000/api/admin/carousel/edit/:id
 
-- Xóa loại Carousel: delete --> http://localhost:5000/api/carousel/carousels/:id
+- Delete Carousel: delete --> http://localhost:5000/api/admin/carousel/delete/:id
 
 ## Voucher
 
-- Xem tất cả loại voucher : get --> http://localhost:5000/api/voucher/vouchers
+- Get all Vouchers : get --> http://localhost:5000/api/admin/voucher
 
-- Tạo thêm voucher: post --> http://localhost:5000/api/voucher/vouchers
+- Create Vouchers: post --> http://localhost:5000/api/admin/voucher/create
 
-- Cập nhập voucher: patch --> http://localhost:5000/api/voucher/vouchers/:id
+- Upadate Vouchers: post --> http://localhost:5000/api/admin/voucher/update/:id"
 
-- Xóa loại voucher: delete --> http://localhost:5000/api/voucher/vouchers/:id
+- Delete Vouchers: delete --> http://localhost:5000/api/admin/voucher/delete/:id
 
 ## FeedBack
 
@@ -159,12 +159,6 @@
 - Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
 
 ## 2. API Users
-
-## Upload:
-
-- Upload ảnh người dùng : post --> http://localhost:5000/api/uploadImageUser
-
-- Xóa ảnh người dùng trên cloud : post --> http://localhost:5000/api/destroyImageUser
 
 ## Authentication Users:
 
