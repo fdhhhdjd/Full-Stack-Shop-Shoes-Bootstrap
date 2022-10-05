@@ -32,6 +32,7 @@ const createPayment = async ({
     sess.endSession();
     return {
       success: true,
+      element: user,
     };
   } catch (error) {
     console.log(error);
@@ -40,6 +41,9 @@ const createPayment = async ({
     sess.endSession();
     return {
       success: false,
+      element: {
+        msg: false,
+      },
     };
   }
 };

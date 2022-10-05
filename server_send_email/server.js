@@ -7,6 +7,7 @@ const {
   resetPasswordSendEmail,
   registerGoogleNewPassword,
   feedbackUsers,
+  paymentSuccess,
 } = require("./src/v1/user_api/auth_user");
 const REDIS = require("./src/v1/db/Redis");
 const {
@@ -44,6 +45,9 @@ REDIS.on("pmessage", (pattern, channel, message) => {
       break;
     case "user_feedback":
       feedbackUsers(JSON.parse(message));
+      break;
+    case "user_payment_success":
+      paymentSuccess(JSON.parse(message));
       break;
   }
 });

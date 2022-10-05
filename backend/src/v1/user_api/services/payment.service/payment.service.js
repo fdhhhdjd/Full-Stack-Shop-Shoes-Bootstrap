@@ -3,6 +3,7 @@ const {
   sumQuantity,
   get,
   del,
+  RedisPub,
 } = require("../../../utils/limited_redis");
 const { createPayment } = require("./curd_payment.service");
 const Products = require("../../../models/ProductModel");
@@ -87,7 +88,7 @@ module.exports = {
       total += cart[i].cart[0].price * cart[i].quantity;
     }
     total_apply_voucher = (total * JSON.parse(voucher)) / 100;
-    const { success } = await createPayment({
+    const { success, element } = await createPayment({
       user_id,
       paymentID,
       address,
@@ -104,6 +105,13 @@ module.exports = {
         },
       };
     }
+    await RedisPub(
+      "user_payment_success",
+      JSON.stringify({
+        email: element?.email,
+        name: element?.name,
+      })
+    );
     for (let i = 0; i < cart.length; i++) {
       STORAGE.sold(cart[i].cart[0]._id, cart[i].quantity, cart[i].cart[0].sold);
       STORAGE.stock(
