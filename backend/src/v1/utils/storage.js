@@ -189,4 +189,36 @@ module.exports = {
     });
     return user;
   },
+  //*Stock
+  async stock(id, quantity, countInStock) {
+    try {
+      await Products.findOneAndUpdate(
+        { _id: id },
+        {
+          countInStock: Number(countInStock) - Number(quantity),
+        }
+      );
+    } catch (error) {
+      console.error(
+        "----------------------Stock--------error------------",
+        error
+      );
+    }
+  },
+  //*Sold
+  async sold(id, quantity, oldSold) {
+    try {
+      await Products.findOneAndUpdate(
+        { _id: id },
+        {
+          sold: Number(quantity) + Number(oldSold),
+        }
+      );
+    } catch (error) {
+      console.error(
+        "----------------------Sold--------error------------",
+        error
+      );
+    }
+  },
 };
