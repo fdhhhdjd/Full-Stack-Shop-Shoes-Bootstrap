@@ -134,4 +134,9 @@ const carousel_routes_admin = require("./src/v1/admin_api/routes/carousel.routes
 
 app.use("/api", carousel_routes_admin);
 
+// !!  VOUCHER_ROUTES
+const voucher_routes_admin = require("./src/v1/admin_api/routes/voucher.routes");
+
+app.use("/api", voucher_routes_admin);
+
 module.exports = app;
