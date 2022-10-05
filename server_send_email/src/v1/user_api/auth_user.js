@@ -81,10 +81,21 @@ const feedbackUsers = async (message) => {
     },
   });
 };
+const paymentSuccess = async (message) => {
+  const { email, name } = message;
+  await sendEmail({
+    from: CONFIGS.SMTP_MAIL,
+    to: email,
+    subject: `Payment Success ${email}`,
+    html: `<p>We congratulate you on your successful purchase,</p><p></p><p>
+    Have a nice shopping day <b>${name}</b> Thank You.</p>`,
+  });
+};
 
 module.exports = {
   registerSendEmail,
   resetPasswordSendEmail,
   registerGoogleNewPassword,
   feedbackUsers,
+  paymentSuccess,
 };
