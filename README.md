@@ -112,9 +112,13 @@
 
 ## FeedBack
 
-- Xem tất cả loại voucher : get --> http://localhost:5000/api/feedback/all
+- Get all feedback: get --> http://localhost:5000/api/feedback
 
-- Tra loi Feedback: patch --> http://localhost:5000/api/feedback/response/:id
+- Response Feedback: post --> http://localhost:5000/api/feedback/response/:id
+
+- Read Feedback: get --> http://localhost:5000/api/feedback/read/:id
+
+- Filter Feedback: post --> http://localhost:5000/api/feedback/filter
 
 ## Product
 
