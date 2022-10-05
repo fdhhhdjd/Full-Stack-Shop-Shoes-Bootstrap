@@ -98,6 +98,15 @@ app.use("/api", user_feedback);
 const user_carousel = require("./src/v1/user_api/routes/carousel.routes");
 
 app.use("/api", user_carousel);
+// !! VOUCHER_ROUTES
+const voucher_carousel = require("./src/v1/user_api/routes/voucher.routes");
+
+app.use("/api", voucher_carousel);
+
+// !! PAYMENT_ROUTES
+const payment_carousel = require("./src/v1/user_api/routes/payment.routes");
+
+app.use("/api", payment_carousel);
 
 //* ------------------------- Admins ------------------------- //
 //!! ADMIN_ROUTE

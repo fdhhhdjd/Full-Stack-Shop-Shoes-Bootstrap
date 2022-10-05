@@ -12,6 +12,7 @@ module.exports = {
 
   //! Time Redis
   _1_MINUTES_REDIS: 100,
+  _15_MINUTES_REDIS: 100 * 15,
   _1_HOURS_REDIS: 4500,
   _1_DAYS_REDIS: 108000,
   _7_DAYS_REDIS: 6 * 108000,
