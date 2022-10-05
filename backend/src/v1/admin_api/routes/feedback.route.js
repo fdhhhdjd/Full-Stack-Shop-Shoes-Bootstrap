@@ -2,7 +2,6 @@ const router = require("express").Router();
 const VerifyAcceptToken = require("../../middlewares/VerifyAcceptToken.middleware");
 const authAdmin = require("../../middlewares/VerificationAdmin");
 const feedbackCtrl = require("../controllers/feedback.controllers");
-
 //* Get All feedback
 router.get(
   "/feedback",
@@ -16,13 +15,6 @@ router.post(
   VerifyAcceptToken,
   authAdmin,
   feedbackCtrl.responseFeedbackUsers
-);
-//* read feedback
-router.get(
-  "/feedback/read/:id",
-  VerifyAcceptToken,
-  authAdmin,
-  feedbackCtrl.readEmailFeedbackUsers
 );
 //* read feedback
 router.get(
