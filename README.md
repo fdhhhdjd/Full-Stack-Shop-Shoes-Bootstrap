@@ -72,13 +72,8 @@
 
 - Delete Users and Admins : delete --> http://localhost:5000/api/admin/delete/account/:id
 
-- List users register new 3 days: get --> http://localhost:5000/api/admin/getall/user/new
-
 - Get all Admin: get --> http://localhost:5000/api/admin/getall/admin
 
-- List account user delete order : get -->http://localhost:5000/api/admin/getall/user/delete/order
-
-- List Monthly Registered Customers: get --> http://localhost:5000/api/admin/getall/user/register/month
 
 ## Categories
 
@@ -142,9 +137,16 @@
 
 - Undo order customer delete : post --> http://localhost:5000/api/admin/payment/update/:id
 
-- Lấy ra chi tiết đơn hàng: get --> http://localhost:5000/api/payment/payments/:id
+- Lấy ra chi tiết đơn hàng: get --> http://localhost:5000/api/payment/payments/:id'
 
 - Thay đổi tình trạng hóa đơn : patch --> http://localhost:5000/api/payment/update/order_status/:id
+
+## Statisticals
+- List users register new 3 days: get --> http://localhost:5000/api/admin/getall/user/new
+
+- List account user delete order : get -->http://localhost:5000/api/admin/getall/user/delete/order
+
+- List Monthly Registered Customers: get --> http://localhost:5000/api/admin/getall/user/register/month
 
 - Tổng doanh thu : get --> http://localhost:5000/api/payment/sumOfIncome
 
