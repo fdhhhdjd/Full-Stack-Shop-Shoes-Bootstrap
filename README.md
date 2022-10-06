@@ -190,8 +190,6 @@
 
 - Lịch sử đơn hàng của khách hàng : --> http://localhost:5000/api/auth/history
 
-- Cho người dùng nhập mật khẩu mới khi login GG FB thay vì register:patch --> http://localhost:5000/api/auth/changePasswordGgFb
-
 ## Categories
 
 - Get all category : get --> http://localhost:5000/api/user/category
