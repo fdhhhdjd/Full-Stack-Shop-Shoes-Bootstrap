@@ -3,6 +3,7 @@ const {
   LoginPhoneAdmin,
   LoginEmailAdmin,
   CheckForgetAdmin,
+  CheckChangePassword,
 } = require("./auth.type.admin");
 const { insertOtp, validOtp } = require("./otp.service");
 const { _Otp } = require("../../../models/Otp.model");
@@ -11,12 +12,10 @@ const {
   getProfileId,
 } = require("../../../user_api/services/user.service/getalluser.service");
 const { get, RedisPub, del } = require("../../../utils/limited_redis");
-const sendEmail = require("../../../user_api/services/user.service/sendEmail.service");
 const STORAGE = require("../../../utils/storage");
 const HELPER = require("../../../utils/helper");
 const PASSWORD = require("../../../utils/password");
 const Users = require("../../../models/userModel");
-const CONFIGS = require("../../../configs/config");
 const CONSTANTS = require("../../../configs/constants");
 
 module.exports = {
@@ -248,6 +247,38 @@ module.exports = {
       status: 200,
       success: true,
       element: { msg: "Logged out success" },
+    };
+  },
+  HandleChangePassword: async ({
+    password,
+    oldPassword,
+    confirmPassword,
+    user_id,
+  }) => {
+    const { status, success, element } = await CheckChangePassword({
+      password,
+      oldPassword,
+      confirmPassword,
+      user_id,
+    });
+
+    if (!success) {
+      return {
+        status,
+        success,
+        element,
+      };
+    }
+    let user = element;
+    const salt = await PASSWORD.genSalt();
+    const passwordHash = await PASSWORD.encodeResetPassword(password, salt);
+    await UpdatePassword(user.id, passwordHash);
+    return {
+      status: 200,
+      success: true,
+      element: {
+        msg: "Change Password Successfully 😂!",
+      },
     };
   },
 };

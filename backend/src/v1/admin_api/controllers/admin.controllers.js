@@ -11,6 +11,7 @@ const {
   handleProfileAdmin,
   handleLoginGoogleAdmin,
   handleLogoutAdmin,
+  HandleChangePassword,
 } = require("../services/auth_admin/auth_admin_service");
 
 const adminCtrl = {
@@ -207,6 +208,31 @@ const adminCtrl = {
         phone_number,
         sex,
         date_of_birth,
+        user_id,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+  //* Change Password User
+  ChangePasswordAdmin: async (req, res) => {
+    try {
+      const { oldPassword, password, confirmPassword } = req.body;
+      const user_id = req.user.id;
+      const { status, success, element } = await HandleChangePassword({
+        password,
+        oldPassword,
+        confirmPassword,
         user_id,
       });
       return res.status(status).json({
