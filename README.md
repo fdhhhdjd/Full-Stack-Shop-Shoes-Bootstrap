@@ -231,6 +231,8 @@
 
 - History orders: --> http://localhost:5000/api/order/history
 
+- Get Detail orders: -->http://localhost:5000/api/order/:id
+
 ## Payments
 
 - Payment paypal: post --> http://localhost:5000/api/payment/paypal
