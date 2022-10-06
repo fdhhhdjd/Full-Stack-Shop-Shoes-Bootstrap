@@ -141,10 +141,11 @@
 
 - Thay đổi tình trạng hóa đơn : patch --> http://localhost:5000/api/payment/update/order_status/:id
 
-## Statisticals
-- List users register new 3 days: get --> http://localhost:5000/api/admin/getall/user/new
-
 - List account user delete order : get -->http://localhost:5000/api/admin/getall/user/delete/order
+
+## Statisticals
+
+- List users register new 3 days: get --> http://localhost:5000/api/admin/getall/user/new
 
 - List Monthly Registered Customers: get --> http://localhost:5000/api/admin/getall/user/register/month
 
