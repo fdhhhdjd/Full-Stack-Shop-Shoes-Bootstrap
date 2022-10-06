@@ -102,6 +102,9 @@ const UpdatePassword = async (user_id, password) => {
     { new: true }
   );
 };
+const getDetailUser = async (user_id) => {
+  return await Users.findById(user_id);
+};
 module.exports = {
   //* Create Admin
   createAdmin,
@@ -117,4 +120,6 @@ module.exports = {
   UpdatePassword,
   //* Update Profile
   UpdateProfile,
+  //* Detail
+  getDetailUser,
 };

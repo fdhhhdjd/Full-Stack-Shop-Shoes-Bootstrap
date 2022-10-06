@@ -5,6 +5,7 @@ const PASSWORD = require("../../../utils/password");
 const Users = require("../../../models/userModel");
 const CONFIGS = require("../../../configs/config");
 const HELPER = require("../../../utils/helper.js");
+const { getDetailUser } = require("./Crud.admin.service");
 
 module.exports = {
   LoginEmailAdmin: async (email_phone, password) => {
@@ -122,5 +123,88 @@ module.exports = {
       };
     }
     return { success: true, element: account_admin };
+  },
+  //* Check Change Password
+
+  CheckChangePassword: async ({
+    password,
+    oldPassword,
+    confirmPassword,
+    user_id,
+  }) => {
+    console.log("oke");
+    const user = await getDetailUser(user_id);
+    if (!password)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Password are not empty.",
+        },
+      };
+
+    if (!confirmPassword)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: " Confirm are not empty.",
+        },
+      };
+
+    if (!oldPassword)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Old Password are not empty.",
+        },
+      };
+
+    if (password.length < 6)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Password is at least 6 characters long.",
+        },
+      };
+
+    const reg = HELPER.isPassword(password);
+    if (!reg) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Includes 6 characters, uppercase, lowercase and some and special characters.",
+        },
+      };
+    }
+    if (confirmPassword !== password) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Password and confirm password does not match!",
+        },
+      };
+    }
+
+    const isMatch = await PASSWORD.comparePassword(oldPassword, user.password);
+    if (!isMatch) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: " Old Password Incorrect",
+        },
+      };
+    }
+    console.log(user);
+    return {
+      status: 200,
+      success: true,
+      element: user,
+    };
   },
 };
