@@ -132,7 +132,7 @@
 
 - Delete product : delete --> http://localhost:5000/api/admin/product/delete/:id
 
-## Payments
+## Orders
 
 - Lấy ra toàn bộ đơn hàng: get --> http://localhost:5000/api/payment/payments
 
