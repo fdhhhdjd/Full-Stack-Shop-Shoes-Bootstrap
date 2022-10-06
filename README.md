@@ -66,19 +66,19 @@
 
 - Login google Admin: post --> http://localhost:5000/api/admin/login/google
 
-- Lấy ra danh sách khách hàng: get --> http://localhost:5000/api/auth/getAllUser
+- Get all account users: get --> http://localhost:5000/api/admin/getall/users
 
-- Cập nhập thông tin khách hàng hay admin : patch --> http://localhost:5000/api/auth/updateUserAdmin/:id
+- Update Users and Admin : post --> http://localhost:5000/api/admin/upload/account/:id
 
-- Xóa tài khoản khách hàng hay admin : delete --> http://localhost:5000/api/auth/deleteUserAdmin/:id
+- Delete Users and Admins : delete --> http://localhost:5000/api/admin/delete/account/:id
 
-- Danh sách tài khoản mới đăng ký trong 3 ngày gần đây: get --> http://localhost:5000/api/auth/getUserDay
+- List users register new 3 days: get --> http://localhost:5000/api/admin/getall/user/new
 
-- Danh sách các tài khoản admin: get --> http://localhost:5000/api/auth/getAllAdmin
+- Get all Admin: get --> http://localhost:5000/api/admin/getall/admin
 
-- Danh sách tài khoản Uncheck:get -->http://localhost:5000/api/auth/getAllUserUncheck
+- List account user delete order : get -->http://localhost:5000/api/admin/getall/user/delete/order
 
-- Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
+- List Monthly Registered Customers: get --> http://localhost:5000/api/admin/getall/user/register/month
 
 ## Categories
 
@@ -96,7 +96,7 @@
 
 - Create Carousels: post --> http://localhost:5000/api/admin/carousel/create
 
-- Upload Carousel: patch --> http://localhost:5000/api/admin/carousel/edit/:id
+- Upload Carousel: post --> http://localhost:5000/api/admin/carousel/edit/:id
 
 - Delete Carousel: delete --> http://localhost:5000/api/admin/carousel/delete/:id
 
@@ -128,7 +128,7 @@
 
 - Create product : post --> http://localhost:5000/api/admin/product/create
 
-- Update product : put --> http://localhost:5000/api/admin/product/update/:id
+- Update product : post --> http://localhost:5000/api/admin/product/update/:id
 
 - Delete product : delete --> http://localhost:5000/api/admin/product/delete/:id
 
@@ -140,7 +140,7 @@
 
 - Bỏ những đơn hàng không cần vào thùng rác: patch --> http://localhost:5000/api/payment/deletePayments/:id
 
-- Khôi phục lại những đơn hàng đã bỏ vào thùng rác: patch --> http://localhost:5000/api/payment/undoPayments/:id
+- Undo order customer delete : post --> http://localhost:5000/api/admin/payment/update/:id
 
 - Lấy ra chi tiết đơn hàng: get --> http://localhost:5000/api/payment/payments/:id
 
