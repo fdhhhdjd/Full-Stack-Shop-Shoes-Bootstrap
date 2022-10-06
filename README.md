@@ -129,19 +129,16 @@
 
 ## Orders
 
-- Lấy ra toàn bộ đơn hàng: get --> http://localhost:5000/api/payment/payments
+- Get all orders: get --> http://localhost:5000/api/admin/order
 
-- Lấy ra đơn hàng đã xóa: get --> http://localhost:5000/api/payment/deletePayment
+- Get all order delete : get --> http://localhost:5000/api/admin/order/delete
 
-- Bỏ những đơn hàng không cần vào thùng rác: patch --> http://localhost:5000/api/payment/deletePayments/:id
+- Undo order customer delete : post --> http://localhost:5000/api/admin/order/update/:id
 
-- Undo order customer delete : post --> http://localhost:5000/api/admin/payment/update/:id
+- Orders detail : get --> http://localhost:5000/api/admin/order/:id
 
-- Lấy ra chi tiết đơn hàng: get --> http://localhost:5000/api/payment/payments/:id'
+- Change status Orders: post --> http://localhost:5000/api/admin/order/upload/status/:id
 
-- Thay đổi tình trạng hóa đơn : patch --> http://localhost:5000/api/payment/update/order_status/:id
-
-- List account user delete order : get -->http://localhost:5000/api/admin/getall/user/delete/order
 
 ## Statisticals
 
@@ -149,17 +146,17 @@
 
 - List Monthly Registered Customers: get --> http://localhost:5000/api/admin/getall/user/register/month
 
-- Tổng doanh thu : get --> http://localhost:5000/api/payment/sumOfIncome
+- Total turnover : get --> http://localhost:5000/api/admin/statistical/sum
 
-- Doanh thu của hóa đơn đã được vận chuyển tháng này với tháng trước : get --> http://localhost:5000/api/payment/orders/customerReceived/getIncomeThisMonthAndCompareTo
+- Turnover orders order delivery this month with before month: get --> http://localhost:5000/api/admin/statistical/compare/month/received
 
-- Doanh thu của hóa đơn khách hàng chưa nhận được tháng này với tháng trước: get --> http://localhost:5000/api/payment/orders/customerNotReceived/getIncomeThisMonthAndCompareTo
+- Turnover orders order not delivery this month with before month: get --> http://localhost:5000/api/admin/statistical/compare/month/not/received
 
-- Doanh thu hóa đơn đã vận chuyển thành công theo từng tháng: get --> http://localhost:5000/api/payment/orders/customerReceived/getMonthlyIncome
+- Get monthly the income customer have received (12 month): get --> http://localhost:5000/api/admin/statistical/month/received
 
-- Lấy ra những đơn hàng được thanh toán trong 3 ngày gần nhất : get --> http://localhost:5000/api/payment/newPayment
+- Take orders order delivery new 3 days : get --> http://localhost:5000/api/admin/statistical/buy/new
 
-- Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
+- Statisticals account register every 12 month : get --> http://localhost:5000/api/admin/getall/user/register/month
 
 ## 2. API Users
 
@@ -189,7 +186,6 @@
 
 - Login Facebook Users: post --> http://localhost:5000/api/user/login/facebook
 
-- Lịch sử đơn hàng của khách hàng : --> http://localhost:5000/api/auth/history
 
 ## Categories
 
@@ -228,6 +224,12 @@
 - Add voucher: post --> http://localhost:5000/api/user/voucher
 
 - Del voucher: get --> http://localhost:5000/api/user/voucher/del
+
+## Orders
+
+- Delete order flag: post --> http://localhost:5000/api/order/delete/:id
+
+- History orders: --> http://localhost:5000/api/order/history
 
 ## Payments
 
