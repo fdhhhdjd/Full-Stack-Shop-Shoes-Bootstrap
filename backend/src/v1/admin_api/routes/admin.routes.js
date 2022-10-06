@@ -42,5 +42,11 @@ router.post(
   authAdmin,
   adminCtrl.UpdateProfileAdmin
 );
-
+//! Change password
+router.post(
+  "/admin/change/password",
+  VerifyAcceptToken,
+  authAdmin,
+  adminCtrl.ChangePasswordAdmin
+);
 module.exports = router;

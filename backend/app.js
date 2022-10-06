@@ -62,6 +62,9 @@ app.use(
     },
   })
 );
+//* ------------------------- Upload General ------------------------- //
+const upload_routes = require("./src/v1/upload_cloudinary/routes/upload.routes");
+app.use("/api", upload_routes);
 
 //* ------------------------- Users ------------------------- //
 
@@ -138,5 +141,15 @@ app.use("/api", carousel_routes_admin);
 const voucher_routes_admin = require("./src/v1/admin_api/routes/voucher.routes");
 
 app.use("/api", voucher_routes_admin);
+
+//!! Manager_Users_ROUTES
+const manager_user_routes = require("./src/v1/admin_api/routes/manager_user.routes");
+
+app.use("/api", manager_user_routes);
+
+//!! Payment_Admin_ROUTES
+const payment_admin_routes = require("./src/v1/admin_api/routes/payment.routes");
+
+app.use("/api", payment_admin_routes);
 
 module.exports = app;

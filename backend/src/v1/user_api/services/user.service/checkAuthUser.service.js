@@ -7,6 +7,7 @@ const STORAGE = require("../../../utils/storage");
 const HELPER = require("../../../utils/helper");
 const PASSWORD = require("../../../utils/password");
 const { checkVerification } = require("../../../utils/storage");
+const { getProfileId } = require("./getalluser.service");
 module.exports = {
   CheckRegister: async ({
     email,
@@ -292,6 +293,7 @@ module.exports = {
         },
       };
     }
+
     const isMatch = await PASSWORD.comparePassword(oldPassword, user.password);
     if (!isMatch) {
       return {
@@ -333,6 +335,7 @@ module.exports = {
         },
       };
     }
+
     const check_phone_vietnamese = HELPER.isVietnamesePhoneNumber(phone_number);
     if (!check_phone_vietnamese) {
       return {
