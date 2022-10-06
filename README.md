@@ -36,6 +36,12 @@
 
 ## SUPORT CONTACT:https://profile-forme.surge.sh/
 
+## Upload General
+
+- Upload Storage : post --> http://localhost:5000/api/upload
+
+- Destroy Storage: post --> http://localhost:5000/api/destroy
+
 ## 1. API Admin
 
 ## Admin
@@ -50,37 +56,26 @@
 
 - Get Profile Admin: get --> http://localhost:5000/api/admin/profile
 
-- update profile: post --> http://localhost:5000/api/update/profile
+- Update profile: post --> http://localhost:5000/api/admin/update/profile
 
 - New access Token : get --> http://localhost:5000/api/admin/new/access
 
-- Thay đổi mật khẩu : patch --> http://localhost:5000/api/auth/changePassword
+- Change Password : post --> http://localhost:5000/api/admin/change/password
 
 - Forget password admin: post --> http://localhost:5000/api/admin/forget
 
 - Login google Admin: post --> http://localhost:5000/api/admin/login/google
 
-- Lấy ra danh sách khách hàng: get --> http://localhost:5000/api/auth/getAllUser
+- Get all account users: get --> http://localhost:5000/api/admin/getall/users
 
-- Cập nhập thông tin khách hàng hay admin : patch --> http://localhost:5000/api/auth/updateUserAdmin/:id
+- Update Users and Admin : post --> http://localhost:5000/api/admin/upload/account/:id
 
-- Xóa tài khoản khách hàng hay admin : delete --> http://localhost:5000/api/auth/deleteUserAdmin/:id
+- Delete Users and Admins : delete --> http://localhost:5000/api/admin/delete/account/:id
 
-- Danh sách tài khoản mới đăng ký trong 3 ngày gần đây: get --> http://localhost:5000/api/auth/getUserDay
+- Get all Admin: get --> http://localhost:5000/api/admin/getall/admin
 
-- Danh sách các tài khoản admin: get --> http://localhost:5000/api/auth/getAllAdmin
 
-- Danh sách tài khoản Uncheck:get -->http://localhost:5000/api/auth/getAllUserUncheck
-
-- Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
-
-## Upload:
-
-- Upload ảnh người dùng : post --> http://localhost:5000/api/uploadImageUser
-
-- Xóa ảnh người dùng trên cloud : post --> http://localhost:5000/api/destroyImageUser
-
-## Category
+## Categories
 
 - Get all category: get --> http://localhost:5000/api/category
 
@@ -90,27 +85,27 @@
 
 - Delete category: delete --> http://localhost:5000/api/category/delete/:id
 
-## Carousel
+## Carousels
 
-- Xem tất cả loại Carousel: get --> http://localhost:5000/api/carousel/carousels
+- Get all Carousels: get --> http://localhost:5000/api/admin/carousel
 
-- Tạo thêm 1 loại Carousels: post --> http://localhost:5000/api/carousel/carousels
+- Create Carousels: post --> http://localhost:5000/api/admin/carousel/create
 
-- Cập nhập loại Carousel: patch --> http://localhost:5000/api/carousel/carousels/:id
+- Upload Carousel: post --> http://localhost:5000/api/admin/carousel/edit/:id
 
-- Xóa loại Carousel: delete --> http://localhost:5000/api/carousel/carousels/:id
+- Delete Carousel: delete --> http://localhost:5000/api/admin/carousel/delete/:id
 
-## Voucher
+## Vouchers
 
-- Xem tất cả loại voucher : get --> http://localhost:5000/api/voucher/vouchers
+- Get all Vouchers : get --> http://localhost:5000/api/admin/voucher
 
-- Tạo thêm voucher: post --> http://localhost:5000/api/voucher/vouchers
+- Create Vouchers: post --> http://localhost:5000/api/admin/voucher/create
 
-- Cập nhập voucher: patch --> http://localhost:5000/api/voucher/vouchers/:id
+- Upadate Vouchers: post --> http://localhost:5000/api/admin/voucher/update/:id"
 
-- Xóa loại voucher: delete --> http://localhost:5000/api/voucher/vouchers/:id
+- Delete Vouchers: delete --> http://localhost:5000/api/admin/voucher/delete/:id
 
-## FeedBack
+## FeedBacks
 
 - Get all feedback: get --> http://localhost:5000/api/feedback
 
@@ -120,7 +115,7 @@
 
 - Filter Feedback: post --> http://localhost:5000/api/feedback/filter
 
-## Product
+## Products
 
 - Get all product(Sort,filter,page) : get --> http://localhost:5000/api/admin/product
 
@@ -128,43 +123,42 @@
 
 - Create product : post --> http://localhost:5000/api/admin/product/create
 
-- Update product : put --> http://localhost:5000/api/admin/product/update/:id
+- Update product : post --> http://localhost:5000/api/admin/product/update/:id
 
 - Delete product : delete --> http://localhost:5000/api/admin/product/delete/:id
 
-## Payment
+## Orders
 
-- Lấy ra toàn bộ đơn hàng: get --> http://localhost:5000/api/payment/payments
+- Get all orders: get --> http://localhost:5000/api/admin/order
 
-- Lấy ra đơn hàng đã xóa: get --> http://localhost:5000/api/payment/deletePayment
+- Get all order delete : get --> http://localhost:5000/api/admin/order/delete
 
-- Bỏ những đơn hàng không cần vào thùng rác: patch --> http://localhost:5000/api/payment/deletePayments/:id
+- Undo order customer delete : post --> http://localhost:5000/api/admin/order/update/:id
 
-- Khôi phục lại những đơn hàng đã bỏ vào thùng rác: patch --> http://localhost:5000/api/payment/undoPayments/:id
+- Orders detail : get --> http://localhost:5000/api/admin/order/:id
 
-- Lấy ra chi tiết đơn hàng: get --> http://localhost:5000/api/payment/payments/:id
+- Change status Orders: post --> http://localhost:5000/api/admin/order/upload/status/:id
 
-- Thay đổi tình trạng hóa đơn : patch --> http://localhost:5000/api/payment/update/order_status/:id
 
-- Tổng doanh thu : get --> http://localhost:5000/api/payment/sumOfIncome
+## Statisticals
 
-- Doanh thu của hóa đơn đã được vận chuyển tháng này với tháng trước : get --> http://localhost:5000/api/payment/orders/customerReceived/getIncomeThisMonthAndCompareTo
+- List users register new 3 days: get --> http://localhost:5000/api/admin/getall/user/new
 
-- Doanh thu của hóa đơn khách hàng chưa nhận được tháng này với tháng trước: get --> http://localhost:5000/api/payment/orders/customerNotReceived/getIncomeThisMonthAndCompareTo
+- List Monthly Registered Customers: get --> http://localhost:5000/api/admin/getall/user/register/month
 
-- Doanh thu hóa đơn đã vận chuyển thành công theo từng tháng: get --> http://localhost:5000/api/payment/orders/customerReceived/getMonthlyIncome
+- Total turnover : get --> http://localhost:5000/api/admin/statistical/sum
 
-- Lấy ra những đơn hàng được thanh toán trong 3 ngày gần nhất : get --> http://localhost:5000/api/payment/newPayment
+- Turnover orders order delivery this month with before month: get --> http://localhost:5000/api/admin/statistical/compare/month/received
 
-- Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
+- Turnover orders order not delivery this month with before month: get --> http://localhost:5000/api/admin/statistical/compare/month/not/received
+
+- Get monthly the income customer have received (12 month): get --> http://localhost:5000/api/admin/statistical/month/received
+
+- Take orders order delivery new 3 days : get --> http://localhost:5000/api/admin/statistical/buy/new
+
+- Statisticals account register every 12 month : get --> http://localhost:5000/api/admin/getall/user/register/month
 
 ## 2. API Users
-
-## Upload:
-
-- Upload ảnh người dùng : post --> http://localhost:5000/api/uploadImageUser
-
-- Xóa ảnh người dùng trên cloud : post --> http://localhost:5000/api/destroyImageUser
 
 ## Authentication Users:
 
@@ -192,15 +186,12 @@
 
 - Login Facebook Users: post --> http://localhost:5000/api/user/login/facebook
 
-- Lịch sử đơn hàng của khách hàng : --> http://localhost:5000/api/auth/history
 
-- Cho người dùng nhập mật khẩu mới khi login GG FB thay vì register:patch --> http://localhost:5000/api/auth/changePasswordGgFb
-
-## Category
+## Categories
 
 - Get all category : get --> http://localhost:5000/api/user/category
 
-## Cart 
+## Carts
 
 - Add to cart : post --> http://localhost:5000/api/product/add/cart
 
@@ -210,17 +201,17 @@
 
 - Get cart users: ->http://localhost:5000/api/product/get/cart
 
-## Feedback
+## Feedbacks
 
 - Send Feedback : post --> http://localhost:5000/api/feedback/send
 
-## Product
+## Products
 
 - Get all product: get --> http://localhost:5000/api/product
 
 - Get Product detail : get --> http://localhost:5000/api/review/create/:id
 
-## Review
+## Reviews
 
 - Comment Product: post -->http://localhost:5000/api/review/create/:id
 
@@ -228,13 +219,21 @@
 
 - Delete comment : delete --> http://localhost:5000/api/review/:productId/delete/:commentId
 
-## Voucher
+## Vouchers
 
 - Add voucher: post --> http://localhost:5000/api/user/voucher
 
 - Del voucher: get --> http://localhost:5000/api/user/voucher/del
 
-## Payment
+## Orders
+
+- Delete order flag: post --> http://localhost:5000/api/order/delete/:id
+
+- History orders: --> http://localhost:5000/api/order/history
+
+- Get Detail orders: -->http://localhost:5000/api/order/:id
+
+## Payments
 
 - Payment paypal: post --> http://localhost:5000/api/payment/paypal
 

@@ -90,6 +90,7 @@ module.exports = {
     total_apply_voucher = (total * JSON.parse(voucher)) / 100;
     const { success, element } = await createPayment({
       user_id,
+      cart,
       paymentID,
       address,
       total,

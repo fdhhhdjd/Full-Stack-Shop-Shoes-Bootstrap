@@ -45,7 +45,7 @@ router.get(
   authAdmin,
   manager_userCtrl.ListAccountUserDeleteOrder
 );
-//! List account user delete order
+//! List Monthly Registered Customer
 router.get(
   "/admin/getall/user/register/month",
   VerifyAcceptTokenAdmin,

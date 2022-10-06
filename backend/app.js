@@ -111,6 +111,11 @@ const payment_carousel = require("./src/v1/user_api/routes/payment.routes");
 
 app.use("/api", payment_carousel);
 
+// !! ORDER_ROUTES
+const order_carousel = require("./src/v1/user_api/routes/order.routes");
+
+app.use("/api", order_carousel);
+
 //* ------------------------- Admins ------------------------- //
 //!! ADMIN_ROUTE
 const admins_routes = require("./src/v1/admin_api/routes/admin.routes");
@@ -147,9 +152,13 @@ const manager_user_routes = require("./src/v1/admin_api/routes/manager_user.rout
 
 app.use("/api", manager_user_routes);
 
-//!! Payment_Admin_ROUTES
-const payment_admin_routes = require("./src/v1/admin_api/routes/payment.routes");
+//!! Order_Admin_ROUTES
+const order_admin_routes = require("./src/v1/admin_api/routes/order.routes");
 
-app.use("/api", payment_admin_routes);
+app.use("/api", order_admin_routes);
 
+// !! _ROUTES
+const statistical_carousel = require("./src/v1/admin_api/routes/statistical.routes");
+
+app.use("/api", statistical_carousel);
 module.exports = app;
