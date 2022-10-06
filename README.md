@@ -36,6 +36,12 @@
 
 ## SUPORT CONTACT:https://profile-forme.surge.sh/
 
+## Upload General
+
+- Upload Storage : post --> http://localhost:5000/api/upload
+
+- Destroy Storage: post --> http://localhost:5000/api/destroy
+
 ## 1. API Admin
 
 ## Admin
@@ -50,11 +56,11 @@
 
 - Get Profile Admin: get --> http://localhost:5000/api/admin/profile
 
-- update profile: post --> http://localhost:5000/api/update/profile
+- Update profile: post --> http://localhost:5000/api/admin/update/profile
 
 - New access Token : get --> http://localhost:5000/api/admin/new/access
 
-- Thay đổi mật khẩu : patch --> http://localhost:5000/api/auth/changePassword
+- Change Password : post --> http://localhost:5000/api/admin/change/password
 
 - Forget password admin: post --> http://localhost:5000/api/admin/forget
 
@@ -74,13 +80,7 @@
 
 - Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
 
-## Upload:
-
-- Upload ảnh người dùng : post --> http://localhost:5000/api/uploadImageUser
-
-- Xóa ảnh người dùng trên cloud : post --> http://localhost:5000/api/destroyImageUser
-
-## Category
+## Categories
 
 - Get all category: get --> http://localhost:5000/api/category
 
@@ -90,27 +90,27 @@
 
 - Delete category: delete --> http://localhost:5000/api/category/delete/:id
 
-## Carousel
+## Carousels
 
-- Xem tất cả loại Carousel: get --> http://localhost:5000/api/carousel/carousels
+- Get all Carousels: get --> http://localhost:5000/api/admin/carousel
 
-- Tạo thêm 1 loại Carousels: post --> http://localhost:5000/api/carousel/carousels
+- Create Carousels: post --> http://localhost:5000/api/admin/carousel/create
 
-- Cập nhập loại Carousel: patch --> http://localhost:5000/api/carousel/carousels/:id
+- Upload Carousel: patch --> http://localhost:5000/api/admin/carousel/edit/:id
 
-- Xóa loại Carousel: delete --> http://localhost:5000/api/carousel/carousels/:id
+- Delete Carousel: delete --> http://localhost:5000/api/admin/carousel/delete/:id
 
-## Voucher
+## Vouchers
 
-- Xem tất cả loại voucher : get --> http://localhost:5000/api/voucher/vouchers
+- Get all Vouchers : get --> http://localhost:5000/api/admin/voucher
 
-- Tạo thêm voucher: post --> http://localhost:5000/api/voucher/vouchers
+- Create Vouchers: post --> http://localhost:5000/api/admin/voucher/create
 
-- Cập nhập voucher: patch --> http://localhost:5000/api/voucher/vouchers/:id
+- Upadate Vouchers: post --> http://localhost:5000/api/admin/voucher/update/:id"
 
-- Xóa loại voucher: delete --> http://localhost:5000/api/voucher/vouchers/:id
+- Delete Vouchers: delete --> http://localhost:5000/api/admin/voucher/delete/:id
 
-## FeedBack
+## FeedBacks
 
 - Get all feedback: get --> http://localhost:5000/api/feedback
 
@@ -120,7 +120,7 @@
 
 - Filter Feedback: post --> http://localhost:5000/api/feedback/filter
 
-## Product
+## Products
 
 - Get all product(Sort,filter,page) : get --> http://localhost:5000/api/admin/product
 
@@ -132,7 +132,7 @@
 
 - Delete product : delete --> http://localhost:5000/api/admin/product/delete/:id
 
-## Payment
+## Payments
 
 - Lấy ra toàn bộ đơn hàng: get --> http://localhost:5000/api/payment/payments
 
@@ -159,12 +159,6 @@
 - Thống kê các tài khoản khách hàng đăng ký mỗi tháng: get --> http://localhost:5000/api/auth/getMonthlyRegisteredCustomer
 
 ## 2. API Users
-
-## Upload:
-
-- Upload ảnh người dùng : post --> http://localhost:5000/api/uploadImageUser
-
-- Xóa ảnh người dùng trên cloud : post --> http://localhost:5000/api/destroyImageUser
 
 ## Authentication Users:
 
@@ -196,11 +190,11 @@
 
 - Cho người dùng nhập mật khẩu mới khi login GG FB thay vì register:patch --> http://localhost:5000/api/auth/changePasswordGgFb
 
-## Category
+## Categories
 
 - Get all category : get --> http://localhost:5000/api/user/category
 
-## Cart 
+## Carts
 
 - Add to cart : post --> http://localhost:5000/api/product/add/cart
 
@@ -210,17 +204,17 @@
 
 - Get cart users: ->http://localhost:5000/api/product/get/cart
 
-## Feedback
+## Feedbacks
 
 - Send Feedback : post --> http://localhost:5000/api/feedback/send
 
-## Product
+## Products
 
 - Get all product: get --> http://localhost:5000/api/product
 
 - Get Product detail : get --> http://localhost:5000/api/review/create/:id
 
-## Review
+## Reviews
 
 - Comment Product: post -->http://localhost:5000/api/review/create/:id
 
@@ -228,13 +222,13 @@
 
 - Delete comment : delete --> http://localhost:5000/api/review/:productId/delete/:commentId
 
-## Voucher
+## Vouchers
 
 - Add voucher: post --> http://localhost:5000/api/user/voucher
 
 - Del voucher: get --> http://localhost:5000/api/user/voucher/del
 
-## Payment
+## Payments
 
 - Payment paypal: post --> http://localhost:5000/api/payment/paypal
 
