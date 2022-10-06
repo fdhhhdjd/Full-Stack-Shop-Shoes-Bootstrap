@@ -3,6 +3,7 @@ const Payments = require("../../../models/PaymentModel");
 const Users = require("../../../models/userModel");
 const createPayment = async ({
   user_id,
+  cart,
   paymentID,
   address,
   total,
@@ -19,6 +20,7 @@ const createPayment = async ({
       user_id: user_id,
       name,
       email,
+      cart,
       cost: total,
       voucher: !voucher ? 0 : voucher,
       discount: total_apply_voucher,
@@ -35,8 +37,6 @@ const createPayment = async ({
       element: user,
     };
   } catch (error) {
-    console.log(error);
-
     await sess.abortTransaction();
     sess.endSession();
     return {
