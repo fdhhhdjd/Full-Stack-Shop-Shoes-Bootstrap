@@ -9,6 +9,9 @@ router.post("/user/register", userCtrl.registerUser);
 // * ------------- Login -------------
 //!Login Email and Phone
 router.post("/user/login", userCtrl.loginUser);
+
+//!Login Phone OTP Firebase
+router.post("/user/login/mobile", userCtrl.loginPhoneFirebase);
 //! Login Google Socials
 router.post("/user/login/google", userCtrl.loginUserGoogle);
 //! Login Facebook Socials
@@ -20,7 +23,7 @@ router.get("/user/verify/:userId/:uniqueString", userCtrl.verifyEmail);
 
 //*------------- Create New AccessToken -------------
 //! New Access Token
-router.post(
+router.get(
   "/user/new/accessToken",
   VerifyRefreshToken,
   userCtrl.createNewAccessTokens
