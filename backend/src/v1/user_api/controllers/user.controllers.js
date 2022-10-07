@@ -12,6 +12,7 @@ const {
   HandleResetPasswordUser,
   HandleChangePassword,
   HandleUploadProfile,
+  handleLoginPhone,
 } = require("../../user_api/services/user.service/user.service");
 const {
   CheckVerificationUser,
@@ -77,6 +78,30 @@ const userCtrl = {
       const { status, success, element } = await checkLoginFacebook({
         userID,
         accessToken,
+        res,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+  //* Login Phone OTP firebase
+  loginPhone: async (req, res) => {
+    try {
+      const { phone_number } = req.body;
+      let session = req.session;
+      const { status, success, element } = await handleLoginPhone({
+        phone_number,
+        session,
         res,
       });
       return res.status(status).json({

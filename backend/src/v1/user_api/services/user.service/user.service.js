@@ -38,8 +38,8 @@ const { getProfileId } = require("./getalluser.service");
 const { get, RedisPub, del } = require("../../../utils/limited_redis");
 const sendEmail = require("./sendEmail.service");
 const PASSWORD = require("../../../utils/password");
-const CONFIGS = require("../../../configs/config");
 const CONSTANTS = require("../../../configs/constants");
+const STORAGE = require("../../../utils/storage");
 module.exports = {
   //*--------------- Handle Authentication Users  ---------------
   checkLoginUser: async ({
@@ -81,6 +81,33 @@ module.exports = {
     session.save();
     const accessToken = createAccessToken({ id: result_user._id });
     const refreshToken = await GenerateRefreshToken({ id: result_user._id });
+    saveCookies(res, refreshToken);
+    return {
+      status: 200,
+      success: true,
+      element: {
+        accessToken,
+        refreshToken,
+      },
+    };
+  },
+  handleLoginPhone: async ({ phone_number, session, res }) => {
+    const user_phone = await STORAGE.checkPhoneExit(phone_number);
+    if (!user_phone)
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Phone does not exist !!",
+        },
+      };
+    session.users = {
+      id: user_phone._id,
+      email: user_phone.email,
+    };
+    session.save();
+    const accessToken = createAccessToken({ id: user_phone._id });
+    const refreshToken = await GenerateRefreshToken({ id: user_phone._id });
     saveCookies(res, refreshToken);
     return {
       status: 200,
@@ -250,7 +277,7 @@ module.exports = {
   LogoutRemoveAllUser: async ({ user_id, token, session, res }) => {
     await del(user_id);
     res.clearCookie("refreshtoken", {
-      path: "/api/auth/refresh_token",
+      path: "/api/user/new/accessToken",
     });
     session.destroy();
     return {
