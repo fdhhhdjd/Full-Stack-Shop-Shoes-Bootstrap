@@ -1,7 +1,7 @@
 const HELPER = require("../utils/helper");
 const { get } = require("../utils/limited_redis");
 const VerifyRefreshToken = async (req, res, next) => {
-  const token = req.body.token;
+  const token = req.cookies.refreshtoken;
   if (!token) {
     return res.status(401).json({ status: false, message: "Invalid request." });
   }
