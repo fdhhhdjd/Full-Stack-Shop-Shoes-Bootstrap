@@ -117,6 +117,12 @@ module.exports = {
     });
     return user;
   },
+  //* CheckPhoneExit Firebase
+  async checkPhoneExitFirebase(phone_number) {
+    return await Users.findOne({
+      phone_number: phone_number,
+    });
+  },
   //* Check exit category
   async checkCategoryExit(name) {
     return await Category.findOne({ name });
@@ -168,7 +174,7 @@ module.exports = {
       httpOnly: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       sameSite: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       secure: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
-      path: "/api/auth/refresh_token",
+      path: "/api/user/new/accessToken",
       maxAge: CONSTANTS._7_DAY,
     });
   },
