@@ -180,7 +180,7 @@ module.exports = {
   },
   //*Handle RefetchToken
   async GenerateRefreshToken(user) {
-    const refresh = await get(user.id);
+    const refresh = await get(user.id.toString());
     if (refresh) {
       return refresh;
     }
