@@ -4,12 +4,13 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 import RoutesDataUser from "./v1/router/index";
 import { Loading_Pages_Users } from "./v1/user_ui/imports/General_Global_Import";
-import { NotFound } from "./v1/user_ui/imports/Page_Layout_Main_Import";
+import { NotFound, Header } from "./v1/user_ui/imports/Page_Layout_Main_Import";
 function App() {
   return (
     <React.Fragment>
       <Suspense fallback={<Loading_Pages_Users />}>
         <ToastContainer position="top-center" />
+        <Header />
         <Routes>
           {/* User */}
           {RoutesDataUser.map((item, key) => {
