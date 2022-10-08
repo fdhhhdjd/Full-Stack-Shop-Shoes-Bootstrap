@@ -7,7 +7,7 @@ const {
 const voucherCtrl = {
   addVoucher: async (req, res) => {
     try {
-      let user_id = req.user.id;
+      let user_id = req.user.id || req.user.user_id;
       const { title } = req.body;
       const { status, success, element } = await handleVoucher({
         user_id,
@@ -29,7 +29,7 @@ const voucherCtrl = {
   },
   delVoucher: async (req, res) => {
     try {
-      let user_id = req.user.id;
+      let user_id = req.user.id || req.user.user_id;
       const { status, success, element } = await handleDelVoucher(user_id);
       return res.status(status).json({
         status,
