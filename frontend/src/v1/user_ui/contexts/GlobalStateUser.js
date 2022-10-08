@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-} from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import CONFIGS from "../../configs/config";
 import CONTAINS from "../../configs/contants";
@@ -17,7 +12,8 @@ export const useContextUser = () => useContext(StoreContextUser);
 export const DataProviderUser = ({ children }) => {
   const dispatch = useDispatch();
   const user_login = STORAGES.getLocalStorage("Login_Users");
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     if (user_login) {
       const refreshToken = async () => {
         dispatch(New_Accept_Token_Initial());

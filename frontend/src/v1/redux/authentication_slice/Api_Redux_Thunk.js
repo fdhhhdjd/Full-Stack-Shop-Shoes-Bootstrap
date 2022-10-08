@@ -28,7 +28,7 @@ export const Login_Phone_Otp_Initial = createAsyncThunk(
   async (phone_number, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_USERS.LOGIN_PHONE_OTP}`, {
-        phone_number,
+        phone_number: "0" + phone_number.slice(3),
       });
       STORAGES.saveLocalStorage(
         "accessToken",
