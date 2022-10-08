@@ -6,10 +6,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 import "./index.css";
-import "./v1/styles/responsive.css";
 import reportWebVitals from "./reportWebVitals";
 import { DataProviderAdmin } from "./v1/admin_ui/contexts/GlobalStateAdmin";
 import store from "./v1/redux/store";
+import "./v1/styles/responsive.css";
 import { DataProviderUser } from "./v1/user_ui/contexts/GlobalStateUser";
 
 ReactDOM.render(

@@ -14,6 +14,7 @@ import {
 } from "../../imports/Authen_Users_Import";
 import { toast } from "react-toastify";
 import { Login_Email_Phone_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
+import { reset_error } from "../../../redux/authentication_slice/AuthenticationSlice";
 const Login_Users = () => {
   const initialState = {
     email: "",
@@ -50,10 +51,16 @@ const Login_Users = () => {
         window.location.href = "/";
       }
     }
-    setTimeout(() => {
-      reCaptcha.current.reset();
-    }, 1500);
-    window.scrollTo(0, 0);
+    if (error) {
+      toast.error(error.msg);
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        reCaptcha.current.reset();
+      }, 1500);
+      setTimeout(() => {
+        dispatch(reset_error());
+      }, 2500);
+    }
   }, [auth, error]);
   return (
     <React.Fragment>
@@ -63,8 +70,8 @@ const Login_Users = () => {
         <Metadata title="Login-ShoeShop" />
       )}
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
-        {auth && auth.status !== 200 && (
-          <Message_Auth variant="alert-danger">{auth.msg}</Message_Auth>
+        {error && (
+          <Message_Auth variant="alert-danger">{error.msg}</Message_Auth>
         )}
         <div className="Login col-md-8 col-lg-4 col-11">
           <Login_Google />

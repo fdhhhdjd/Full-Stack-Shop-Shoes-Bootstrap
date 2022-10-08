@@ -24,6 +24,9 @@ const Authentication = createSlice({
       state.accessToken = null;
       state.profile = null;
     },
+    reset_error: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: {
     //* Login Email_Phone have Password
@@ -113,5 +116,5 @@ const Authentication = createSlice({
   },
 });
 const AuthenticationSlice = Authentication.reducer;
-export const { reset_auth } = Authentication.actions;
+export const { reset_auth, reset_error } = Authentication.actions;
 export default AuthenticationSlice;
