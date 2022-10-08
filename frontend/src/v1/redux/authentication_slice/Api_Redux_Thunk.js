@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import API_USERS from "../../configs/Apis/User_Api/Api_Users";
+import STORAGES from "../../utils/storage";
 export const Login_Email_Phone_Initial = createAsyncThunk(
   "Users/Login/Email/Phone",
   async ({ email, password, token }, { rejectWithValue }) => {
@@ -9,6 +10,10 @@ export const Login_Email_Phone_Initial = createAsyncThunk(
         email_phone: email,
         password,
       });
+      STORAGES.saveLocalStorage(
+        "accessToken",
+        response.data.element.accessToken
+      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -25,6 +30,10 @@ export const Login_Phone_Otp_Initial = createAsyncThunk(
       const response = await axios.post(`${API_USERS.LOGIN_PHONE_OTP}`, {
         phone_number,
       });
+      STORAGES.saveLocalStorage(
+        "accessToken",
+        response.data.element.accessToken
+      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -41,6 +50,10 @@ export const Login_Google_Initial = createAsyncThunk(
       const response = await axios.post(`${API_USERS.LOGIN_GOOGLE}`, {
         tokenId: response_google.tokenId,
       });
+      STORAGES.saveLocalStorage(
+        "accessToken",
+        response.data.element.accessToken
+      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -58,6 +71,10 @@ export const Login_Facebook_Initial = createAsyncThunk(
         accessToken: response_facebook.accessToken,
         userID: response_facebook.userID,
       });
+      STORAGES.saveLocalStorage(
+        "accessToken",
+        response.data.element.accessToken
+      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -72,6 +89,10 @@ export const New_Accept_Token_Initial = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${API_USERS.NEW_ACCESS_TOKEN}`);
+      STORAGES.saveLocalStorage(
+        "accessToken",
+        response.data.element.accessToken
+      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -85,7 +106,7 @@ export const Logout_Users_Initial = createAsyncThunk(
   "Users/Logout",
   async (token, { rejectWithValue }) => {
     const config = {
-      headers: { Authorization: `Bearer Token ${token}` },
+      headers: { Authorization: `Bearer ${token}` },
     };
     try {
       const response = await axios.get(`${API_USERS.LOGOUT_USERS}`, config);
@@ -100,9 +121,9 @@ export const Logout_Users_Initial = createAsyncThunk(
 );
 export const Profile_Users_Initial = createAsyncThunk(
   "Users/Profile",
-  async ({ token }, { rejectWithValue }) => {
+  async (accessToken, { rejectWithValue }) => {
     const config = {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
     };
     try {
       const response = await axios.get(`${API_USERS.GET_PROFILE_USER}`, config);

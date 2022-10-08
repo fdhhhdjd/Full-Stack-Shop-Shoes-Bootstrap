@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import { useDispatch } from "react-redux";
 import CONFIGS from "../../configs/config";
 import CONTAINS from "../../configs/contants";
@@ -11,20 +16,21 @@ export const useContextUser = () => useContext(StoreContextUser);
 
 export const DataProviderUser = ({ children }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const user_login = STORAGES.getLocalStorage("Login_Users");
+  const user_login = STORAGES.getLocalStorage("Login_Users");
+  useLayoutEffect(() => {
     if (user_login) {
       const refreshToken = async () => {
         dispatch(New_Accept_Token_Initial());
         setTimeout(() => {
           refreshToken();
+          STORAGES.clearLocalStorage("accessToken");
         }, CONTAINS._15_MINUTES);
       };
       refreshToken();
     }
   }, []);
   const data = {
-    User_Api_Context: UserApi(),
+    User_Api_Context: UserApi(user_login),
   };
   StoreContextUser.displayName = "Global State User";
   return (

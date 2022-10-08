@@ -104,7 +104,7 @@ const Authentication = createSlice({
     },
     [Profile_Users_Initial.fulfilled]: (state, action) => {
       state.loading = false;
-      state.profile = action.payload;
+      state.profile = action.payload.element;
     },
     [Profile_Users_Initial.rejected]: (state, action) => {
       state.loading = false;
