@@ -7,7 +7,6 @@ import HeaderData from "../../../utils/data/HeaderData";
 import { Logout_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
 import { toast } from "react-toastify";
 const Header = () => {
-  console.log("run");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { profile, accessToken } = useSelector((state) => ({
