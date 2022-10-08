@@ -7,7 +7,7 @@ const {
 const paymentCtrl = {
   totalPayment: async (req, res) => {
     try {
-      let user_id = req.user.id;
+      let user_id = req.user.id || req.user.user_id;
       const { status, success, element } = await handlePaymentTotal({
         user_id,
       });
@@ -27,7 +27,7 @@ const paymentCtrl = {
   },
   countInStock: async (req, res) => {
     try {
-      let user_id = req.user.id;
+      let user_id = req.user.id || req.user.user_id;
       const { status, success, element } = await handleCheckInStock({
         user_id,
       });
@@ -47,7 +47,7 @@ const paymentCtrl = {
   },
   paymentPaypal: async (req, res) => {
     try {
-      let user_id = req.user.id;
+      let user_id = req.user.id || req.user.user_id;
       const { paymentID, address } = req.body;
       const { status, success, element } = await handlePaymentPaypal({
         user_id,

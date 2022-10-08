@@ -3,6 +3,7 @@ const HELPER = require("../../../utils/helper");
 const CONTAINS = require("../../../configs/constants");
 const { set, get, del } = require("../../../utils/limited_redis");
 const getProfileId = async (userId) => {
+  console.log(userId);
   const user_redis = await get(`userId:${userId}`);
   if (user_redis) {
     return JSON.parse(user_redis);
