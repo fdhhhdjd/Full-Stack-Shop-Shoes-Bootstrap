@@ -7,7 +7,7 @@ const {
 const paymentCtrl = {
   historyOrders: async (req, res) => {
     try {
-      let user_id = req.user.id;
+      let user_id = req.user.id || req.user.user_id;
       const { status, success, element } = await handleHistoryOrder({
         user_id,
       });
