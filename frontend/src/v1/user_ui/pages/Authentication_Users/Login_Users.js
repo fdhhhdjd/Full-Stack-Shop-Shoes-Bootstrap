@@ -62,7 +62,6 @@ const Login_Users = () => {
       ) : (
         <Metadata title="Login-ShoeShop" />
       )}
-      {/* <Header /> */}
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
         {auth && auth.status !== 200 && (
           <Message_Auth variant="alert-danger">{auth.msg}</Message_Auth>
