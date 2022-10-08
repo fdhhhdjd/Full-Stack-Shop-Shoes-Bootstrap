@@ -179,7 +179,7 @@ const userCtrl = {
   //* New AcceptToken
   createNewAccessTokens: async (req, res) => {
     try {
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const { status, success, element } = await CreateNewAcceptToken({
         user_id,
       });
@@ -200,7 +200,7 @@ const userCtrl = {
   //* Logout
   LogoutUser: async (req, res) => {
     try {
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const token = req.token;
       const session = req.session;
       const { status, success, element } = await LogoutRemoveAllUser({
@@ -229,7 +229,7 @@ const userCtrl = {
   //* Profile User
   ProfileUser: async (req, res) => {
     try {
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const session = req.session;
       const { status, success, element } = await HandleProfile({
         user_id,
@@ -253,7 +253,7 @@ const userCtrl = {
   UpdateProfile: async (req, res) => {
     try {
       const { name, image, phone_number, sex, date_of_birth } = req.body;
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const { status, success, element } = await HandleUploadProfile({
         name,
         image,
@@ -330,7 +330,7 @@ const userCtrl = {
   ChangePassword: async (req, res) => {
     try {
       const { password, oldPassword, confirmPassword } = req.body;
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const { status, success, element } = await HandleChangePassword({
         password,
         oldPassword,

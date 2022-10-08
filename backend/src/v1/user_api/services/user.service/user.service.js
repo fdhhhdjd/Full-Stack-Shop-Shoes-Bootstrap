@@ -392,7 +392,7 @@ module.exports = {
       };
     }
     if (session?.users?.id) {
-      const user = await getProfileId(session);
+      const { user } = await getProfileId(session);
       return {
         status: 200,
         success: true,
