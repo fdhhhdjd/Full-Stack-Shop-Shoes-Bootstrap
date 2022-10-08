@@ -10,25 +10,15 @@ const rootReducer = (state, action) => {
   return AuthenticationSlice(state, action);
 };
 let store;
-if (CONFIGS.NODE_ENV === "development") {
-  store = configureStore({
-    reducer: {
-      auth_user: AuthenticationSlice,
-      reducer: rootReducer,
-    },
+store = configureStore({
+  reducer: {
+    auth_user: AuthenticationSlice,
+    reducer: rootReducer,
+  },
 
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-    // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-    // devTools: process.env.NODE_ENV !== "production",
-  });
-} else {
-  store = configureStore({
-    reducer: {
-      reducer: rootReducer,
-    },
-
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-  });
-}
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  // devTools: process.env.NODE_ENV !== "production",
+});
 
 export default store;
