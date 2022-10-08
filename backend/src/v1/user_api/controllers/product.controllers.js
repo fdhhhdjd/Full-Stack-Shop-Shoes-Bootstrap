@@ -52,7 +52,7 @@ const productCtrl = {
   addToCartProduct: async (req, res) => {
     try {
       const { product_id, quantity } = req.body;
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const { status, success, element } = await handleAddToCart({
         user_id,
         product_id,
@@ -76,7 +76,7 @@ const productCtrl = {
   quantityCartProduct: async (req, res) => {
     try {
       const { product_id, quantity } = req.body;
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const { status, success, element } = await handleInAndDecrementCart({
         user_id,
         product_id,
@@ -100,7 +100,7 @@ const productCtrl = {
   delCartProduct: async (req, res) => {
     try {
       const { product_id } = req.body;
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const { status, success, element } = await handleDelCart({
         user_id,
         product_id,
@@ -121,7 +121,7 @@ const productCtrl = {
   },
   getAddToCart: async (req, res) => {
     try {
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const { status, success, element } = await handleGetAddToCart({
         user_id,
       });

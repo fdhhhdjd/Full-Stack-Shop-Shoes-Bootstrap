@@ -4,7 +4,6 @@ const VerifyAcceptToken = async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     let now = new Date();
     const decoded = HELPER.VerifyAccToken(token);
-    // console.log(decoded);
     if (decoded.exp < now.getTime() / 1000) {
       return res.status(401).json({
         status: 401,

@@ -10,7 +10,7 @@ const reviewCtrl = {
     try {
       const { rating, comment } = req.body;
       let review_id = req.params.id;
-      let user_id = req.user.id || req.user.user_id;
+      let user_id = req.user.id;
 
       const { status, success, element } = await handleCreateReview({
         rating,
@@ -35,7 +35,7 @@ const reviewCtrl = {
   editReviewProduct: async (req, res) => {
     try {
       const { comment } = req.body;
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const product_id = req.params.productId;
       const review_id = req.params.commentId;
       const { status, success, element } = await handleEditReview({
@@ -60,7 +60,7 @@ const reviewCtrl = {
   },
   deleteReviewProduct: async (req, res) => {
     try {
-      const user_id = req.user.id || req.user.user_id;
+      const user_id = req.user.id;
       const product_id = req.params.productId;
       const review_id = req.params.commentId;
       const { status, success, element } = await handleDeleteReview({
