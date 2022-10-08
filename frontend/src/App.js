@@ -1,27 +1,34 @@
+import React, { Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import "./App.css";
-import logo from "./logo.svg";
-import { API_ADMIN } from "./v1/admin_ui/contexts/GlobalStateAdmin";
-import CONFIGS from "./v1/configs/config";
-import { API_USER } from "./v1/user_ui/contexts/GlobalStateUser";
+import RoutesDataUser from "./v1/router/index";
+import { Loading_Pages_Users } from "./v1/user_ui/imports/General_Global_Import";
+import { NotFound } from "./v1/user_ui/imports/Page_Layout_Main_Import";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h1>{API_USER}</h1>
-          <h1>{API_ADMIN}</h1>
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Suspense fallback={<Loading_Pages_Users />}>
+        <ToastContainer position="top-center" />
+        <Routes>
+          {/* User */}
+          {RoutesDataUser.map((item, key) => {
+            return (
+              <React.Fragment key={key}>
+                {item.private === null ? (
+                  <Route path={`/${item.path}`} element={item.main} />
+                ) : (
+                  <Route element={item.private}>
+                    <Route path={`/${item.path}`} element={item.main} />
+                  </Route>
+                )}
+              </React.Fragment>
+            );
+          })}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </React.Fragment>
   );
 }
 
