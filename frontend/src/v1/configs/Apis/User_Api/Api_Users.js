@@ -5,10 +5,15 @@ const API_USERS = {
   LOGIN_GOOGLE: "/api/user/login/google",
   LOGIN_FACEBOOK: "/api/user/login/facebook",
 
+  //* Register
+  REGISTER_USERS: "/api/user/register",
+
   //* New Accept Token
   NEW_ACCESS_TOKEN: "api/user/new/accessToken",
+
   //* Logout
   LOGOUT_USERS: "/api/user/logout",
+
   //* Profile
   GET_PROFILE_USER: "/api/user/profile",
 };

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CONFIGS from "../../configs/config";
 import CONTAINS from "../../configs/contants";
 import STORAGES from "../../utils/storage";
@@ -12,7 +12,9 @@ export const useContextUser = () => useContext(StoreContextUser);
 export const DataProviderUser = ({ children }) => {
   const dispatch = useDispatch();
   const user_login = STORAGES.getLocalStorage("Login_Users");
-
+  const { accessToken } = useSelector((state) => ({
+    ...state.auth_user,
+  }));
   useEffect(() => {
     if (user_login) {
       const refreshToken = async () => {
@@ -25,6 +27,11 @@ export const DataProviderUser = ({ children }) => {
       refreshToken();
     }
   }, []);
+  useEffect(() => {
+    if (!accessToken) {
+      STORAGES.clearLocalStorage("Login_Users");
+    }
+  }, [accessToken]);
   const data = {
     User_Api_Context: UserApi(user_login),
   };
