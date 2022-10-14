@@ -1,8 +1,11 @@
 const fetch = require("node-fetch");
 const { OAuth2Client } = require("google-auth-library");
+const rateLimit = require("express-rate-limit");
+const { Sonyflake } = require("sonyflake");
 const { createRefreshToken } = require("../utils/helper");
 const { get, saveTokenRedis } = require("../utils/limited_redis");
 const CONSTANTS = require("../configs/constants");
+const REDIS = require("../db/redis_db");
 const CONFIGS = require("../configs/config");
 const Users = require("../models/userModel");
 const Category = require("../models/CategoryModel");
@@ -276,5 +279,44 @@ module.exports = {
 
     // not found return null
     return null;
+  },
+  //* Check Limit request
+  checkLimitDoss(time, request) {
+    return rateLimit({
+      windowMs: time,
+      max: request,
+      message: {
+        status: 503,
+        success: false,
+        element: {
+          msg: "Server Busy!!!",
+        },
+      },
+      standardHeaders: true,
+      store: REDIS,
+    });
+  },
+  checkLimitRouter({ time, request, data }) {
+    return rateLimit({
+      windowMs: time,
+      max: request,
+      message: {
+        status: data?.status,
+        success: data?.success,
+        element: {
+          msg: data?.msg,
+        },
+      },
+      standardHeaders: true,
+      store: REDIS,
+    });
+  },
+  createID() {
+    const sonyflake = new Sonyflake({
+      machineId: 2, // in range 2^16
+      epoch: Date.UTC(2020, 4, 18, 0, 0, 0), // timestamp
+    });
+    const id = sonyflake.nextId();
+    return id;
   },
 };

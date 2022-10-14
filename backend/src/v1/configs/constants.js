@@ -1,5 +1,6 @@
 module.exports = {
   //! milisecond / second
+  _30_MILLISECOND: 30 * 1000,
   _1_MINUTES: 60 * 1000,
   _5_MINUTES: 5 * 60 * 1000,
   _15_MINUTES: 15 * 60 * 1000,

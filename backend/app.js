@@ -3,16 +3,16 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
+const helmet = require("helmet");
 const session = require("express-session");
 let RedisStore = require("connect-redis")(session);
 const bodyParser = require("body-parser");
 const compression = require("compression");
-const cron = require("node-cron");
 //! Import
 const REDIS = require("./src/v1/db/redis_db");
 const Mongo_DB = require("./src/v1/db/mongo_db");
-const connect_amqp = require("./src/v1/db/rabbitmq");
 const CONSTANTS = require("./src/v1/configs/constants");
+const STORAGE = require("./src/v1/utils/storage");
 //! Connect
 Mongo_DB();
 
@@ -22,11 +22,12 @@ if (process.env.NODE_ENV === "PRODUCTION") {
   app.enable("trust proxy");
 }
 app.enable("trust proxy");
-
+app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(STORAGE.checkLimitDoss(CONSTANTS._5_MINUTES, 300));
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -161,4 +162,5 @@ app.use("/api", order_admin_routes);
 const statistical_carousel = require("./src/v1/admin_api/routes/statistical.routes");
 
 app.use("/api", statistical_carousel);
+
 module.exports = app;
