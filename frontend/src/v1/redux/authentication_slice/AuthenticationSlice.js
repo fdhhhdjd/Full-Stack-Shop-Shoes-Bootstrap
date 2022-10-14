@@ -7,10 +7,14 @@ import {
   Logout_Users_Initial,
   New_Accept_Token_Initial,
   Profile_Users_Initial,
+  Register_Users_Initial,
+  Forget_Users_Initial,
+  Reset_Users_Initial,
 } from "../authentication_slice/Api_Redux_Thunk";
 const initialState = {
   loading: false,
   error: null,
+  error_access: null,
   auth: [],
   accessToken: null,
   profile: null,
@@ -65,6 +69,18 @@ const Authentication = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    //*Register
+    [Register_Users_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Register_Users_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.auth = action.payload;
+    },
+    [Register_Users_Initial.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     //* Login Facebook
     [Login_Facebook_Initial.pending]: (state, action) => {
       state.loading = true;
@@ -74,6 +90,30 @@ const Authentication = createSlice({
       state.auth = action.payload;
     },
     [Login_Facebook_Initial.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    //* Forget Password
+    [Forget_Users_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Forget_Users_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.auth = action.payload;
+    },
+    [Forget_Users_Initial.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    //* Reset Password
+    [Reset_Users_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Reset_Users_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.auth = action.payload;
+    },
+    [Reset_Users_Initial.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -99,7 +139,7 @@ const Authentication = createSlice({
     },
     [New_Accept_Token_Initial.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error_access = action.payload;
     },
     //* New Accept Token
     [Profile_Users_Initial.pending]: (state, action) => {
