@@ -32,6 +32,9 @@ module.exports = {
       return {
         status: 307,
         success: false,
+        element: {
+          msg: "Email already exits !!",
+        },
       };
     }
     if (isNaN(phone_number)) {
@@ -58,6 +61,9 @@ module.exports = {
       return {
         status: 306,
         success: false,
+        element: {
+          msg: "Phone already exits.",
+        },
       };
     }
 
@@ -168,6 +174,9 @@ module.exports = {
       return {
         status: 307,
         success: false,
+        element: {
+          msg: "Email not exits.",
+        },
       };
     }
     return {
