@@ -8,8 +8,14 @@ const API_USERS = {
   //* Register
   REGISTER_USERS: "/api/user/register",
 
+  //* Forget
+  FORGET_PASSWORD_USERS: "/api/user/forget",
+
+  //* Forget
+  RESET_PASSWORD_USERS: "/api/user/password/reset",
+
   //* New Accept Token
-  NEW_ACCESS_TOKEN: "api/user/new/accessToken",
+  NEW_ACCESS_TOKEN: "/api/user/new/accessToken",
 
   //* Logout
   LOGOUT_USERS: "/api/user/logout",

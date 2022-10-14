@@ -7,6 +7,9 @@ export { default as Loading_Pages_Users } from "../components/General_Loading/Lo
 //* Metadata Global
 export { default as Metadata } from "../components/Metadata/Metadata";
 
+//* SwaleMessage
+export { default as SwaleMessage } from "../components/SwaleMessage/SwaleMessage";
+
 // * Toast Notification_Spam
 export { default as ToastNotification_Spam } from "../components/Notifications/Notification_Spam";
 
