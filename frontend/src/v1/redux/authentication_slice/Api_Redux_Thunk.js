@@ -168,3 +168,41 @@ export const Register_Users_Initial = createAsyncThunk(
     }
   }
 );
+
+export const Forget_Users_Initial = createAsyncThunk(
+  "Users/Forget",
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_USERS.FORGET_PASSWORD_USERS}`, {
+        email,
+      });
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const Reset_Users_Initial = createAsyncThunk(
+  "Users/Reset/Password",
+  async ({ token, password, confirmPassword }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${API_USERS.RESET_PASSWORD_USERS}/${token}`,
+        {
+          password,
+          confirmPassword,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

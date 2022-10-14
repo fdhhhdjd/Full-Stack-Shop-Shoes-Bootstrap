@@ -12,7 +12,7 @@ export const useContextUser = () => useContext(StoreContextUser);
 export const DataProviderUser = ({ children }) => {
   const dispatch = useDispatch();
   const user_login = STORAGES.getLocalStorage("Login_Users");
-  const { accessToken } = useSelector((state) => ({
+  const { error_access } = useSelector((state) => ({
     ...state.auth_user,
   }));
   useEffect(() => {
@@ -28,10 +28,10 @@ export const DataProviderUser = ({ children }) => {
     }
   }, []);
   useEffect(() => {
-    if (!accessToken) {
+    if (error_access) {
       STORAGES.clearLocalStorage("Login_Users");
     }
-  }, [accessToken]);
+  }, [error_access]);
   const data = {
     User_Api_Context: UserApi(user_login),
   };
