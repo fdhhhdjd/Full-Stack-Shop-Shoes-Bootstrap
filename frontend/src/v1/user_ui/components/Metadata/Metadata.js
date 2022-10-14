@@ -5,7 +5,7 @@ const Metadata = ({ title }) => {
     <React.Fragment>
       <HelmetProvider>
         <Helmet>
-          <title>{title}</title>
+          <title>{`Welcome-${title}`}</title>
         </Helmet>
       </HelmetProvider>
     </React.Fragment>

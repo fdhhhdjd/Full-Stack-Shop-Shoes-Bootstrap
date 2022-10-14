@@ -7,6 +7,7 @@ import {
   Logout_Users_Initial,
   New_Accept_Token_Initial,
   Profile_Users_Initial,
+  Register_Users_Initial,
 } from "../authentication_slice/Api_Redux_Thunk";
 const initialState = {
   loading: false,
@@ -62,6 +63,18 @@ const Authentication = createSlice({
       state.auth = action.payload;
     },
     [Login_Google_Initial.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    //*Register
+    [Register_Users_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Register_Users_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.auth = action.payload;
+    },
+    [Register_Users_Initial.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

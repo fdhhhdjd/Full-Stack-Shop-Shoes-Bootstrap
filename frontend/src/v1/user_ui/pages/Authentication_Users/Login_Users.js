@@ -67,7 +67,7 @@ const Login_Users = () => {
       {auth && auth.status === 200 ? (
         <Metadata title="Redirect Home..." />
       ) : (
-        <Metadata title="Login-ShoeShop" />
+        <Metadata title="Login" />
       )}
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
         {error && (
