@@ -8,7 +8,6 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
-    "amqplib": "^0.10.3",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
@@ -22,8 +21,10 @@
     "express": "^4.18.1",
     "express-async-handler": "^1.2.0",
     "express-fileupload": "^1.2.1",
+    "express-rate-limit": "^6.6.0",
     "express-session": "^1.17.3",
     "google-auth-library": "^7.11.0",
+    "helmet": "^6.0.0",
     "ioredis": "^5.2.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.4",
@@ -33,6 +34,7 @@
     "nodemailer-express-handlebars": "^5.0.0",
     "nodemon": "^2.0.20",
     "otp-generator": "^4.0.0",
+    "sonyflake": "^1.1.2",
     "stripe": "^8.219.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0"

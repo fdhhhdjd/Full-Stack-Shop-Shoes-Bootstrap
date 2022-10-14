@@ -1,5 +1,4 @@
 "use strict";
-const { v4: uuidv4 } = require("uuid");
 const STORAGE = require("../../../utils/storage");
 const PASSWORD = require("../../../utils/password");
 const Users = require("../../../models/userModel");
@@ -71,7 +70,7 @@ module.exports = {
       email,
       password: password_random,
       image: {
-        public_id: uuidv4(),
+        public_id: STORAGE.createID(),
         url: picture,
       },
       verified: true,
