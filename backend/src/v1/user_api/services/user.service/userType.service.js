@@ -1,10 +1,7 @@
 "use strict";
-const { v4: uuidv4 } = require("uuid");
 const STORAGE = require("../../../utils/storage");
-const sendEmail = require("../user.service/sendEmail.service");
 const PASSWORD = require("../../../utils/password");
 const Users = require("../../../models/userModel");
-const CONFIGS = require("../../../configs/config");
 const HELPER = require("../../../utils/helper.js");
 const { RedisPub } = require("../../../utils/limited_redis");
 
@@ -80,7 +77,7 @@ module.exports = {
       email,
       password: password_random,
       image: {
-        public_id: uuidv4(),
+        public_id: STORAGE.createID(),
         url: picture,
       },
       verified: true,
