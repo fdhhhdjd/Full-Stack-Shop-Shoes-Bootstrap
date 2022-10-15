@@ -75,7 +75,8 @@ const NewAcceptToken = (user) => {
   return HELPER.createAccessToken(user);
 };
 //** Update Password */
-const UpdatePassword = async (user_id, password) => {
+const UpdatePassword = async ({ user_id, password }) => {
+  console.log(user_id, password);
   return Users.findByIdAndUpdate(
     { _id: user_id },
     { password: password },

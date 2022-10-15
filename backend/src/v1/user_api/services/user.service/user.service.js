@@ -369,10 +369,12 @@ module.exports = {
         element,
       };
     }
-    let user = element;
     const salt = await PASSWORD.genSalt();
     const passwordHash = await PASSWORD.encodeResetPassword(password, salt);
-    await UpdatePassword(user.id, passwordHash);
+    await UpdatePassword({
+      user_id: user_id,
+      password: passwordHash,
+    });
     return {
       status: 200,
       success: true,
