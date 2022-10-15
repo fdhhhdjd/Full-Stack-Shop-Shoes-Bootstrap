@@ -11,10 +11,6 @@ export const Login_Email_Phone_Initial = createAsyncThunk(
         email_phone: email,
         password,
       });
-      STORAGES.saveLocalStorage(
-        "accessToken",
-        response.data.element.accessToken
-      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -32,10 +28,6 @@ export const Login_Phone_Otp_Initial = createAsyncThunk(
       const response = await axios.post(`${API_USERS.LOGIN_PHONE_OTP}`, {
         phone_number: "0" + phone_number.slice(3),
       });
-      STORAGES.saveLocalStorage(
-        "accessToken",
-        response.data.element.accessToken
-      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -53,10 +45,6 @@ export const Login_Google_Initial = createAsyncThunk(
       const response = await axios.post(`${API_USERS.LOGIN_GOOGLE}`, {
         tokenId: response_google.tokenId,
       });
-      STORAGES.saveLocalStorage(
-        "accessToken",
-        response.data.element.accessToken
-      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -75,10 +63,6 @@ export const Login_Facebook_Initial = createAsyncThunk(
         accessToken: response_facebook.accessToken,
         userID: response_facebook.userID,
       });
-      STORAGES.saveLocalStorage(
-        "accessToken",
-        response.data.element.accessToken
-      );
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -196,6 +180,67 @@ export const Reset_Users_Initial = createAsyncThunk(
           password,
           confirmPassword,
         }
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const Update_Info_Users_Initial = createAsyncThunk(
+  "Uses/Update/Info",
+  async ({ states, image, accessToken }, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    try {
+      const response = await axios.post(
+        `${API_USERS.UPDATE_PROFILE_USERS}`,
+        {
+          name: states.name,
+          phone_number: states.phone_number,
+          sex: states.sex,
+          date_of_birth: states.date_of_birth,
+          image,
+        },
+        config
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const Change_Password_Users_Initial = createAsyncThunk(
+  "Uses/Change/Password",
+  async (
+    { oldPassword, password, confirmPassword, accessToken },
+    { rejectWithValue }
+  ) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    try {
+      const response = await axios.post(
+        `${API_USERS.CHANGE_PASSWORD_USERS}`,
+        {
+          oldPassword,
+          password,
+          confirmPassword,
+        },
+        config
       );
       return response.data;
     } catch (error) {

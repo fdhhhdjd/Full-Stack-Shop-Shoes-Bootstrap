@@ -4,11 +4,13 @@ const VerifyAcceptToken = async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     let now = new Date();
     const decoded = HELPER.VerifyAccToken(token);
-    // console.log(decoded);
     if (decoded.exp < now.getTime() / 1000) {
       return res.status(401).json({
         status: 401,
-        error: "Expired Token",
+        success: false,
+        element: {
+          msg: "Expired Token",
+        },
       });
     }
     req.user = decoded;
@@ -16,8 +18,11 @@ const VerifyAcceptToken = async (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).json({
-      status: false,
-      message: "Your session is not valid.",
+      status: 401,
+      success: false,
+      element: {
+        message: "Your session is not valid.",
+      },
     });
   }
 };

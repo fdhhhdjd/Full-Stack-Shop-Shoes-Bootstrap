@@ -1,8 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import thunk from "redux-thunk";
-import CONFIGS from "../configs/config";
 import AuthenticationSlice from "./authentication_slice/AuthenticationSlice";
+import Upload_Cloud_Slice from "./upload_Slice/Upload_Slice";
 const rootReducer = (state, action) => {
   if (action.type === "counter/clear") {
     state = undefined;
@@ -13,6 +12,7 @@ let store;
 store = configureStore({
   reducer: {
     auth_user: AuthenticationSlice,
+    upload_cloud: Upload_Cloud_Slice,
     reducer: rootReducer,
   },
 

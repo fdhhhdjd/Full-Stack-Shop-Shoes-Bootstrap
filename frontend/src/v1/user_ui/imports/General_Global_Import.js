@@ -15,3 +15,9 @@ export { default as ToastNotification_Spam } from "../components/Notifications/N
 
 //* Message Auth
 export { default as Message_Auth } from "../components/Message_Auth/Message_Auth";
+
+//* Lazy Loading Image
+export { default as Lazy_Loading_Image } from "../custom_hook/Lazy_Load_Img";
+
+//* Upload Image
+export { default as useUploadCloud } from "../custom_hook/useUploadCloud";
