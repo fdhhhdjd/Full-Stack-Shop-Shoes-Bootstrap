@@ -19,3 +19,6 @@ export { default as Login_Facebook } from "../components/Social/Login_Facebook";
 
 //* Recaptcha Check Users Login
 export { default as Recaptcha_Users } from "../components/Social/Recaptcha_Users";
+
+//* Profile Users
+export { default as Profile_USers } from "../pages/Authentication_Users/Profile_Users";

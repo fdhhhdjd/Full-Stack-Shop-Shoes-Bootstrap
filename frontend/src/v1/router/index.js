@@ -4,6 +4,7 @@ import {
   Register_Users,
   Forget_Password_Users,
   Reset_Password_Users,
+  Profile_USers,
 } from "../user_ui/imports/Authen_Users_Import";
 import { Home_Users } from "../user_ui/imports/Page_Layout_Main_Import";
 import User_Private_Router from "../private/user_private_router/User_Private_Router";
@@ -40,6 +41,12 @@ const RoutesDataUser = [
     path: "",
     private: <User_Private_Router_Layout_Main />,
     main: <Home_Users />,
+  },
+  //* Home
+  {
+    path: "profile",
+    private: <User_Private_Router_Layout_Main />,
+    main: <Profile_USers />,
   },
 ];
 export default RoutesDataUser;

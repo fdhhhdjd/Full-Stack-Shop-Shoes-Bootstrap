@@ -1,15 +1,18 @@
 import { useLayoutEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Profile_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
 import STORAGES from "../../../utils/storage";
 const UserApi = () => {
+  const { accessToken, update_users } = useSelector((state) => ({
+    ...state.auth_user,
+  }));
   const dispatch = useDispatch();
-  const accessToken = STORAGES.getLocalStorage("accessToken");
   useLayoutEffect(() => {
-    if (accessToken) {
-      dispatch(Profile_Users_Initial(accessToken));
+    if (accessToken || update_users) {
+      const token_localStorage = STORAGES.getLocalStorage("accessToken");
+      dispatch(Profile_Users_Initial(token_localStorage));
     }
-  }, [accessToken]);
+  }, [accessToken, update_users]);
 
   return {};
 };

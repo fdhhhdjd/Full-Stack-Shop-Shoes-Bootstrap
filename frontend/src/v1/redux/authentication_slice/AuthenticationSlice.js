@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  Change_Password_Users_Initial,
+  Forget_Users_Initial,
   Login_Email_Phone_Initial,
   Login_Facebook_Initial,
   Login_Google_Initial,
@@ -8,16 +10,19 @@ import {
   New_Accept_Token_Initial,
   Profile_Users_Initial,
   Register_Users_Initial,
-  Forget_Users_Initial,
   Reset_Users_Initial,
+  Update_Info_Users_Initial,
 } from "../authentication_slice/Api_Redux_Thunk";
 const initialState = {
   loading: false,
+  loading_profile: false,
   error: null,
   error_access: null,
+  error_profile: null,
   auth: [],
   accessToken: null,
   profile: null,
+  update_users: null,
 };
 const Authentication = createSlice({
   name: "Authentication_Users",
@@ -27,6 +32,9 @@ const Authentication = createSlice({
       state.auth = [];
       state.accessToken = null;
       state.profile = null;
+    },
+    reset_changePassword: (state) => {
+      state.auth = [];
     },
     reset_error: (state) => {
       state.error = null;
@@ -141,20 +149,45 @@ const Authentication = createSlice({
       state.loading = false;
       state.error_access = action.payload;
     },
-    //* New Accept Token
+    //* Profile Users
     [Profile_Users_Initial.pending]: (state, action) => {
-      state.loading = true;
+      state.loading_profile = true;
     },
     [Profile_Users_Initial.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.loading_profile = false;
       state.profile = action.payload.element;
     },
     [Profile_Users_Initial.rejected]: (state, action) => {
+      state.loading_profile = false;
+      state.error_profile = action.payload;
+    },
+    //* Upload Profile Users
+    [Update_Info_Users_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Update_Info_Users_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.update_users = action.payload.element;
+    },
+    [Update_Info_Users_Initial.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    //* Upload Password Users
+    [Change_Password_Users_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Change_Password_Users_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.auth = action.payload.element;
+    },
+    [Change_Password_Users_Initial.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
   },
 });
 const AuthenticationSlice = Authentication.reducer;
-export const { reset_auth, reset_error } = Authentication.actions;
+export const { reset_auth, reset_error, reset_changePassword } =
+  Authentication.actions;
 export default AuthenticationSlice;
