@@ -12,7 +12,7 @@ export const useContextUser = () => useContext(StoreContextUser);
 export const DataProviderUser = ({ children }) => {
   const dispatch = useDispatch();
   const user_login = STORAGES.getLocalStorage("Login_Users");
-  const { error_access } = useSelector((state) => ({
+  const { error_access, error_profile } = useSelector((state) => ({
     ...state.auth_user,
   }));
   useEffect(() => {
@@ -28,12 +28,13 @@ export const DataProviderUser = ({ children }) => {
     }
   }, []);
   useEffect(() => {
-    if (error_access) {
-      STORAGES.clearLocalStorage("Login_Users");
+    if (error_access || error_profile) {
+      STORAGES.clearLocalStorageAll();
+      window.location.href = "/login";
     }
-  }, [error_access]);
+  }, [error_access, error_profile]);
   const data = {
-    User_Api_Context: UserApi(user_login),
+    User_Api_Context: UserApi(),
   };
   StoreContextUser.displayName = "Global State User";
   return (

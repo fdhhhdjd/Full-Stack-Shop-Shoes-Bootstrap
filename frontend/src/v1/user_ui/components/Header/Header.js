@@ -8,8 +8,7 @@ import { Logout_Users_Initial } from "../../../redux/authentication_slice/Api_Re
 import { toast } from "react-toastify";
 const Header = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { profile, accessToken } = useSelector((state) => ({
+  const { profile, accessToken, loading_profile } = useSelector((state) => ({
     ...state.auth_user,
   }));
   const logoutHandler = (e) => {
@@ -26,6 +25,7 @@ const Header = () => {
   const submitHandler = (e) => {
     e.preventDefault();
   };
+
   return (
     <div>
       <div className="Announcement ">
@@ -162,7 +162,17 @@ const Header = () => {
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
-                {profile ? (
+                {loading_profile ? (
+                  <button
+                    type="button"
+                    className="name-button dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Loading ...
+                  </button>
+                ) : profile ? (
                   <div className="btn-group">
                     <button
                       type="button"
