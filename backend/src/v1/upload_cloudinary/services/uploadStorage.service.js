@@ -14,6 +14,7 @@ const uploadStorage = async (file_upload) => {
   return data;
 };
 const destroyStorage = async (public_id) => {
+  console.log(public_id);
   let results = null;
   await cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
     if (err) throw (results = err);

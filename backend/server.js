@@ -8,6 +8,7 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({ path: "../.env" });
 }
 const numCpu = os.cpus().length;
+
 app.get("/api/", (req, res) => {
   const health_check = {
     uptime: process.uptime(),
@@ -16,6 +17,7 @@ app.get("/api/", (req, res) => {
   };
   return res.send(health_check);
 });
+
 if (cluster.isMaster) {
   for (let i = 0; i < numCpu; i++) {
     cluster.fork();
