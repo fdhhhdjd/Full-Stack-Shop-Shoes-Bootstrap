@@ -209,7 +209,7 @@
 
 - Get all product: get --> http://localhost:5000/api/product
 
-- Get Product detail : get --> http://localhost:5000/api/review/create/:id
+- Get Product detail : get --> http://localhost:5000/api/product/detail/:id
 
 ## Reviews
 
