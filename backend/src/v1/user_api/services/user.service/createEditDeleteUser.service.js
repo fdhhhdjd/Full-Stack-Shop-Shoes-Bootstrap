@@ -3,6 +3,10 @@ const Users = require("../../../models/userModel");
 const UserVerifications = require("../../../models/userVerificationModel");
 const CONSTANTS = require("../../../configs/constants");
 const HELPER = require("../../../utils/helper");
+const { RedisPub } = require("../../../utils/limited_redis");
+const {
+  destroyStorage,
+} = require("../../../upload_cloudinary/services/uploadStorage.service");
 
 // ** Delete Verification
 const deleteVerification = async (userId) => {
@@ -36,6 +40,7 @@ const UpdateProfile = async ({
   date_of_birth,
   user_id,
 }) => {
+  await deleteImageAutoCloud(user_id);
   await Users.findOneAndUpdate(
     { _id: user_id },
     {
@@ -47,6 +52,7 @@ const UpdateProfile = async ({
     }
   );
   let userId = user_id;
+
   if (userId) {
     await updateProfileId(userId);
   }
@@ -76,12 +82,16 @@ const NewAcceptToken = (user) => {
 };
 //** Update Password */
 const UpdatePassword = async ({ user_id, password }) => {
-  console.log(user_id, password);
   return Users.findByIdAndUpdate(
     { _id: user_id },
     { password: password },
     { new: true }
   );
+};
+//** Delete Image Cloud auto */
+const deleteImageAutoCloud = async (user_id) => {
+  const user = await Users.findById(user_id);
+  return await destroyStorage(user?.image?.public_id);
 };
 module.exports = {
   //* CreateUser

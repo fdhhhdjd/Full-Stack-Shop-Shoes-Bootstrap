@@ -8,11 +8,14 @@ const session = require("express-session");
 let RedisStore = require("connect-redis")(session);
 const bodyParser = require("body-parser");
 const compression = require("compression");
+const cron = require("node-cron");
+
 //! Import
 const REDIS = require("./src/v1/db/redis_db");
 const Mongo_DB = require("./src/v1/db/mongo_db");
 const CONSTANTS = require("./src/v1/configs/constants");
 const STORAGE = require("./src/v1/utils/storage");
+const Cron_Users = require("./src/v1/user_api/cron_users/index");
 //! Connect
 Mongo_DB();
 
@@ -63,6 +66,13 @@ app.use(
     },
   })
 );
+
+//***** Run Cron ******/
+cron.schedule("*/5 * * * *", function () {
+  console.log("Run Check Uncheck Users");
+  Cron_Users.Delete_User_Un_Check_Expired();
+});
+
 //* ------------------------- Upload General ------------------------- //
 const upload_routes = require("./src/v1/upload_cloudinary/routes/upload.routes");
 app.use("/api", upload_routes);
