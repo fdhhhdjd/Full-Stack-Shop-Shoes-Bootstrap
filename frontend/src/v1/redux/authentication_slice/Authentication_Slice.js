@@ -12,7 +12,7 @@ import {
   Register_Users_Initial,
   Reset_Users_Initial,
   Update_Info_Users_Initial,
-} from "../authentication_slice/Api_Redux_Thunk";
+} from "./Api_Redux_Thunk";
 const initialState = {
   loading: false,
   loading_profile: false,
@@ -20,6 +20,7 @@ const initialState = {
   error_access: null,
   error_profile: null,
   auth: [],
+  auth_changePassword: null,
   accessToken: null,
   profile: null,
   update_users: null,
@@ -34,7 +35,7 @@ const Authentication = createSlice({
       state.profile = null;
     },
     reset_changePassword: (state) => {
-      state.auth = [];
+      state.auth_changePassword = null;
     },
     reset_error: (state) => {
       state.error = null;
@@ -179,7 +180,7 @@ const Authentication = createSlice({
     },
     [Change_Password_Users_Initial.fulfilled]: (state, action) => {
       state.loading = false;
-      state.auth = action.payload.element;
+      state.auth_changePassword = action.payload.element;
     },
     [Change_Password_Users_Initial.rejected]: (state, action) => {
       state.loading = false;

@@ -7,7 +7,7 @@ import { Register_Users_Initial } from "../../../redux/authentication_slice/Api_
 import {
   reset_auth,
   reset_error,
-} from "../../../redux/authentication_slice/AuthenticationSlice";
+} from "../../../redux/authentication_slice/Authentication_Slice";
 import {
   Message_Auth,
   Metadata,
@@ -69,9 +69,10 @@ const Register_Users = () => {
       toast.error(error.element.msg);
       reCaptcha.current.reset();
       window.scrollTo(0, 0);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         dispatch(reset_error());
       }, 3000);
+      return () => clearInterval(timer);
     }
   }, [auth, error]);
   return (

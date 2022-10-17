@@ -6,7 +6,7 @@ import { Forget_Users_Initial } from "../../../redux/authentication_slice/Api_Re
 import {
   reset_auth,
   reset_error,
-} from "../../../redux/authentication_slice/AuthenticationSlice";
+} from "../../../redux/authentication_slice/Authentication_Slice";
 import {
   Loading_Button,
   Message_Auth,
@@ -43,9 +43,10 @@ const Forget_Password_Users = () => {
     if (error) {
       toast.error(error.element.msg);
       window.scrollTo(0, 0);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         dispatch(reset_error());
       }, 3000);
+      return () => clearInterval(timer);
     }
   }, [auth, error]);
 
