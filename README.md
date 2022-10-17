@@ -191,6 +191,10 @@
 
 - Get all category : get --> http://localhost:5000/api/user/category
 
+## Carousels
+
+- Get all carousel : get --> http://localhost:5000/api/carousel
+
 ## Carts
 
 - Add to cart : post --> http://localhost:5000/api/product/add/cart
@@ -209,7 +213,7 @@
 
 - Get all product: get --> http://localhost:5000/api/product
 
-- Get Product detail : get --> http://localhost:5000/api/review/create/:id
+- Get Product detail : get --> http://localhost:5000/api/product/detail/:id
 
 ## Reviews
 
