@@ -12,6 +12,9 @@ const {
   getallProductUserDetail,
 } = require("./getproduct.service");
 const Products = require("../../../models/ProductModel");
+const {
+  handleGetCommentProductId,
+} = require("../review.service/review.service");
 module.exports = {
   HandleGetProduct: async () => {
     const products = await getallProductUser();
@@ -26,7 +29,10 @@ module.exports = {
     return {
       status: 200,
       success: true,
-      element: product_detail,
+      element: {
+        product_detail,
+        comment: await handleGetCommentProductId(product_id),
+      },
     };
   },
   handleAddToCart: async ({ user_id, product_id, quantity }) => {
