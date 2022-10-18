@@ -126,4 +126,15 @@ module.exports = {
       },
     };
   },
+  handleGetCommentProductId: async (product_id) => {
+    return await Products.findById(product_id)
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "user",
+          select: { name: 1, email: 1, image: 1 },
+        },
+      })
+      .select("reviews");
+  },
 };
