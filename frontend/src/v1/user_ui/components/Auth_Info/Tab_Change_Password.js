@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Change_Password_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import { reset_changePassword } from "../../../redux/authentication_slice/AuthenticationSlice";
+import {
+  reset_changePassword,
+  reset_error,
+} from "../../../redux/authentication_slice/Authentication_Slice";
 import STORAGES from "../../../utils/storage";
 import {
   Loading_Button,
@@ -16,7 +19,7 @@ const initialState = {
 
 const Tab_Change_Password = () => {
   const [state, setState] = useState(initialState);
-  const { auth, loading, error } = useSelector((state) => ({
+  const { auth_changePassword, loading, error } = useSelector((state) => ({
     ...state.auth_user,
   }));
   const { oldPassword, password, confirmPassword } = state;
@@ -42,19 +45,26 @@ const Tab_Change_Password = () => {
   };
   useEffect(() => {
     if (error) {
-      SwaleMessage(error?.element.msg, "error");
+      SwaleMessage(`${error?.element.msg}`, "error");
+      setTimeout(() => {
+        dispatch(reset_error());
+      }, 1500);
     }
-    if (auth.length > 0) {
-      SwaleMessage(auth?.msg, "success");
+    if (auth_changePassword) {
+      SwaleMessage(`${auth_changePassword?.msg}`, "success");
+      dispatch(reset_changePassword());
+      setState({
+        oldPassword: "",
+        password: "",
+        confirmPassword: "",
+      });
     }
-
-    dispatch(reset_changePassword());
-  }, [error]);
+  }, [error, auth_changePassword]);
 
   return (
     <>
-      {auth.length > 0 && (
-        <Message_Auth variant="alert-danger">{auth?.msg}</Message_Auth>
+      {error && (
+        <Message_Auth variant="alert-danger">{error.element.msg}</Message_Auth>
       )}
       <form className="row  form-container" onSubmit={submitHandler}>
         <div className="col-md-6">

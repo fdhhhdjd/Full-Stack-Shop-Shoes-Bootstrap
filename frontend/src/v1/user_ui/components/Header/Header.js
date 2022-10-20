@@ -25,7 +25,6 @@ const Header = () => {
   const submitHandler = (e) => {
     e.preventDefault();
   };
-
   return (
     <div>
       <div className="Announcement ">

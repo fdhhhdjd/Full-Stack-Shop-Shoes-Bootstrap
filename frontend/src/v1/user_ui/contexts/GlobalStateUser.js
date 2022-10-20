@@ -5,6 +5,8 @@ import CONTAINS from "../../configs/contants";
 import STORAGES from "../../utils/storage";
 import { New_Accept_Token_Initial } from "../../redux/authentication_slice/Api_Redux_Thunk";
 import UserApi from "./Auth_Users_Context/Auth_Users";
+import ProductApi from "./Product_Context/Product_Context";
+import CarouselApi from "./Carousel_Context/Carousel_Context";
 export const API_USER = `${CONFIGS.REACT_APP_API_URL}/api/user`;
 export const StoreContextUser = createContext();
 export const useContextUser = () => useContext(StoreContextUser);
@@ -34,7 +36,10 @@ export const DataProviderUser = ({ children }) => {
     }
   }, [error_access, error_profile]);
   const data = {
+    //* function
     User_Api_Context: UserApi(),
+    Product_Api_Context: ProductApi(),
+    Carousel_Api_Context: CarouselApi(),
   };
   StoreContextUser.displayName = "Global State User";
   return (

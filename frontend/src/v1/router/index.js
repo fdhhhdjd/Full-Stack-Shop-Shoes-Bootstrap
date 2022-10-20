@@ -6,7 +6,10 @@ import {
   Reset_Password_Users,
   Profile_USers,
 } from "../user_ui/imports/Authen_Users_Import";
-import { Home_Users } from "../user_ui/imports/Page_Layout_Main_Import";
+import {
+  Detail_Product,
+  Home_Users,
+} from "../user_ui/imports/Page_Layout_Main_Import";
 import User_Private_Router from "../private/user_private_router/User_Private_Router";
 import User_Private_Router_Layout_Main from "../private/user_private_router/User_Private_Router_Layout_Main";
 const RoutesDataUser = [
@@ -39,10 +42,14 @@ const RoutesDataUser = [
   //* Home
   {
     path: "",
-    private: <User_Private_Router_Layout_Main />,
     main: <Home_Users />,
   },
-  //* Home
+  //* Detail Products
+  {
+    path: "product/:id",
+    main: <Detail_Product />,
+  },
+  //* Profile
   {
     path: "profile",
     private: <User_Private_Router_Layout_Main />,

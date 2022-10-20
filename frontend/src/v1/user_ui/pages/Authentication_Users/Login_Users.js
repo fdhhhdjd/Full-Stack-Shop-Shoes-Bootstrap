@@ -14,7 +14,7 @@ import {
 } from "../../imports/Authen_Users_Import";
 import { toast } from "react-toastify";
 import { Login_Email_Phone_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import { reset_error } from "../../../redux/authentication_slice/AuthenticationSlice";
+import { reset_error } from "../../../redux/authentication_slice/Authentication_Slice";
 const Login_Users = () => {
   const initialState = {
     email: "",
@@ -54,12 +54,11 @@ const Login_Users = () => {
     if (error) {
       toast.error(error.msg);
       window.scrollTo(0, 0);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         reCaptcha.current.reset();
-      }, 1500);
-      setTimeout(() => {
         dispatch(reset_error());
-      }, 2500);
+      }, 1800);
+      return () => clearInterval(timer);
     }
   }, [auth, error]);
   return (
