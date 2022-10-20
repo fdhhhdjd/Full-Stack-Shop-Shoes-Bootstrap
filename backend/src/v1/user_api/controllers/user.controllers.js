@@ -13,6 +13,7 @@ const {
   HandleChangePassword,
   HandleUploadProfile,
   handleLoginPhoneFirebase,
+  HandleInfoEveryUsers,
 } = require("../../user_api/services/user.service/user.service");
 const {
   CheckVerificationUser,
@@ -335,6 +336,29 @@ const userCtrl = {
         password,
         oldPassword,
         confirmPassword,
+        user_id,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+  //*--------------- Information Users ---------------
+
+  //* Info Every Users
+  InfoEveryUsers: async (req, res) => {
+    try {
+      let user_id = req.params.id;
+      const { status, success, element } = await HandleInfoEveryUsers({
         user_id,
       });
       return res.status(status).json({

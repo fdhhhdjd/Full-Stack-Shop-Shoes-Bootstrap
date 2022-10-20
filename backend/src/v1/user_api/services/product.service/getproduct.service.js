@@ -12,7 +12,16 @@ module.exports = {
     const product_user = await Products.aggregate([
       {
         $project: {
-          doc: "$$ROOT",
+          _id: "$_id",
+          name: "$name",
+          price: "$price",
+          image: "$image",
+          description: "$description",
+          rating: "$rating",
+          numReviews: "$numReviews",
+          sold: "$sold",
+          countInStock: "$countInStock",
+          categories: "$categories",
           latest: {
             $cond: {
               if: { $gt: ["$createdAt", "$updatedAt"] },

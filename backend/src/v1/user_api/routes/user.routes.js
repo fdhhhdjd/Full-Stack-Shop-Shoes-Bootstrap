@@ -48,5 +48,7 @@ router.post(
   VerifyAcceptToken,
   userCtrl.ChangePassword
 );
+//! Get Profile Every Id
+router.get("/user/info/:id", userCtrl.InfoEveryUsers);
 
 module.exports = router;
