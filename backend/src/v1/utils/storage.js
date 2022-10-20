@@ -293,7 +293,10 @@ module.exports = {
         },
       },
       standardHeaders: true,
-      store: REDIS,
+      skip: (req, res) => {
+        if (req.ip === "::ffff:127.0.0.1") return true;
+        return false;
+      },
     });
   },
   checkLimitRouter({ time, request, data }) {
@@ -308,7 +311,6 @@ module.exports = {
         },
       },
       standardHeaders: true,
-      store: REDIS,
     });
   },
   createID() {
