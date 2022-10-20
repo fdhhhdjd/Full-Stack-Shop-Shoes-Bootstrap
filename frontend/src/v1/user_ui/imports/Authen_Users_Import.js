@@ -23,3 +23,6 @@ export { default as Recaptcha_Users } from "../components/Social/Recaptcha_Users
 
 //* Profile Users
 export { default as Profile_USers } from "../pages/Authentication_Users/Profile_Users";
+
+//* Profile Customers
+export { default as Profile_Customers } from "../components/Profile_Customers/Profile_Customers";

@@ -5,6 +5,7 @@ import {
   Forget_Password_Users,
   Reset_Password_Users,
   Profile_USers,
+  Profile_Customers,
 } from "../user_ui/imports/Authen_Users_Import";
 import {
   Detail_Product,
@@ -48,6 +49,11 @@ const RoutesDataUser = [
   {
     path: "product/:id",
     main: <Detail_Product />,
+  },
+  //* Detail Products
+  {
+    path: "info/customer/:id",
+    main: <Profile_Customers />,
   },
   //* Profile
   {

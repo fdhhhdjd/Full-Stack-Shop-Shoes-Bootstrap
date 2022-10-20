@@ -33,7 +33,11 @@ const {
   UpdatePassword,
   UpdateProfile,
 } = require("./createEditDeleteUser.service");
-const { getProfileId } = require("./getalluser.service");
+const {
+  getProfileId,
+  getInfoEveryUser,
+  getOrderInfoEveryUser,
+} = require("./getalluser.service");
 const { get, RedisPub, del } = require("../../../utils/limited_redis");
 const PASSWORD = require("../../../utils/password");
 const STORAGE = require("../../../utils/storage");
@@ -445,6 +449,27 @@ module.exports = {
       success: true,
       element: {
         msg: "Updated Profile Successfully !",
+      },
+    };
+  },
+  HandleInfoEveryUsers: async ({ user_id }) => {
+    if (!user_id) {
+      return {
+        status: 401,
+        success: false,
+        element: {
+          msg: "Get Info User Fail !",
+        },
+      };
+    }
+    const user = await getInfoEveryUser(user_id);
+    const order_user = await getOrderInfoEveryUser(user_id);
+    return {
+      status: 200,
+      success: true,
+      element: {
+        info: user,
+        order_user: order_user,
       },
     };
   },
