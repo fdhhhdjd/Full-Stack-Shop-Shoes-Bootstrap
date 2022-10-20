@@ -223,6 +223,8 @@
 
 - Delete comment : delete --> http://localhost:5000/api/review/:productId/delete/:commentId
 
+- Detail Profile Users Comment: get --> http://localhost:5000/api/user/info/:id
+
 ## Vouchers
 
 - Add voucher: post --> http://localhost:5000/api/user/voucher
