@@ -36,3 +36,9 @@ export { default as Relation_Product } from "../components/Products/Relation_Pro
 
 //* Comment
 export { default as Comment_Product } from "../components/Products/Comment_Product";
+
+//* Write_Review
+export { default as Write_Review_Product } from "../components/Products/Write_Review_Product";
+
+//* Message Error
+export { default as Message_Error } from "../components/Message_Auth/Error/Message_Error";

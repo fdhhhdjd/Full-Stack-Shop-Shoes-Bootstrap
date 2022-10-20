@@ -36,6 +36,7 @@ export const DataProviderUser = ({ children }) => {
     }
   }, [error_access, error_profile]);
   const data = {
+    //* function
     User_Api_Context: UserApi(),
     Product_Api_Context: ProductApi(),
     Carousel_Api_Context: CarouselApi(),

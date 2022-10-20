@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import STORAGES from "../../../utils/storage";
 import { RelatedProductStyle } from "../../../styles/Related/RelatedProductStyle";
+import STORAGES from "../../../utils/storage";
 const Relation_Product = () => {
   const [relation, setRelation] = useState([]);
   const { result_product, result_product_detail } = useSelector((state) => ({
@@ -12,9 +12,11 @@ const Relation_Product = () => {
     if (result_product?.length > 0) {
       result_product?.map((item) => {
         if (
-          item?.doc?.categories === result_product_detail[0]?.doc?.categories
+          item?.categories ===
+            result_product_detail.product_detail[0]?.categories &&
+          result_product_detail.product_detail[0]?._id != item?._id
         ) {
-          return setRelation((oldArray) => [...oldArray, item.doc]);
+          return setRelation((oldArray) => [...oldArray, item]);
         }
       });
     }

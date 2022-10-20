@@ -45,9 +45,7 @@ const Products = () => {
               if (debouncedValue === "") {
                 return value;
               } else if (
-                value?.doc.name
-                  .toLowerCase()
-                  .includes(debouncedValue.toLowerCase())
+                value?.name.toLowerCase().includes(debouncedValue.toLowerCase())
               ) {
                 return value;
               }
@@ -56,29 +54,29 @@ const Products = () => {
               return (
                 <div
                   className="shop col-lg-4 col-md-6 col-sm-6"
-                  key={product.doc._id}
+                  key={product._id}
                 >
                   <div className="border-product">
-                    <Link to={`/product/${product.doc._id}`}>
+                    <Link to={`/product/${product._id}`}>
                       <div className="shopBack">
-                        {product.doc.image && (
-                          <Lazy_Loading_Image url={product.doc?.image.url} />
+                        {product.image && (
+                          <Lazy_Loading_Image url={product?.image.url} />
                         )}
                       </div>
                     </Link>
 
                     <div className="shoptext">
                       <p>
-                        <Link to={`/product/${product.doc._id}`}>
-                          {STORAGES.except(product.doc.name, 25)}
+                        <Link to={`/product/${product._id}`}>
+                          {STORAGES.except(product.name, 25)}
                         </Link>
                       </p>
 
                       <Rating
-                        value={product.doc.rating}
-                        text={`${product.doc.numReviews} reviews`}
+                        value={product.rating}
+                        text={`${product.numReviews} reviews`}
                       />
-                      <h3>${product.doc.price}</h3>
+                      <h3>${product.price}</h3>
                     </div>
                   </div>
                 </div>
