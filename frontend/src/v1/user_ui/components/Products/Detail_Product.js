@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { Get_Detail_Product_Initial } from "../../../redux/product_slice/Api_Redux_Thunk_Products";
 import { reset_product_detail } from "../../../redux/product_slice/Product_Slice";
@@ -17,6 +17,8 @@ import {
 const Detail_Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { result_product_detail, loading } = useSelector((state) => ({
     ...state.Products_user,
   }));
@@ -37,12 +39,29 @@ const Detail_Product = () => {
         ) : (
           result_product_detail && (
             <div className="container single-product">
+              <nav aria-label="breadcrumb" className="main-breadcrumb">
+                <ol className="breadcrumb">
+                  <li className="breadcrumb-item">
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li className="breadcrumb-item">
+                    <a href="#" onClick={() => navigate(-1)}>
+                      Product Detail
+                    </a>
+                  </li>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    {result_product_detail?.product_detail[0]?.name}
+                  </li>
+                </ol>
+              </nav>
               <div className="row">
                 <div className="col-md-6">
                   <TransformWrapper
-                    initialScale={0.75}
-                    initialPositionX={0}
-                    initialPositionY={20}
+                    initialScale={1}
+                    minScale={0.5}
+                    maxScale={7}
+                    initialPositionX={200}
+                    initialPositionY={100}
                   >
                     {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
                       <React.Fragment>
@@ -50,8 +69,8 @@ const Detail_Product = () => {
                           <TransformComponent>
                             <Lazy_Load_Img
                               url={
-                                result_product_detail.product_detail[0].image
-                                  .url
+                                result_product_detail?.product_detail[0]?.image
+                                  ?.url
                               }
                             />
                           </TransformComponent>

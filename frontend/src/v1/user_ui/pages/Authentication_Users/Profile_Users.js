@@ -1,6 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Lazy_Loading_Image,
   Metadata,
@@ -11,11 +12,25 @@ import {
 } from "../../imports/User_Info_Import";
 const Profile_USers = () => {
   const { profile } = useSelector((state) => ({ ...state.auth_user }));
+  const navigation = useNavigate();
   return (
     <>
       <Metadata title={`${profile && profile.name}`} />
       {profile && (
         <div className="container mt-lg-5 mt-3">
+          <nav aria-label="breadcrumb" className="main-breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <Link to="/">Home</Link>
+              </li>
+              <li className="breadcrumb-item">
+                <a href="#">Profile Detail</a>
+              </li>
+              <li className="breadcrumb-item active" aria-current="page">
+                {profile.name}
+              </li>
+            </ol>
+          </nav>
           <div className="row align-items-start">
             <div className="col-lg-4 p-0 shadow ">
               <div className="author-card pb-0 pb-md-3">

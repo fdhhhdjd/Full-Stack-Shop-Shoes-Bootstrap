@@ -11,8 +11,8 @@ import { Get_Detail_Product_Initial } from "../../../redux/product_slice/Api_Red
 import { RelatedProductStyle } from "../../../styles/Related/RelatedProductStyle";
 import STORAGES from "../../../utils/storage";
 import { useContextUser } from "../../contexts/GlobalStateUser";
+import { comment_png } from "../../imports/Assets_Import";
 import { Rating, SwaleMessage } from "../../imports/General_Global_Import";
-
 const Comment_product = () => {
   const initialState = {
     comment: "",
@@ -58,6 +58,13 @@ const Comment_product = () => {
       return SwaleMessage("Comment error 🤗 ", "error");
     }
     dispatch(Delete_Comment_Initial({ productId: id, commentId, accessToken }));
+  };
+  const handleNavigatePage = (id) => {
+    if (id === profile._id) {
+      navigate("/profile");
+    } else {
+      navigate(`/info/customer/${id}`);
+    }
   };
   const handleEditComment = (e) => {
     e.preventDefault();
@@ -108,6 +115,20 @@ const Comment_product = () => {
         <h6 className="mb-3" id="scroll_smooth">
           REVIEWS {`( ${result_product_detail?.comment?.reviews.length} )`}
         </h6>
+        {result_product_detail?.comment?.reviews.length === 0 && (
+          <div className="replies">
+            <div className="mb-5 mb-md-3 bg-light p-3 shadow-sm rounded text-center">
+              <img
+                src={comment_png}
+                alt="Admin"
+                className="rounded-circle p-1  "
+                width={160}
+                height={190}
+              />
+            </div>
+          </div>
+        )}
+
         <div className="replies">
           {result_product_detail?.comment?.reviews.map((rs, index) => {
             return (
@@ -128,7 +149,7 @@ const Comment_product = () => {
                   />
                 </strong>
                 &nbsp;&nbsp;
-                <strong onClick={() => navigate("/profile")}>
+                <strong onClick={() => handleNavigatePage(rs.user._id)}>
                   {rs.user.name}
                 </strong>
                 <Rating value={rs.rating} />
