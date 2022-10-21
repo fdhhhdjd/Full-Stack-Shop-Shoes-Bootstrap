@@ -3,12 +3,14 @@ import {
   Create_Comment_Initial,
   Update_Comment_Initial,
   Delete_Comment_Initial,
+  Detail_Profile_Account_Comment_Initial,
 } from "./Api_Redux_Thunk_Comment";
 const initialState = {
   loading: false,
   error: null,
   reviews: null,
   review_edit: null,
+  review_profile: null,
 };
 const Comment_Product = createSlice({
   name: "Comment",
@@ -20,6 +22,9 @@ const Comment_Product = createSlice({
     },
     reset_review_error: (state) => {
       state.error = null;
+    },
+    reset_profile_account: (state) => {
+      state.review_profile = null;
     },
   },
   extraReducers: {
@@ -59,8 +64,21 @@ const Comment_Product = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    //* Profile account Comment
+    [Detail_Profile_Account_Comment_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Detail_Profile_Account_Comment_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.review_profile = action.payload.element;
+    },
+    [Detail_Profile_Account_Comment_Initial.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 const Comment_Slice = Comment_Product.reducer;
-export const { reset_review, reset_review_error } = Comment_Product.actions;
+export const { reset_review, reset_review_error, reset_profile_account } =
+  Comment_Product.actions;
 export default Comment_Slice;

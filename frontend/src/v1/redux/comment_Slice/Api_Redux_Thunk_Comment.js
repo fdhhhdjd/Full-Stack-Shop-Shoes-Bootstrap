@@ -57,7 +57,6 @@ export const Update_Comment_Initial = createAsyncThunk(
     }
   }
 );
-
 export const Delete_Comment_Initial = createAsyncThunk(
   "Comment/Delete",
   async ({ productId, commentId, accessToken }, { rejectWithValue }) => {
@@ -77,6 +76,22 @@ export const Delete_Comment_Initial = createAsyncThunk(
         throw error;
       }
       return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const Detail_Profile_Account_Comment_Initial = createAsyncThunk(
+  "Comment/Detail/Profile/Account",
+  async (id) => {
+    try {
+      const response = await axios.get(
+        `${API_COMMENT.API_DETAIL_CUSTOMER_COMMENT}/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return error.response.data;
     }
   }
 );

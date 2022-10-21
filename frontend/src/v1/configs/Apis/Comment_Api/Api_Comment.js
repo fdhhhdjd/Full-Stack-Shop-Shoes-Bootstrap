@@ -7,5 +7,8 @@ const API_COMMENT = {
 
   //* DELETE COMMENT
   API_DELETE_COMMENT: "/api/review",
+
+  //* Detail Customer Comment
+  API_DETAIL_CUSTOMER_COMMENT: "/api/user/info",
 };
 export default API_COMMENT;
