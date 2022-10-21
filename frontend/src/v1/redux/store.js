@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import AuthenticationSlice from "./authentication_slice/Authentication_Slice";
-import Carousels_Slice from "./carousel_slice.js/Carousel_Slice";
+import Carousels_Slice from "./carousel_slice/Carousel_Slice";
 import Comment_Slice from "./comment_Slice/Comment_Slice";
 import Products_Slice from "./product_slice/Product_Slice";
-import Upload_Cloud_Slice from "./upload_slice/Upload_Slice";
+import Upload_Cloud_Slice from "./upload_Slice/Upload_Slice";
 const rootReducer = (state, action) => {
   return AuthenticationSlice(state, action);
 };

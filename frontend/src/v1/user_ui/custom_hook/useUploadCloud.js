@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 import {
   Destroy_Cloud_Initial,
   Upload_Cloud_Initial,
-} from "../../redux/upload_slice/Api_Redux_Thunk_Upload";
-import { reset_upload } from "../../redux/upload_slice/Upload_Slice";
+} from "../../redux/upload_Slice/Api_Redux_Thunk_Upload";
+import { reset_upload } from "../../redux/upload_Slice/Upload_Slice";
 import { SwaleMessage } from "../imports/General_Global_Import";
 const useUploadCloud = (accessToken) => {
   const { result, result_destroy } = useSelector((state) => ({
