@@ -78,7 +78,7 @@ module.exports = {
       product.push({
         product_id: await Products.find({
           _id: key,
-        }),
+        }).select("name price countInStock image _id numReviews"),
         quantity: data[key],
       });
     }
