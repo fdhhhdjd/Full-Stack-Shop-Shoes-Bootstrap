@@ -42,3 +42,12 @@ export { default as Write_Review_Product } from "../components/Products/Write_Re
 
 //* Message Error
 export { default as Message_Error } from "../components/Message_Auth/Error/Message_Error";
+
+//*TransformWrapper
+export { default as TransformWrappers } from "../components/Products/TransformWrapper";
+
+//* Info Cart
+export { default as Info_Cart } from "../components/Cart_Component/Info_Cart";
+
+//* Cart Empty
+export { default as CartEmpty } from "../components/Cart_Component/Cart_Empty";

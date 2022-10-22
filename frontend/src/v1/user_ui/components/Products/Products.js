@@ -33,7 +33,8 @@ const Products = () => {
 
   const currentItems = debouncedValue
     ? result_product
-    : result_product && result_product.slice(indexOfFirstItem, indexOfLastItem);
+    : result_product &&
+      result_product?.slice(indexOfFirstItem, indexOfLastItem);
 
   //* render product
   const renderData = (data, index) => {

@@ -1,15 +1,18 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Logout_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
+import HeaderData from "../../../utils/data/HeaderData";
 import STORAGES from "../../../utils/storage";
 import { Logo_Png } from "../../imports/Assets_Import";
-import HeaderData from "../../../utils/data/HeaderData";
-import { Logout_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import { toast } from "react-toastify";
 const Header = () => {
   const dispatch = useDispatch();
   const { profile, accessToken, loading_profile } = useSelector((state) => ({
     ...state.auth_user,
+  }));
+  const { total_quantity } = useSelector((state) => ({
+    ...state.Cart_user,
   }));
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -124,7 +127,9 @@ const Header = () => {
 
                   <Link to="/cart" className="cart-mobile-icon">
                     <i className="fas fa-shopping-bag"></i>
-                    <span className="badge1">0</span>
+                    <span className="badge1">
+                      {total_quantity.quantity_sum}
+                    </span>
                   </Link>
                 </div>
                 <div className="col-12 d-flex align-items-center">
@@ -207,7 +212,9 @@ const Header = () => {
 
                 <Link to="/cart">
                   <i className="fas fa-shopping-bag"></i>
-                  <span className="badge1 badge">0</span>
+                  <span className="badge1 badge">
+                    {total_quantity.quantity_sum}
+                  </span>
                 </Link>
               </div>
             </div>
