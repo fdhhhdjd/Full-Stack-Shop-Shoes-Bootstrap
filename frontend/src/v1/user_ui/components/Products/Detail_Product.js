@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import {
+  Add_To_Cart_Initial,
+  Get_Detail_User_Cart_Initial,
+  Update_Quantity_Cart_Initial,
+} from "../../../redux/cart_slice/Api_Redux_Thunk_Cart";
+import { reset_change_cart } from "../../../redux/cart_slice/Cart_Slice";
 import { Get_Detail_Product_Initial } from "../../../redux/product_slice/Api_Redux_Thunk_Products";
 import { reset_product_detail } from "../../../redux/product_slice/Product_Slice";
 import STORAGES from "../../../utils/storage";
-import Lazy_Load_Img from "../../custom_hook/Lazy_Load_Img";
 import {
   Comment_Product,
   Loading_Button,
   Metadata,
   Rating,
   Relation_Product,
+  SwaleMessage,
+  TransformWrappers,
   Write_Review_Product,
 } from "../../imports/General_Global_Import";
 const Detail_Product = () => {
@@ -19,9 +25,50 @@ const Detail_Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const accessToken = STORAGES.getLocalStorage("accessToken");
   const { result_product_detail, loading } = useSelector((state) => ({
     ...state.Products_user,
   }));
+
+  const { change_cart, cart } = useSelector((state) => ({
+    ...state.Cart_user,
+  }));
+
+  const handleAddToCart = (product_id, quantity) => {
+    var result = handleCheckStock(product_id);
+    if (
+      result !== undefined &&
+      result.length > 0 &&
+      result[0].quantity >=
+        result_product_detail?.product_detail[0]?.countInStock
+    ) {
+      return SwaleMessage("Store has sold out !", "warning");
+    }
+    const checkCart = cart?.some((rs) => product_id === rs.product_id[0]._id);
+    if (checkCart) {
+      HandleIncrement(product_id, quantity);
+    } else {
+      return dispatch(
+        Add_To_Cart_Initial({ product_id, quantity, accessToken })
+      );
+    }
+  };
+  const HandleIncrement = (product_id, quantity) => {
+    return dispatch(
+      Update_Quantity_Cart_Initial({
+        product_id,
+        quantity: 1,
+        accessToken,
+      })
+    );
+  };
+  const handleCheckStock = (product_id) => {
+    return cart?.filter((rs) => {
+      if (rs.product_id[0]._id === product_id) {
+        return rs;
+      }
+    });
+  };
   useEffect(() => {
     if (id) {
       dispatch(Get_Detail_Product_Initial(id));
@@ -30,6 +77,15 @@ const Detail_Product = () => {
       dispatch(reset_product_detail());
     };
   }, [id]);
+  useEffect(() => {
+    if (change_cart) {
+      dispatch(Get_Detail_User_Cart_Initial({ accessToken }));
+      return SwaleMessage("Add To Cart Success !", "success");
+    }
+    return () => {
+      dispatch(reset_change_cart());
+    };
+  }, [change_cart]);
   return (
     <React.Fragment>
       <>
@@ -55,54 +111,12 @@ const Detail_Product = () => {
                 </ol>
               </nav>
               <div className="row">
-                <div className="col-md-6">
-                  <TransformWrapper
-                    initialScale={1}
-                    minScale={0.5}
-                    maxScale={7}
-                    initialPositionX={200}
-                    initialPositionY={100}
-                  >
-                    {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
-                      <React.Fragment>
-                        <div className="single-image">
-                          <TransformComponent>
-                            <Lazy_Load_Img
-                              url={
-                                result_product_detail?.product_detail[0]?.image
-                                  ?.url
-                              }
-                            />
-                          </TransformComponent>
-                        </div>
-                        <br />
-                        <button
-                          className="btn btn-success"
-                          onClick={() => zoomIn()}
-                        >
-                          Zoom In +
-                        </button>
-                        &nbsp;&nbsp;
-                        <button
-                          className="btn btn-success"
-                          onClick={() => zoomOut()}
-                        >
-                          Zoom Out -
-                        </button>
-                        &nbsp;&nbsp;
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => resetTransform()}
-                        >
-                          Return-X
-                        </button>
-                        <br />
-                        <br />
-                      </React.Fragment>
-                    )}
-                  </TransformWrapper>
-                </div>
-
+                {/* TransformWrapper */}
+                <TransformWrappers
+                  url_image={
+                    result_product_detail?.product_detail[0]?.image?.url
+                  }
+                />
                 <div className="col-md-6">
                   <div className="product-dtl">
                     <div className="product-info">
@@ -162,7 +176,15 @@ const Detail_Product = () => {
                               }
                             </span>
                           </div>
-                          <button className="round-black-btn">
+                          <button
+                            className="round-black-btn"
+                            onClick={() =>
+                              handleAddToCart(
+                                result_product_detail.product_detail[0]._id,
+                                1
+                              )
+                            }
+                          >
                             Add To Cart
                           </button>
                         </>
