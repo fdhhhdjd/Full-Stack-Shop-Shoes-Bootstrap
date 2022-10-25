@@ -13,11 +13,17 @@ router.post(
   VerifyAcceptToken,
   productCtrl.addToCartProduct
 );
-// * inDeCrement Cart product
+// * InCrement Cart product
 router.post(
-  "/product/indecrement/cart",
+  "/product/increment/cart",
   VerifyAcceptToken,
-  productCtrl.quantityCartProduct
+  productCtrl.incrementQuantityCartProduct
+);
+// * DeCrement Cart product
+router.post(
+  "/product/decrement/cart",
+  VerifyAcceptToken,
+  productCtrl.decrementQuantityCartProduct
 );
 // * del Cart Product
 router.post("/product/del/cart", VerifyAcceptToken, productCtrl.delCartProduct);

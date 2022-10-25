@@ -3,9 +3,10 @@ const {
   HandleGetProduct,
   HandleGetProductDetail,
   handleAddToCart,
-  handleInAndDecrementCart,
   handleDelCart,
   handleGetAddToCart,
+  handleIncrementCart,
+  handleDecrementCart,
 } = require("../services/product.service/product.service");
 
 const productCtrl = {
@@ -72,12 +73,36 @@ const productCtrl = {
       });
     }
   },
-  //* Increase and Decrease quantity:
-  quantityCartProduct: async (req, res) => {
+  //* Increase quantity:
+  incrementQuantityCartProduct: async (req, res) => {
     try {
       const { product_id, quantity } = req.body;
       const user_id = req.user.id || req.user.user_id;
-      const { status, success, element } = await handleInAndDecrementCart({
+      const { status, success, element } = await handleIncrementCart({
+        user_id,
+        product_id,
+        quantity,
+      });
+      return res.status(status).json({
+        status,
+        success,
+        msg: returnReasons(status.toString()),
+        element,
+      });
+    } catch (error) {
+      return res.status(503).json({
+        status: 503,
+        success: false,
+        element: returnReasons("503"),
+      });
+    }
+  },
+  //** Decrease quantity */
+  decrementQuantityCartProduct: async (req, res) => {
+    try {
+      const { product_id, quantity } = req.body;
+      const user_id = req.user.id || req.user.user_id;
+      const { status, success, element } = await handleDecrementCart({
         user_id,
         product_id,
         quantity,
