@@ -41,6 +41,7 @@ module.exports = {
       success: true,
       element: {
         total,
+        voucher: JSON.parse(voucher),
         total_apply_voucher,
       },
     };
