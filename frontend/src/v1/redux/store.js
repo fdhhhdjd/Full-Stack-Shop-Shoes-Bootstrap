@@ -7,6 +7,7 @@ import Products_Slice from "./product_slice/Product_Slice";
 import Upload_Cloud_Slice from "./upload_Slice/Upload_Slice";
 import Cart_Slice from "./cart_slice/Cart_Slice";
 import Payment_Slice from "./payment_slice/payment_slice";
+import Voucher_Slice from "./voucher_slice/voucher_slice";
 const rootReducer = (state, action) => {
   return AuthenticationSlice(state, action);
 };
@@ -20,6 +21,7 @@ store = configureStore({
     Comment_product: Comment_Slice,
     Cart_user: Cart_Slice,
     payment_user: Payment_Slice,
+    voucher_user: Voucher_Slice,
     reducer: rootReducer,
   },
 
