@@ -54,3 +54,6 @@ export { default as CartEmpty } from "../components/Cart_Component/Cart_Empty";
 
 //* Voucher
 export { default as Voucher } from "../components/Cart_Component/Vouchers/Voucher";
+
+//* Total
+export { default as Total_Cart } from "../components/Cart_Component/totals/Total_Cart";

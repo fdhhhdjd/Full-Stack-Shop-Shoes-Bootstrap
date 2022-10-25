@@ -6,15 +6,12 @@ const Payment_Context = () => {
   const { accessToken } = useSelector((state) => ({
     ...state.auth_user,
   }));
-  const { change_cart } = useSelector((state) => ({
-    ...state.Cart_user,
-  }));
   const dispatch = useDispatch();
   useEffect(() => {
-    if (accessToken || change_cart) {
+    if (accessToken) {
       dispatch(Get_Detail_User_Payment_Initial(accessToken));
     }
-  }, [accessToken, change_cart]);
+  }, [accessToken]);
   return {};
 };
 export default Payment_Context;

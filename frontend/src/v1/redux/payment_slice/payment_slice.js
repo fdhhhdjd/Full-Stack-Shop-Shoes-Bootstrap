@@ -3,14 +3,14 @@ import { Get_Detail_User_Payment_Initial } from "./Api_Redux_Thunk_Payment";
 const initialState = {
   loading: false,
   error: null,
-  total_user: 0,
+  total_user: null,
 };
 const Payments = createSlice({
   name: "payments",
   initialState,
   reducers: {
     reset_total: (state) => {
-      state.total_user = 0;
+      state.total_user = null;
     },
   },
   extraReducers: {

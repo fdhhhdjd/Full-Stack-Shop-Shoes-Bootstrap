@@ -11,10 +11,12 @@ import {
   reset_change_cart,
   reset_change_error,
 } from "../../../redux/cart_slice/Cart_Slice";
+import { Get_Detail_User_Payment_Initial } from "../../../redux/payment_slice/Api_Redux_Thunk_Payment";
 import STORAGES from "../../../utils/storage";
 import {
   Lazy_Loading_Image,
   SwaleMessage,
+  Total_Cart,
   Voucher,
 } from "../../imports/General_Global_Import";
 
@@ -59,6 +61,7 @@ const Cart_User = () => {
   useEffect(() => {
     if (change_cart) {
       dispatch(Get_Detail_User_Cart_Initial({ accessToken }));
+      dispatch(Get_Detail_User_Payment_Initial(accessToken));
       dispatch(reset_change_cart());
     }
   }, [change_cart]);
@@ -138,7 +141,10 @@ const Cart_User = () => {
             </div>
           );
         })}
+      {/* Voucher */}
       <Voucher />
+      {/* Total */}
+      <Total_Cart />
     </React.Fragment>
   );
 };
