@@ -42,7 +42,7 @@ const Products = () => {
       <React.Fragment>
         {data &&
           data
-            .filter((value, index) => {
+            .filter((value) => {
               if (debouncedValue === "") {
                 return value;
               } else if (
@@ -53,10 +53,7 @@ const Products = () => {
             })
             .map((product, index) => {
               return (
-                <div
-                  className="shop col-lg-4 col-md-6 col-sm-6"
-                  key={product._id}
-                >
+                <div className="shop col-lg-4 col-md-6 col-sm-6" key={index}>
                   <div className="border-product">
                     <Link to={`/product/${product._id}`}>
                       <div className="shopBack">
@@ -72,11 +69,22 @@ const Products = () => {
                           {STORAGES.except(product.name, 25)}
                         </Link>
                       </p>
-
                       <Rating
                         value={product.rating}
                         text={`${product.numReviews} reviews`}
                       />
+                      <p
+                        style={
+                          product.countInStock > 0
+                            ? { color: "green", fontWeight: "bold" }
+                            : { color: "red", fontWeight: "bold" }
+                        }
+                      >
+                        Stock:{" "}
+                        {product.countInStock > 0
+                          ? product.countInStock + " " + `( shoes )`
+                          : "Out Of Stock"}
+                      </p>
                       <h3>${product.price}</h3>
                     </div>
                   </div>
