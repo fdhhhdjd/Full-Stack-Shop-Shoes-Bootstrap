@@ -199,7 +199,9 @@
 
 - Add to cart : post --> http://localhost:5000/api/product/add/cart
 
-- InDeCrement Cart product --> http://localhost:5000/api/product/indecrement/cart
+- InCrement Cart product --> http://localhost:5000/api/product/increment/cart
+
+- DeCrement Cart product --> http://localhost:5000/api/product/decrement/cart
 
 - Del Cart Product -> http://localhost:5000/api/product/del/cart
 
