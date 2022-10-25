@@ -2,19 +2,24 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  Decrement_Quantity_Cart_Initial,
   Delete_Cart_Initial,
   Get_Detail_User_Cart_Initial,
-  Update_Quantity_Cart_Initial,
+  Increment_Quantity_Cart_Initial,
 } from "../../../redux/cart_slice/Api_Redux_Thunk_Cart";
-import { reset_change_cart } from "../../../redux/cart_slice/Cart_Slice";
+import {
+  reset_change_cart,
+  reset_change_error,
+} from "../../../redux/cart_slice/Cart_Slice";
 import STORAGES from "../../../utils/storage";
 import {
   Lazy_Loading_Image,
   SwaleMessage,
+  Voucher,
 } from "../../imports/General_Global_Import";
 
 const Cart_User = () => {
-  const { cart, total_quantity, change_cart } = useSelector((state) => ({
+  const { cart, total_quantity, change_cart, error } = useSelector((state) => ({
     ...state.Cart_user,
   }));
   const accessToken = STORAGES.getLocalStorage("accessToken");
@@ -34,38 +39,22 @@ const Cart_User = () => {
       });
   };
   const HandleIncrement = (product_id) => {
-    var result = handleCheckStock(product_id);
-    if (result[0].quantity >= result[0].product_id[0].countInStock) {
-      return SwaleMessage("Store has sold out !", "warning");
-    } else if (result[0].quantity <= result[0].product_id[0].countInStock) {
-      return dispatch(
-        Update_Quantity_Cart_Initial({
-          product_id,
-          quantity: 1,
-          accessToken,
-        })
-      );
-    }
+    dispatch(
+      Increment_Quantity_Cart_Initial({
+        product_id,
+        quantity: 1,
+        accessToken,
+      })
+    );
   };
   const HandleDecrement = (product_id) => {
-    var result = handleCheckStock(product_id);
-    if (result[0].quantity === "1") {
-      return dispatch(Delete_Cart_Initial({ product_id, accessToken }));
-    }
     return dispatch(
-      Update_Quantity_Cart_Initial({
+      Decrement_Quantity_Cart_Initial({
         product_id,
         quantity: "-1",
         accessToken,
       })
     );
-  };
-  const handleCheckStock = (product_id) => {
-    return cart?.filter((rs) => {
-      if (rs.product_id[0]._id === product_id) {
-        return rs;
-      }
-    });
   };
   useEffect(() => {
     if (change_cart) {
@@ -73,6 +62,12 @@ const Cart_User = () => {
       dispatch(reset_change_cart());
     }
   }, [change_cart]);
+  useEffect(() => {
+    if (error) {
+      SwaleMessage(error?.msg, "warning");
+    }
+    return dispatch(reset_change_error());
+  }, [error]);
   return (
     <React.Fragment>
       <nav aria-label="breadcrumb" className="main-breadcrumb mt-4">
@@ -143,6 +138,7 @@ const Cart_User = () => {
             </div>
           );
         })}
+      <Voucher />
     </React.Fragment>
   );
 };

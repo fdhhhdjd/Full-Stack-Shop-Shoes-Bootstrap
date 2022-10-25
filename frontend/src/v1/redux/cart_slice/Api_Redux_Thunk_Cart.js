@@ -29,8 +29,8 @@ export const Add_To_Cart_Initial = createAsyncThunk(
   }
 );
 
-export const Update_Quantity_Cart_Initial = createAsyncThunk(
-  "Cart/InDecrement",
+export const Increment_Quantity_Cart_Initial = createAsyncThunk(
+  "Cart/Increment",
   async ({ product_id, quantity, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -39,7 +39,33 @@ export const Update_Quantity_Cart_Initial = createAsyncThunk(
     };
     try {
       const response = await axios.post(
-        `${API_CART.API_INCREMENT_DECREASE_CART}`,
+        `${API_CART.API_INCREMENT_CART}`,
+        {
+          product_id,
+          quantity,
+        },
+        config
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const Decrement_Quantity_Cart_Initial = createAsyncThunk(
+  "Cart/Decrement",
+  async ({ product_id, quantity, accessToken }, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    try {
+      const response = await axios.post(
+        `${API_CART.API_DECREMENT_CART}`,
         {
           product_id,
           quantity,

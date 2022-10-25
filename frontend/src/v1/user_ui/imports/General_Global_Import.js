@@ -51,3 +51,6 @@ export { default as Info_Cart } from "../components/Cart_Component/Info_Cart";
 
 //* Cart Empty
 export { default as CartEmpty } from "../components/Cart_Component/Cart_Empty";
+
+//* Voucher
+export { default as Voucher } from "../components/Cart_Component/Vouchers/Voucher";

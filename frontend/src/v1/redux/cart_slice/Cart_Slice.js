@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   Add_To_Cart_Initial,
-  Update_Quantity_Cart_Initial,
+  Decrement_Quantity_Cart_Initial,
+  Increment_Quantity_Cart_Initial,
   Delete_Cart_Initial,
   Get_Detail_User_Cart_Initial,
 } from "./Api_Redux_Thunk_Cart";
@@ -23,6 +24,9 @@ const Cart_User = createSlice({
     reset_change_cart: (state) => {
       state.change_cart = null;
     },
+    reset_change_error: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: {
     //* Add To Cart
@@ -35,19 +39,31 @@ const Cart_User = createSlice({
     },
     [Add_To_Cart_Initial.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = action.payload.element;
     },
-    //* Update Quantity Cart
-    [Update_Quantity_Cart_Initial.pending]: (state, action) => {
+    //* Increment Quantity Cart
+    [Increment_Quantity_Cart_Initial.pending]: (state, action) => {
       state.loading = true;
     },
-    [Update_Quantity_Cart_Initial.fulfilled]: (state, action) => {
+    [Increment_Quantity_Cart_Initial.fulfilled]: (state, action) => {
       state.loading = false;
       state.change_cart = action.payload;
     },
-    [Update_Quantity_Cart_Initial.rejected]: (state, action) => {
+    [Increment_Quantity_Cart_Initial.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = action.payload.element;
+    },
+    //* Decrement Quantity Cart
+    [Decrement_Quantity_Cart_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Decrement_Quantity_Cart_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.change_cart = action.payload;
+    },
+    [Decrement_Quantity_Cart_Initial.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.element;
     },
     //* Delete Cart
     [Delete_Cart_Initial.pending]: (state, action) => {
@@ -59,7 +75,7 @@ const Cart_User = createSlice({
     },
     [Delete_Cart_Initial.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = action.payload.element;
     },
     //* Get Cart Users
     [Get_Detail_User_Cart_Initial.pending]: (state, action) => {
@@ -77,5 +93,6 @@ const Cart_User = createSlice({
   },
 });
 const Cart_Slice = Cart_User.reducer;
-export const { reset_cart, reset_change_cart } = Cart_User.actions;
+export const { reset_cart, reset_change_cart, reset_change_error } =
+  Cart_User.actions;
 export default Cart_Slice;

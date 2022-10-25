@@ -4,9 +4,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Add_To_Cart_Initial,
   Get_Detail_User_Cart_Initial,
-  Update_Quantity_Cart_Initial,
+  Increment_Quantity_Cart_Initial,
 } from "../../../redux/cart_slice/Api_Redux_Thunk_Cart";
-import { reset_change_cart } from "../../../redux/cart_slice/Cart_Slice";
+import {
+  reset_change_cart,
+  reset_change_error,
+} from "../../../redux/cart_slice/Cart_Slice";
 import { Get_Detail_Product_Initial } from "../../../redux/product_slice/Api_Redux_Thunk_Products";
 import { reset_product_detail } from "../../../redux/product_slice/Product_Slice";
 import STORAGES from "../../../utils/storage";
@@ -30,20 +33,11 @@ const Detail_Product = () => {
     ...state.Products_user,
   }));
 
-  const { change_cart, cart } = useSelector((state) => ({
+  const { change_cart, cart, error } = useSelector((state) => ({
     ...state.Cart_user,
   }));
 
   const handleAddToCart = (product_id, quantity) => {
-    var result = handleCheckStock(product_id);
-    if (
-      result !== undefined &&
-      result.length > 0 &&
-      result[0].quantity >=
-        result_product_detail?.product_detail[0]?.countInStock
-    ) {
-      return SwaleMessage("Store has sold out !", "warning");
-    }
     const checkCart = cart?.some((rs) => product_id === rs.product_id[0]._id);
     if (checkCart) {
       HandleIncrement(product_id, quantity);
@@ -55,7 +49,7 @@ const Detail_Product = () => {
   };
   const HandleIncrement = (product_id, quantity) => {
     return dispatch(
-      Update_Quantity_Cart_Initial({
+      Increment_Quantity_Cart_Initial({
         product_id,
         quantity: 1,
         accessToken,
@@ -77,6 +71,12 @@ const Detail_Product = () => {
       dispatch(reset_product_detail());
     };
   }, [id]);
+  useEffect(() => {
+    if (error) {
+      SwaleMessage(error?.msg, "warning");
+    }
+    return dispatch(reset_change_error());
+  }, [error]);
   useEffect(() => {
     if (change_cart) {
       dispatch(Get_Detail_User_Cart_Initial({ accessToken }));
