@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Products = require("../../../models/ProductModel");
 const HELPER = require("../../../utils/helper");
 const CONTAINS = require("../../../configs/constants");
-const { set, del } = require("../../../utils/limited_redis");
+const REDIS = require("../../../db/redis_db");
 module.exports = {
   createReview: async (product, review) => {
     const sess = await mongoose.startSession();
@@ -107,14 +107,15 @@ module.exports = {
   },
 };
 const resetRedisProduct = async () => {
-  await del("product_user");
   const random_number = HELPER.randomNumber();
   const product_user = await Products.find().sort({
     createdAt: 1,
   });
-  await set(
-    "product_user",
-    JSON.stringify(product_user),
-    CONTAINS._1_DAYS_REDIS + random_number
-  );
+  REDIS.pipeline()
+    .del("product_user")
+    .set(
+      "product_user",
+      JSON.stringify(product_user),
+      CONTAINS._1_DAYS_REDIS + random_number
+    );
 };
