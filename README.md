@@ -8,7 +8,9 @@
 </p>
 
 
-# BackEnd Code By: Nguyễn Tiến Tài :octocat: 
+# BackEnd Code By: Nguyễn Tiến Tài :octocat:
+
+## Mục Tiêu: Tối ưu hóa code và luyện code kèm vấn đề thực tế.
 
 ## WebSite (Hosting): https://shopshoes.cf
 
@@ -19,8 +21,6 @@
 ## Mk: Taideptrai123
 
 ## Note: Thay localhost bằng Api.
-
-## Api Online ( Heroku không dùng Redis-Aws ): https://shopshoetaiheo.herokuapp.com
 
 ## Api Online (Hoting và Aws Đầy đủ ) : https://shopshoedev.cf ( Aws đã hết phí sử dụng  😄 ).
 
