@@ -49,7 +49,7 @@ const Voucher = () => {
   return (
     <React.Fragment>
       <form className="total" onSubmit={handleSubmit}>
-        {loading ? "" : <span className="sub">Code Voucher:</span>}
+        <span className="sub">Code Voucher:</span>
         {clickFlag ? (
           <>
             {" "}
@@ -65,7 +65,13 @@ const Voucher = () => {
               className="b"
             />
             &nbsp;&nbsp;
-            <button className="btn btn-success btn-sm col-md-1">Send</button>
+            {loading ? (
+              <div className="spinner-border text-success" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              <button className="btn btn-success btn-sm col-md-1">Send</button>
+            )}
           </>
         ) : (
           <span
@@ -80,32 +86,6 @@ const Voucher = () => {
           </span>
         )}
       </form>
-
-      {/* <div className="card mb-3">
-        <div className="card-body">
-          <form>
-            <div className="form-group">
-              {" "}
-              <label>Have coupon?</label>
-              <div className="input-group">
-                {" "}
-                <input
-                  type="text"
-                  className="form-control coupon"
-                  name
-                  placeholder="Coupon code"
-                />{" "}
-                <span className="input-group-append">
-                  {" "}
-                  <button className="btn btn-primary btn-apply coupon">
-                    Apply
-                  </button>{" "}
-                </span>{" "}
-              </div>
-            </div>
-          </form>
-        </div>
-      </div> */}
     </React.Fragment>
   );
 };

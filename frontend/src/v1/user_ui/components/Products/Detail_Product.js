@@ -10,6 +10,7 @@ import {
   reset_change_cart,
   reset_change_error,
 } from "../../../redux/cart_slice/Cart_Slice";
+import { Get_Detail_User_Payment_Initial } from "../../../redux/payment_slice/Api_Redux_Thunk_Payment";
 import { Get_Detail_Product_Initial } from "../../../redux/product_slice/Api_Redux_Thunk_Products";
 import { reset_product_detail } from "../../../redux/product_slice/Product_Slice";
 import STORAGES from "../../../utils/storage";
@@ -56,13 +57,6 @@ const Detail_Product = () => {
       })
     );
   };
-  const handleCheckStock = (product_id) => {
-    return cart?.filter((rs) => {
-      if (rs.product_id[0]._id === product_id) {
-        return rs;
-      }
-    });
-  };
   useEffect(() => {
     if (id) {
       dispatch(Get_Detail_Product_Initial(id));
@@ -80,6 +74,7 @@ const Detail_Product = () => {
   useEffect(() => {
     if (change_cart) {
       dispatch(Get_Detail_User_Cart_Initial({ accessToken }));
+      dispatch(Get_Detail_User_Payment_Initial(accessToken));
       return SwaleMessage("Add To Cart Success !", "success");
     }
     return () => {
