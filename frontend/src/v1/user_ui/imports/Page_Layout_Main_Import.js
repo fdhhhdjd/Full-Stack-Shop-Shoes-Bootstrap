@@ -27,3 +27,6 @@ export { default as Product } from "../components/Products/Products";
 
 //* Detail Product
 export { default as Detail_Product } from "../components/Products/Detail_Product";
+
+//* Cart
+export { default as Cart_Screen } from "../pages/Cart_Screen/Cart_Screen";

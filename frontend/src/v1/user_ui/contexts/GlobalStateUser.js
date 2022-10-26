@@ -7,6 +7,8 @@ import { New_Accept_Token_Initial } from "../../redux/authentication_slice/Api_R
 import UserApi from "./Auth_Users_Context/Auth_Users";
 import ProductApi from "./Product_Context/Product_Context";
 import CarouselApi from "./Carousel_Context/Carousel_Context";
+import Cart_Context from "./Cart_Context/Cart_Context";
+import PaymentApi from "./Payment_Context/Payment_Context";
 export const API_USER = `${CONFIGS.REACT_APP_API_URL}/api/user`;
 export const StoreContextUser = createContext();
 export const useContextUser = () => useContext(StoreContextUser);
@@ -39,7 +41,9 @@ export const DataProviderUser = ({ children }) => {
     //* function
     User_Api_Context: UserApi(),
     Product_Api_Context: ProductApi(),
+    Cart_Context: Cart_Context(),
     Carousel_Api_Context: CarouselApi(),
+    Payment_Api_Context: PaymentApi(),
   };
   StoreContextUser.displayName = "Global State User";
   return (

@@ -3,7 +3,7 @@ const paymentCtrl = require("../controllers/payment.controllers");
 const VerifyAcceptToken = require("../../middlewares/VerifyAcceptToken.middleware");
 
 //* payment total
-router.post("/payment/total", VerifyAcceptToken, paymentCtrl.totalPayment);
+router.get("/payment/total", VerifyAcceptToken, paymentCtrl.totalPayment);
 //* payment check inStock
 router.get("/payment/check/stock", VerifyAcceptToken, paymentCtrl.countInStock);
 

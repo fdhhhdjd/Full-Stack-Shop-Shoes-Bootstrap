@@ -1,20 +1,15 @@
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Tab_Change_Password from "../../components/Auth_Info/Tab_Change_Password";
+import Tab_Profile_User from "../../components/Auth_Info/Tab_Profile_User";
 import {
   Lazy_Loading_Image,
   Metadata,
 } from "../../imports/General_Global_Import";
-// import {
-//   Tab_Change_Password,
-//   Tab_Profile_User,
-// } from "../../imports/User_Info_Import";
-import Tab_Change_Password from "../../components/Auth_Info/Tab_Change_Password";
-import Tab_Profile_User from "../../components/Auth_Info/Tab_Profile_User";
 const Profile_USers = () => {
   const { profile } = useSelector((state) => ({ ...state.auth_user }));
-  const navigation = useNavigate();
   return (
     <>
       <Metadata title={`${profile && profile.name}`} />

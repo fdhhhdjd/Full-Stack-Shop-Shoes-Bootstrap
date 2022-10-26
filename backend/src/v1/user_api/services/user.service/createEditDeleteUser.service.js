@@ -3,7 +3,6 @@ const Users = require("../../../models/userModel");
 const UserVerifications = require("../../../models/userVerificationModel");
 const CONSTANTS = require("../../../configs/constants");
 const HELPER = require("../../../utils/helper");
-const { RedisPub } = require("../../../utils/limited_redis");
 const {
   destroyStorage,
 } = require("../../../upload_cloudinary/services/uploadStorage.service");

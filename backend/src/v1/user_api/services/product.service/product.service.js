@@ -36,19 +36,57 @@ module.exports = {
     };
   },
   handleAddToCart: async ({ user_id, product_id, quantity }) => {
+    const check = await handleCheckOutOfStock(product_id, user_id);
+    if (check) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Out of stock !!",
+        },
+      };
+    }
     await hmset(user_id, product_id, quantity);
     return {
       status: 200,
       success: true,
-      msg: "Add to cart Success !!!",
+      element: {
+        msg: "Add to cart Success !!!",
+      },
     };
   },
-  handleInAndDecrementCart: async ({ user_id, product_id, quantity }) => {
+  handleIncrementCart: async ({ user_id, product_id, quantity }) => {
+    const check = await handleCheckOutOfStock(product_id, user_id);
+    if (check) {
+      return {
+        status: 400,
+        success: false,
+        element: {
+          msg: "Out of stock !!",
+        },
+      };
+    }
     await hincrby(user_id, product_id, quantity);
     return {
       status: 200,
       success: true,
-      msg: "Hincrby to cart Success !!!",
+      element: {
+        msg: "Increment to cart Success !!!",
+      },
+    };
+  },
+  handleDecrementCart: async ({ user_id, product_id, quantity }) => {
+    await hincrby(user_id, product_id, quantity);
+    const check = await handleCheckDecrementOutOfStock(product_id, user_id);
+    if (check) {
+      await delCart(user_id, product_id);
+    }
+    return {
+      status: 200,
+      success: true,
+      element: {
+        msg: "Decrement to cart Success !!!",
+      },
     };
   },
   handleDelCart: async ({ user_id, product_id }) => {
@@ -78,7 +116,7 @@ module.exports = {
       product.push({
         product_id: await Products.find({
           _id: key,
-        }),
+        }).select("name price countInStock image _id numReviews"),
         quantity: data[key],
       });
     }
@@ -93,4 +131,22 @@ module.exports = {
       },
     };
   },
+};
+const handleCheckOutOfStock = async (product_id, user_id) => {
+  let product = await Products.findById(product_id).select("countInStock");
+  let product_redis = await hgetall(user_id);
+  let check = product.countInStock <= product_redis[product._id];
+  if (check) {
+    return true;
+  }
+  return false;
+};
+const handleCheckDecrementOutOfStock = async (product_id, user_id) => {
+  let product = await Products.findById(product_id).select("countInStock");
+  let product_redis = await hgetall(user_id);
+  let check = product_redis[product._id] === "0";
+  if (check) {
+    return true;
+  }
+  return false;
 };
