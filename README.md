@@ -10,7 +10,7 @@
 
 # BackEnd Code By: Nguyễn Tiến Tài :octocat:
 
-## Mục Tiêu: Tối ưu hóa code và luyện code kèm vấn đề thực tế.
+## Mục Tiêu: Giải quyết vấn đề thực tế,tối ưu hóa code và setup,...
 
 ## WebSite (Hosting): https://shopshoes.cf
 
