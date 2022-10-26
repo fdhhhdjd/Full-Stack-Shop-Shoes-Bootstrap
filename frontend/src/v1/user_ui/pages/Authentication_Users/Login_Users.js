@@ -44,12 +44,12 @@ const Login_Users = () => {
   useEffect(() => {
     if (auth && auth.status === 200) {
       STORAGES.saveLocalStorage("Login_Users", true);
-      //   if (location.state?.from) {
-      //     navigate(location.state.from);
-      // window.location.reload();
-      //   } else {
-      window.location.href = "/";
-      //   }
+      if (location.state?.from) {
+        navigate(location.state.from);
+        window.location.reload();
+      } else {
+        window.location.href = "/";
+      }
     }
     if (error) {
       toast.error(error.msg);
