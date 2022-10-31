@@ -280,39 +280,6 @@ module.exports = {
     // not found return null
     return null;
   },
-  //* Check Limit request
-  checkLimitDoss(time, request) {
-    return rateLimit({
-      windowMs: time,
-      max: request,
-      message: {
-        status: 503,
-        success: false,
-        element: {
-          msg: "Server Busy!!!",
-        },
-      },
-      standardHeaders: true,
-      skip: (req, res) => {
-        if (req.ip === "::ffff:127.0.0.1") return true;
-        return false;
-      },
-    });
-  },
-  checkLimitRouter({ time, request, data }) {
-    return rateLimit({
-      windowMs: time,
-      max: request,
-      message: {
-        status: data?.status,
-        success: data?.success,
-        element: {
-          msg: data?.msg,
-        },
-      },
-      standardHeaders: true,
-    });
-  },
   createID() {
     const sonyflake = new Sonyflake({
       machineId: 2, // in range 2^16

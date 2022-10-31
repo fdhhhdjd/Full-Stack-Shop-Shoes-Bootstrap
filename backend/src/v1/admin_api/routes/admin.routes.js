@@ -3,25 +3,14 @@ const adminCtrl = require("../controllers/admin.controllers");
 const VerifyRefreshToken = require("../../middlewares/VerifyRefreshToken.middleware");
 const VerifyAcceptToken = require("../../middlewares/VerifyAcceptToken.middleware");
 const authAdmin = require("../../middlewares/VerificationAdmin");
-const CONSTANTS = require("../../configs/constants");
-const STORAGE = require("../../utils/storage");
-const limit = STORAGE.checkLimitRouter({
-  time: CONSTANTS._5_MINUTES,
-  request: 5,
-  data: {
-    status: 400,
-    success: false,
-    msg: "You have expired send Phone of the day!!",
-  },
-});
-
+const RateLimitMiddleware = require("../../middlewares/ratelimit.middleware")
 // * ------------- Login -------------
 //!Login Email and Phone
 router.post("/admin/login", adminCtrl.loginAdmin);
 //!Login Google
 router.post("/admin/login/google", adminCtrl.loginAdminGoogle);
 //! Register send otp
-router.post("/admin/register", limit, adminCtrl.registerAdmin);
+router.post("/admin/register", RateLimitMiddleware, adminCtrl.registerAdmin);
 //! Logout admin
 router.get(
   "/admin/logout",

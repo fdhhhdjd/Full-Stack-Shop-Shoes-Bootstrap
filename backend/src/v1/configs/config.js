@@ -64,4 +64,11 @@ module.exports = {
    * * Stripe Settings
    */
   GOOGLE_CLIENT_IDS: process.env.GOOGLE_CLIENT_IDS,
+
+  /**
+    * * Setup rate limit
+  */
+  IPA_API_RATE_LIMIT_DURATION: process.env.IPA_API_RATE_LIMIT_DURATION,
+  IPA_API_RATE_LIMIT: process.env.IPA_API_RATE_LIMIT,
+
 };
