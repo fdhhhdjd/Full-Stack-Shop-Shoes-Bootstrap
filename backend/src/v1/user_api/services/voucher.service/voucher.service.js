@@ -12,7 +12,7 @@ module.exports = {
           msg: "This Voucher already exists.",
         },
       };
-    await set(
+    set(
       `voucher_userId:${user_id}`,
       check_voucher.value,
       CONSTANTS._15_MINUTES_REDIS
@@ -40,7 +40,7 @@ module.exports = {
         },
       };
     }
-    await del(`voucher_userId:${user_id}`);
+    del(`voucher_userId:${user_id}`);
     return {
       status: 200,
       success: true,

@@ -27,7 +27,7 @@ module.exports = {
   },
   handleDeleteFlagOrders: async ({ order_id }) => {
     try {
-      await Payments.findOneAndUpdate(
+      Payments.findOneAndUpdate(
         { _id: order_id },
         {
           deleteAt: CONSTANTS.DELETED_ENABLE,
@@ -41,7 +41,13 @@ module.exports = {
         },
       };
     } catch (error) {
-      return res.status(500).json({ msg: err.message });
+      return {
+        status: 503,
+        success: false,
+        element: {
+          msg: "Server busy !!",
+        },
+      };
     }
   },
   handleDetailOrders: async ({ order_id }) => {
@@ -55,7 +61,13 @@ module.exports = {
         },
       };
     } catch (error) {
-      return res.status(500).json({ msg: err.message });
+      return {
+        status: 503,
+        success: false,
+        element: {
+          msg: "Server busy !!",
+        },
+      };
     }
   },
 };

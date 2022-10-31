@@ -2,7 +2,6 @@ const { returnReasons } = require("../../middlewares/handleError");
 const {
   handleGetallCarousel,
 } = require("../services/carousel.service/carousel.service");
-const HELPER = require("../../utils/helper");
 const carouselCtrl = {
   getallCarousel: async (req, res) => {
     try {

@@ -33,7 +33,7 @@ module.exports = {
         { $sort: { latest: -1 } },
       ]);
 
-      await set(
+      set(
         "carousel",
         JSON.stringify(carousels),
         CONSTANTS._1_DAYS_REDIS + number_random

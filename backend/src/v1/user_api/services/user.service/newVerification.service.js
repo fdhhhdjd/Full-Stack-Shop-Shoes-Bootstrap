@@ -8,6 +8,6 @@ module.exports = {
       createdAt: Date.now(),
       expiresAt: Date.now() + CONSTANTS._45_MINUTES,
     });
-    return await newVerification.save();
+    return newVerification.save();
   },
 };
