@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Change_Password_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
 import {
@@ -11,13 +11,14 @@ import {
   Message_Auth,
   SwaleMessage,
 } from "../../imports/General_Global_Import";
-const initialState = {
-  oldPassword: "",
-  password: "",
-  confirmPassword: "",
-};
+
 
 const Tab_Change_Password = () => {
+  const initialState = {
+    oldPassword: "",
+    password: "",
+    confirmPassword: "",
+  };
   const [state, setState] = useState(initialState);
   const { auth_changePassword, loading, error } = useSelector((state) => ({
     ...state.auth_user,
@@ -62,7 +63,7 @@ const Tab_Change_Password = () => {
   }, [error, auth_changePassword]);
 
   return (
-    <>
+    <React.Fragment>
       {error && (
         <Message_Auth variant="alert-danger">{error.element.msg}</Message_Auth>
       )}
@@ -110,8 +111,8 @@ const Tab_Change_Password = () => {
           <button type="submit">Update Password</button>
         )}
       </form>
-    </>
+    </React.Fragment>
   );
 };
 
-export default Tab_Change_Password;
+export default memo(Tab_Change_Password);

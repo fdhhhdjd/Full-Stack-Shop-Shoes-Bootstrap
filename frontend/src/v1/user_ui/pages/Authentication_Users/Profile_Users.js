@@ -7,9 +7,11 @@ import Tab_Profile_User from "../../components/Auth_Info/Tab_Profile_User";
 import {
   Lazy_Loading_Image,
   Metadata,
+  Order_Info,
 } from "../../imports/General_Global_Import";
 const Profile_USers = () => {
   const { profile } = useSelector((state) => ({ ...state.auth_user }));
+  const { order } = useSelector((state) => ({ ...state.order_user }))
   return (
     <>
       <Metadata title={`${profile && profile.name}`} />
@@ -94,9 +96,9 @@ const Profile_USers = () => {
                     >
                       Orders List
                       <span className="badge2">
-                        {/* {order.history && order.history
-            ? order.history.length
-            : 0} */}
+                        {order && order.history
+                          ? order.history.length
+                          : 0}
                       </span>
                     </button>
                     <button
@@ -143,7 +145,7 @@ const Profile_USers = () => {
                 role="tabpanel"
                 aria-labelledby="v-pills-profile-tab"
               >
-                {/* <Order cartItems={total} /> */}
+                <Order_Info />
               </div>
               <div
                 className="tab-pane fade show "
