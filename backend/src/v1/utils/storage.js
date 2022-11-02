@@ -64,6 +64,13 @@ module.exports = {
     });
     return user;
   },
+  async checkUserIdExit(id) {
+    const user = await Users.findOne({
+      _id: id,
+      // role: CONSTANTS.ACCOUNT_USER,
+    });
+    return user;
+  },
   //* Users email admin
   async checkAdminExit(email) {
     const user = await Users.findOne({

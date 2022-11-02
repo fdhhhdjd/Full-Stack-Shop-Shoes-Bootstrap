@@ -6,7 +6,7 @@ const VerifyAcceptToken = require("../../middlewares/VerifyAcceptToken.middlewar
 router.get("/order/history", VerifyAcceptToken, orderCtrl.historyOrders);
 
 //* Delete flag orders
-router.get("/order/delete/:id", VerifyAcceptToken, orderCtrl.deleteFlagOrders);
+router.post("/order/delete/:id", VerifyAcceptToken, orderCtrl.deleteFlagOrders);
 
 //* Get Detail orders
 router.get("/order/:id", VerifyAcceptToken, orderCtrl.getDetailOrders);
