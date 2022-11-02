@@ -30,3 +30,8 @@ export { default as Detail_Product } from "../components/Products/Detail_Product
 
 //* Cart
 export { default as Cart_Screen } from "../pages/Cart_Screen/Cart_Screen";
+
+//* Order_detail
+export { default as Order_Screen } from "../pages/Order_Screen/Order_Screen";
+
+

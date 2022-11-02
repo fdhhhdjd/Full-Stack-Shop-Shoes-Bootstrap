@@ -1,5 +1,7 @@
 const Payments = require("../../../models/PaymentModel");
 const CONSTANTS = require("../../../configs/constants");
+const PASSWORD = require("../../../utils/password");
+const STORAGE = require("../../../utils/storage");
 module.exports = {
   handleHistoryOrder: async ({ user_id }) => {
     try {
@@ -25,9 +27,32 @@ module.exports = {
       };
     }
   },
-  handleDeleteFlagOrders: async ({ order_id }) => {
+  handleDeleteFlagOrders: async ({ order_id, password, user_id }) => {
     try {
-      await Payments.findOneAndUpdate(
+      const user_email = await STORAGE.checkUserIdExit(user_id);
+      if (!user_email) {
+        return {
+          status: 400,
+          success: false,
+          element: {
+            msg: "User Not Exit",
+          },
+        }
+      }
+      const user_password = await PASSWORD.comparePassword(
+        password,
+        user_email.password
+      );
+      if (!user_password) {
+        return {
+          status: 400,
+          success: false,
+          element: {
+            msg: "Password correct",
+          },
+        }
+      }
+      await Payments.findByIdAndUpdate(
         { _id: order_id },
         {
           deleteAt: CONSTANTS.DELETED_ENABLE,
@@ -41,7 +66,13 @@ module.exports = {
         },
       };
     } catch (error) {
-      return res.status(500).json({ msg: err.message });
+      return {
+        status: 503,
+        success: false,
+        element: {
+          msg: "Server busy !!",
+        },
+      };
     }
   },
   handleDetailOrders: async ({ order_id }) => {
@@ -55,7 +86,13 @@ module.exports = {
         },
       };
     } catch (error) {
-      return res.status(500).json({ msg: err.message });
+      return {
+        status: 503,
+        success: false,
+        element: {
+          msg: "Server busy !!",
+        },
+      };
     }
   },
 };

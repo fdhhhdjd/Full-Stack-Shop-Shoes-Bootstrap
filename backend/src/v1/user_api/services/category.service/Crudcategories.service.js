@@ -11,7 +11,7 @@ module.exports = {
     const number_random = HELPER.randomNumber();
 
     const category = await Category.find();
-    await set(
+    set(
       "categories",
       JSON.stringify(category),
       CONSTANTS._1_DAYS_REDIS + number_random

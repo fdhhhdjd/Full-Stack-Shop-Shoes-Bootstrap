@@ -9,7 +9,7 @@ const {
 
 // ** Delete Verification
 const deleteVerification = async (userId) => {
-  await UserVerifications.deleteOne({ userId });
+  UserVerifications.deleteOne({ userId });
 };
 //** Create User */
 const createUser = async (
@@ -39,8 +39,7 @@ const UpdateProfile = async ({
   date_of_birth,
   user_id,
 }) => {
-  await deleteImageAutoCloud(user_id);
-  await Users.findOneAndUpdate(
+  return Promise.all([deleteImageAutoCloud(user_id), Users.findOneAndUpdate(
     { _id: user_id },
     {
       name,
@@ -49,30 +48,40 @@ const UpdateProfile = async ({
       sex,
       date_of_birth,
     }
-  );
-  let userId = user_id;
-
-  if (userId) {
-    await updateProfileId(userId);
-  }
-  return true;
+  ),
+  updateProfileId(user_id)
+  ]).then(() => {
+    return true;
+  }).catch(err => {
+    return false;
+  })
 };
 //** Delete User And Verification */
 const deleteVerificationAndUser = async (userId) => {
-  await UserVerifications.deleteOne({ userId });
-  await Users.deleteOne({ _id: userId });
-  return true;
+  return Promise.all([
+    UserVerifications.deleteOne({ userId }), Users.deleteOne({ _id: userId })
+  ]).then((rs) => {
+    return true;
+  }).catch(err => {
+    return false;
+  })
 };
 //** Update Verification CheckEmail */
 const UpdateVerificationUser = async (userId) => {
-  await Users.findOneAndUpdate(
-    { _id: userId },
-    {
-      verified: CONSTANTS.DELETED_ENABLE,
-      checkLogin: CONSTANTS.DELETED_ENABLE,
-    }
-  );
-  await deleteVerification(userId);
+
+  return Promise.all([
+    Users.findOneAndUpdate(
+      { _id: userId },
+      {
+        verified: CONSTANTS.DELETED_ENABLE,
+        checkLogin: CONSTANTS.DELETED_ENABLE,
+      }
+    ), deleteVerification(userId)
+  ]).then((rs) => {
+    return true;
+  }).catch(err => {
+    return false;
+  })
   return true;
 };
 //** Create_acceptToken */
@@ -90,7 +99,8 @@ const UpdatePassword = async ({ user_id, password }) => {
 //** Delete Image Cloud auto */
 const deleteImageAutoCloud = async (user_id) => {
   const user = await Users.findById(user_id);
-  return await destroyStorage(user?.image?.public_id);
+  let public_id = user?.image?.public_id
+  return destroyStorage(public_id);
 };
 module.exports = {
   //* CreateUser

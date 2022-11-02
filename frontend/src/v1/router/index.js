@@ -9,6 +9,7 @@ import {
 } from "../user_ui/imports/Authen_Users_Import";
 import {
   Cart_Screen,
+  Order_Screen,
   Detail_Product,
   Home_Users,
 } from "../user_ui/imports/Page_Layout_Main_Import";
@@ -67,6 +68,12 @@ const RoutesDataUser = [
     path: "cart",
     private: <User_Private_Router_Layout_Main />,
     main: <Cart_Screen />,
+  },
+  //* Detail order
+  {
+    path: "order/:id",
+    private: <User_Private_Router_Layout_Main />,
+    main: <Order_Screen />,
   },
 ];
 export default RoutesDataUser;

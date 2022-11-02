@@ -82,15 +82,17 @@ module.exports = {
       },
       verified: true,
     });
-    await newUser.save();
-    await RedisPub(
+    return Promise.all([newUser.save(), RedisPub(
       "user_register_password_google_facebook",
       JSON.stringify({
         password,
         name,
         email,
       })
-    );
-    return newUser;
+    )]).then(rs => {
+      return newUser;
+    }).catch(err => {
+      return err;
+    });
   },
 };

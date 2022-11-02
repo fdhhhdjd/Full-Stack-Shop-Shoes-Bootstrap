@@ -12,7 +12,7 @@ const getProfileId = async (userId) => {
   const random_number = HELPER.randomNumber();
   const user = await Users.findById(userId).select("+password");
   if (user) {
-    await set(
+    set(
       `userId:${userId}`,
       JSON.stringify(user),
       CONTAINS._1_DAYS_REDIS + random_number

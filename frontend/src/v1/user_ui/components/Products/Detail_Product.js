@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect, useMemo } from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
@@ -38,7 +39,7 @@ const Detail_Product = () => {
     ...state.Cart_user,
   }));
 
-  const handleAddToCart = (product_id, quantity) => {
+  const handleAddToCart = useCallback((product_id, quantity) => {
     const checkCart = cart?.some((rs) => product_id === rs.product_id[0]._id);
     if (checkCart) {
       HandleIncrement(product_id, quantity);
@@ -47,8 +48,8 @@ const Detail_Product = () => {
         Add_To_Cart_Initial({ product_id, quantity, accessToken })
       );
     }
-  };
-  const HandleIncrement = (product_id, quantity) => {
+  }, [change_cart]);
+  const HandleIncrement = useCallback((product_id) => {
     return dispatch(
       Increment_Quantity_Cart_Initial({
         product_id,
@@ -56,7 +57,7 @@ const Detail_Product = () => {
         accessToken,
       })
     );
-  };
+  }, [change_cart]);
   useEffect(() => {
     if (id) {
       dispatch(Get_Detail_Product_Initial(id));
@@ -134,7 +135,7 @@ const Detail_Product = () => {
                       <div className="flex-box d-flex justify-content-between align-items-center">
                         <h6>Status</h6>
                         {result_product_detail.product_detail[0].countInStock >
-                        0 ? (
+                          0 ? (
                           <span>In Stock</span>
                         ) : (
                           <span>End In Stock</span>
@@ -160,7 +161,7 @@ const Detail_Product = () => {
                         />
                       </div>
                       {result_product_detail.product_detail[0]?.countInStock >
-                      0 ? (
+                        0 ? (
                         <>
                           <div className="flex-box d-flex justify-content-between align-items-center">
                             <h6>CountIn Stock</h6>
@@ -209,4 +210,4 @@ const Detail_Product = () => {
   );
 };
 
-export default Detail_Product;
+export default memo(Detail_Product);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import Lazy_Load_Img from "../../custom_hook/Lazy_Load_Img";
 const TransformWrappers = ({ url_image }) => {
@@ -44,4 +44,4 @@ const TransformWrappers = ({ url_image }) => {
   );
 };
 
-export default TransformWrappers;
+export default memo(TransformWrappers);

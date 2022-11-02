@@ -27,9 +27,13 @@ const paymentCtrl = {
   },
   deleteFlagOrders: async (req, res) => {
     try {
+      const { password } = req.body;
       let order_id = req.params.id;
+      let user_id = req.user.id || req.user.user_id;
       const { status, success, element } = await handleDeleteFlagOrders({
         order_id,
+        password,
+        user_id
       });
       return res.status(status).json({
         status,
@@ -64,6 +68,6 @@ const paymentCtrl = {
         element: returnReasons("503"),
       });
     }
-  },
+  }
 };
 module.exports = paymentCtrl;

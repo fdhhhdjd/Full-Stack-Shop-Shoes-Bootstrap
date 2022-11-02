@@ -9,6 +9,7 @@ import ProductApi from "./Product_Context/Product_Context";
 import CarouselApi from "./Carousel_Context/Carousel_Context";
 import Cart_Context from "./Cart_Context/Cart_Context";
 import PaymentApi from "./Payment_Context/Payment_Context";
+import OrderApi from "./Order_User_Context/OrderApi";
 export const API_USER = `${CONFIGS.REACT_APP_API_URL}/api/user`;
 export const StoreContextUser = createContext();
 export const useContextUser = () => useContext(StoreContextUser);
@@ -40,6 +41,7 @@ export const DataProviderUser = ({ children }) => {
   const data = {
     //* function
     User_Api_Context: UserApi(),
+    Order_Api_Context: OrderApi(),
     Product_Api_Context: ProductApi(),
     Cart_Context: Cart_Context(),
     Carousel_Api_Context: CarouselApi(),
