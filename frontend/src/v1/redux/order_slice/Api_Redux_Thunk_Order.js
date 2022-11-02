@@ -49,15 +49,16 @@ export const Detail_History_Order_Initial = createAsyncThunk(
 
 export const Delete_Flag_History_Order_Initial = createAsyncThunk(
     "Order/History/Delete",
-    async ({ id, accessToken }, { rejectWithValue }) => {
+    async ({ id, accessToken, password }, { rejectWithValue }) => {
         const config = {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
         };
         try {
-            const response = await axios.get(
+            const response = await axios.post(
                 `${API_ORDER.API_DEL_ORDER_FLAG}/${id}`,
+                { password },
                 config
             );
             return response.data;

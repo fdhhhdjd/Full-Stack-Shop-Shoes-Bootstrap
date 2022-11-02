@@ -40,7 +40,7 @@ const Order_Info = () => {
             confirmButtonColor: "#1cb803",
             showLoaderOnConfirm: true,
             preConfirm: (checkPass) => {
-              return dispatch(Delete_Flag_History_Order_Initial({ id, accessToken })).then((rs) => {
+              return dispatch(Delete_Flag_History_Order_Initial({ id, accessToken,password:checkPass })).then((rs) => {
                 dispatch(reset_order_delete())
               }).catch((error) => {
                 console.log(error);

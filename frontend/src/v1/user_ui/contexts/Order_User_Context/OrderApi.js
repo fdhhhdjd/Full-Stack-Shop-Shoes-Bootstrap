@@ -10,11 +10,17 @@ const OrderApi = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        if (accessToken || order_delete) {
+        if (accessToken) {
             const token_localStorage = STORAGES.getLocalStorage("accessToken");
             dispatch(History_Order_Initial(token_localStorage))
         }
-    }, [accessToken, order_delete]);
+    }, [accessToken]);
+    useEffect(() => {
+        if (order_delete) {
+            const token_localStorage = STORAGES.getLocalStorage("accessToken");
+            dispatch(History_Order_Initial(token_localStorage))
+        }
+    }, [order_delete])
 
     return {};
 };
