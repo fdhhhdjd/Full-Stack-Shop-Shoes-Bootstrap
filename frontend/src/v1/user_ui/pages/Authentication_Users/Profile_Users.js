@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Tab_Change_Password from "../../components/Auth_Info/Tab_Change_Password";
 import Tab_Profile_User from "../../components/Auth_Info/Tab_Profile_User";
 import {
+  Feedback,
   Lazy_Loading_Image,
   Metadata,
   Order_Info,
@@ -153,7 +154,7 @@ const Profile_USers = () => {
                 role="tabpanel"
                 aria-labelledby="v-pills-home-tab2"
               >
-                {/* <Feedback /> */}
+                <Feedback />
               </div>
             </div>
           </div>

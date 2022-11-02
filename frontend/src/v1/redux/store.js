@@ -9,6 +9,7 @@ import Cart_Slice from "./cart_slice/Cart_Slice";
 import Payment_Slice from "./payment_slice/payment_slice";
 import Voucher_Slice from "./voucher_slice/voucher_slice";
 import Order_Slice from "./order_slice/order_slice";
+import Feedback_Slice from "./feedback_slice/Feedback_Slice";
 const rootReducer = (state, action) => {
   return AuthenticationSlice(state, action);
 };
@@ -24,6 +25,7 @@ store = configureStore({
     payment_user: Payment_Slice,
     voucher_user: Voucher_Slice,
     order_user: Order_Slice,
+    feedback_user: Feedback_Slice,
     reducer: rootReducer,
   },
 

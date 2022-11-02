@@ -61,6 +61,9 @@ export { default as Total_Cart } from "../components/Cart_Component/totals/Total
 //* Order_Info
 export { default as Order_Info } from "../components/Order_Info/Order_Info";
 
+//* FeedBack
+export { default as Feedback } from "../components/Feedback/Feedback";
+
 //*Detail order components
 export { default as Order_Item_One } from "../components/Order_Info/components/Order_Item_One"
 export { default as Order_Item_Two } from "../components/Order_Info/components/Order_Item_Two"
