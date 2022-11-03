@@ -52,7 +52,7 @@ const Order_Screen = () => {
                                 </li>
                             </ol>
                         </nav>
-                        <div className="row  order-detail">
+                        <div className="row order-detail">
                             <Order_Item_One order_detail={order_detail} />
                             <Order_Item_Two order_detail={order_detail} />
                             <Order_Item_Three order_detail={order_detail} />

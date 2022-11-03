@@ -15,6 +15,7 @@ import {
 } from "../user_ui/imports/Page_Layout_Main_Import";
 import User_Private_Router from "../private/user_private_router/User_Private_Router";
 import User_Private_Router_Layout_Main from "../private/user_private_router/User_Private_Router_Layout_Main";
+import Transaction_Success from "../user_ui/components/Cart_Component/totals/components/Transaction_Success";
 const RoutesDataUser = [
   //* Authentication Users
   {
@@ -74,6 +75,12 @@ const RoutesDataUser = [
     path: "order/:id",
     private: <User_Private_Router_Layout_Main />,
     main: <Order_Screen />,
+  },
+  //* Transaction Success
+  {
+    path: "transaction/success",
+    private: <User_Private_Router_Layout_Main />,
+    main: <Transaction_Success />,
   },
 ];
 export default RoutesDataUser;

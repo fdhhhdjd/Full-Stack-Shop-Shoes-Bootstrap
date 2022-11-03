@@ -69,3 +69,15 @@ export { default as Order_Item_One } from "../components/Order_Info/components/O
 export { default as Order_Item_Two } from "../components/Order_Info/components/Order_Item_Two"
 export { default as Order_Item_Three } from "../components/Order_Info/components/Order_Item_Three"
 export { default as Order_Item_Four } from "../components/Order_Info/components/Order_Item_Four"
+
+//* Paypal
+export { default as Paypal } from "../components/Paypal/Paypal"
+
+//* Transaction Paypal
+export { default as TransactionPaypal } from "../components/Cart_Component/totals/components/Transaction_Paypal"
+
+//* Transaction check Stock
+export { default as Check_Stock } from "../components/Cart_Component/totals/components/Check_Stock"
+
+//* Fire Words
+export { default as runFireworks } from "../components/Fireworks/runFireworks"

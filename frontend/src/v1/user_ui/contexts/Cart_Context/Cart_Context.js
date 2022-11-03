@@ -6,12 +6,19 @@ const Cart_Context = () => {
   const { accessToken } = useSelector((state) => ({
     ...state.auth_user,
   }));
+  const { transaction } = useSelector((state) => ({ ...state.payment_user }));
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (accessToken) {
       dispatch(Get_Detail_User_Cart_Initial({ accessToken }));
     }
   }, [accessToken]);
+  useEffect(() => {
+    if (transaction) {
+      dispatch(Get_Detail_User_Cart_Initial({ accessToken }));
+    }
+  }, [transaction])
   return {};
 };
 export default Cart_Context;
