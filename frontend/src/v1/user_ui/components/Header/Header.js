@@ -191,7 +191,7 @@ const Header = () => {
                       <Link className="dropdown-item" to="/profile">
                         Profile
                       </Link>
-                      <Link className="dropdown-item" to="/cart ">
+                      <Link className="dropdown-item" to="/cart">
                         Payment
                       </Link>
                       <Link

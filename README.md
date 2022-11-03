@@ -237,9 +237,9 @@
 
 - Delete order flag: post --> http://localhost:5000/api/order/delete/:id
 
-- History orders: --> http://localhost:5000/api/order/history
+- History orders: get --> http://localhost:5000/api/order/history
 
-- Get Detail orders: -->http://localhost:5000/api/order/:id
+- Get Detail orders: get -->http://localhost:5000/api/order/:id
 
 ## Payments
 

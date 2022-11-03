@@ -7,9 +7,11 @@ const ProductApi = () => {
   const { reviews } = useSelector((state) => ({
     ...state.Comment_product,
   }));
+  const { transaction } = useSelector((state) => ({ ...state.payment_user }));
+
   useEffect(() => {
     dispatch(Get_All_Product_Initial());
-  }, [reviews]);
+  }, [reviews, transaction]);
 
   return {
     edit_comment: [edit, setEdit],
