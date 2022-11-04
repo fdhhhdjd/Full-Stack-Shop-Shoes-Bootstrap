@@ -1,14 +1,14 @@
+const Stripe = require("stripe");
 const {
   hgetall,
   sumQuantity,
   get,
-  del,
   RedisPub,
 } = require("../../../utils/limited_redis");
-const { createPayment } = require("./curd_payment.service");
+const { createPayment, handlePayment, handlePaymentSuccess } = require("./curd_payment.service");
 const Products = require("../../../models/ProductModel");
-const STORAGE = require("../../../utils/storage");
-const REDIS = require("../../../db/redis_db")
+const CONFIGS = require("../../../configs/config")
+const stripe = new Stripe(CONFIGS.STRIPE_KEY);
 module.exports = {
   handlePaymentTotal: async ({ user_id }) => {
     try {
@@ -98,21 +98,8 @@ module.exports = {
   },
   handlePaymentPaypal: async ({ user_id, paymentID, address }) => {
     try {
-      const data = await hgetall(user_id);
-      var cart = [];
-      for (var key in data) {
-        cart.push({
-          cart: await Products.find({ _id: key }),
-          quantity: data[key],
-        });
-      }
-      let total = 0;
-      let total_apply_voucher = 0;
-      const voucher = await get(`voucher_userId:${user_id}`);
-      for (let i = 0; i < cart.length; i++) {
-        total += cart[i].cart[0].price * cart[i].quantity;
-      }
-      total_apply_voucher = (total * JSON.parse(voucher)) / 100;
+      let { cart, total, total_apply_voucher, voucher } = await handlePayment({ user_id });
+
       const { success, element } = await createPayment({
         user_id,
         cart,
@@ -120,7 +107,7 @@ module.exports = {
         address,
         total,
         total_apply_voucher,
-        voucher: JSON.parse(voucher),
+        voucher: voucher,
       });
       if (!success) {
         return {
@@ -138,16 +125,7 @@ module.exports = {
           name: element?.name,
         })
       );
-      for (let i = 0; i < cart.length; i++) {
-        STORAGE.sold(cart[i].cart[0]._id, cart[i].quantity, cart[i].cart[0].sold);
-        STORAGE.stock(
-          cart[i].cart[0]._id,
-          cart[i].quantity,
-          cart[i].cart[0].countInStock
-        );
-      }
-      let redis_multi = REDIS.pipeline().del(`cartUserId:${user_id}`).del("product_user").del(`voucher_userId:${user_id}`)
-      redis_multi.exec()
+      handlePaymentSuccess({ cart, user_id })
       return {
         status: 200,
         success: true,
@@ -165,4 +143,167 @@ module.exports = {
       };
     }
   },
+  handlePaymentStripe: async ({ user_id, req }) => {
+    let UserId = await get(`userId:${user_id}`)
+    let data = await hgetall(user_id);
+    UserId = JSON.parse(UserId)
+    var cart = [];
+    for (var key in data) {
+      cart.push({
+        cart: await Products.find({ _id: key }),
+        quantity: data[key],
+      });
+    }
+    const params = {
+      submit_type: "pay",
+      mode: "payment",
+      payment_method_types: ["card"],
+      billing_address_collection: "auto",
+      shipping_address_collection: {
+        allowed_countries: ["US", "CA", "KE"],
+      },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: {
+              amount: 0,
+              currency: "usd",
+            },
+            display_name: "Free shipping",
+            // Delivers between 5-7 business days
+            delivery_estimate: {
+              minimum: {
+                unit: "business_day",
+                value: 5,
+              },
+              maximum: {
+                unit: "business_day",
+                value: 7,
+              },
+            },
+          },
+        },
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: {
+              amount: 1500,
+              currency: "usd",
+            },
+            display_name: "Next day air",
+            // Delivers in exactly 1 business day
+            delivery_estimate: {
+              minimum: {
+                unit: "business_day",
+                value: 1,
+              },
+              maximum: {
+                unit: "business_day",
+                value: 1,
+              },
+            },
+          },
+        },
+      ],
+      phone_number_collection: {
+        enabled: true,
+      },
+      customer_email: UserId.email,
+      line_items: cart.map((item) => {
+        return {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: item.cart[0].name,
+              images: [item.cart[0].image.url],
+              description: item.cart[0].description,
+            },
+            unit_amount: item.cart[0].price * 100,
+          },
+          adjustable_quantity: {
+            enabled: true,
+            minimum: 1,
+          },
+          quantity: item.quantity,
+        };
+      }),
+
+      success_url: `${req.protocol}://${req.get("host")}/api/payment/stripe/success/{CHECKOUT_SESSION_ID}/${UserId._id}`,
+      cancel_url: `${req.protocol}://${req.get("host")}/api/payment/cancel`,
+      // success_url: `http:localhost:3000/api/payment/stripe/success/{CHECKOUT_SESSION_ID}/${UserId._id}`,
+      // cancel_url: `http:localhost:3000/api/payment/cancel`,
+    };
+    // Create Checkout Sessions from body params.
+    const session = await stripe.checkout.sessions.create(params);
+
+    return {
+      status: 200,
+      success: true,
+      element: {
+        payment_url: session.url,
+        msg: "Url Payment Stripe !!",
+      },
+    };
+  },
+  handlePaymentStripeSuccess: async ({ payment_id, user_id }) => {
+    try {
+      //data Stripe
+      const session = await stripe.checkout.sessions.retrieve(payment_id);
+      const customer = await stripe.customers.retrieve(session.customer);
+
+      //Save Db
+      let { cart, total, total_apply_voucher, voucher } = await handlePayment({ user_id });
+      const { success, element } = await createPayment({
+        user_id,
+        cart,
+        paymentID: customer.id,
+        address: customer.shipping.address,
+        total,
+        total_apply_voucher,
+        voucher: voucher,
+      });
+      if (!success) {
+        return {
+          status: 400,
+          success: false,
+          element: {
+            msg: "Payment Paypal Fail !!!",
+          },
+        };
+      }
+      RedisPub(
+        "user_payment_success",
+        JSON.stringify({
+          email: element?.email,
+          name: element?.name,
+        })
+      );
+      handlePaymentSuccess({ cart, user_id })
+      return {
+        status: 200,
+        success: true,
+        element: {
+          msg: "Payment Stripe Success !!",
+        },
+      };
+    } catch (error) {
+      return {
+        status: 503,
+        success: false,
+        element: {
+          msg: "Server busy !!",
+        },
+      };
+    }
+  },
+  handlePaymentStripeCancel: async () => {
+    return {
+      status: 200,
+      success: true,
+      element: {
+        msg: "Payment Paypal Cancel !!",
+      },
+    };
+  }
 };
