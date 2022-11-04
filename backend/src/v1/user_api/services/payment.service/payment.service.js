@@ -8,6 +8,7 @@ const {
 const { createPayment } = require("./curd_payment.service");
 const Products = require("../../../models/ProductModel");
 const STORAGE = require("../../../utils/storage");
+const REDIS = require("../../../db/redis_db")
 module.exports = {
   handlePaymentTotal: async ({ user_id }) => {
     try {
@@ -143,7 +144,8 @@ module.exports = {
           cart[i].cart[0].countInStock
         );
       }
-      del(`cartUserId:${user_id}`);
+      let redis_multi = REDIS.pipeline().del(`cartUserId:${user_id}`).del("product_user").del(`voucher_userId:${user_id}`)
+      redis_multi.exec()
       return {
         status: 200,
         success: true,

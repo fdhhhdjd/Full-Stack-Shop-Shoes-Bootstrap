@@ -41,9 +41,7 @@ const updateProfileId = async (userId) => {
       JSON.stringify(user),
       CONTAINS._1_DAYS_REDIS + random_number
     );
-  redis_multi.exec().then((rs) => {
-    return user;
-  });
+  redis_multi.exec()
 };
 
 module.exports = {

@@ -111,11 +111,13 @@ const resetRedisProduct = async () => {
   const product_user = await Products.find().sort({
     createdAt: 1,
   });
-  REDIS.pipeline()
+  let redis_multi = REDIS.pipeline()
     .del("product_user")
     .set(
       "product_user",
       JSON.stringify(product_user),
       CONTAINS._1_DAYS_REDIS + random_number
     );
+  redis_multi.exec()
+
 };
