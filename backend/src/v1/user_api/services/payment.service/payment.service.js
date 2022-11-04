@@ -63,13 +63,14 @@ module.exports = {
       var cart = [];
       for (var key in data) {
         cart.push({
-          cart: await Products.find({ _id: key }),
+          cart: await Products.find({ '_id': { $in: [key] } }),
+          quantity: data[key]
         });
       }
       let stockAvailable = true;
       let outOfStock = [];
       for (let i = 0; i < cart.length; i++) {
-        if (cart[i].cart[0].countInStock === 0) {
+        if (cart[i].cart[0].countInStock === 0 || cart[i].quantity > cart[i].cart[0].countInStock) {
           stockAvailable = false;
           outOfStock.push({
             outOfStock: cart[i].cart[0],
@@ -77,8 +78,8 @@ module.exports = {
         }
       }
       return {
-        status: 200,
-        success: true,
+        status: stockAvailable ? 200 : 400,
+        success: stockAvailable ? true : false,
         element: {
           stockAvailable,
           outOfStock,
