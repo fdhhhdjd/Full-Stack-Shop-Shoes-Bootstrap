@@ -57,7 +57,7 @@ const Order_Screen = () => {
                             <Order_Item_Two order_detail={order_detail} />
                             <Order_Item_Three order_detail={order_detail} />
                         </div>
-                        <Order_Item_Four order_detail={order_detail} quantity={quantity} />
+                        <Order_Item_Four order_detail={order_detail} routeId={id} />
                     </React.Fragment>
                 }
             </div >

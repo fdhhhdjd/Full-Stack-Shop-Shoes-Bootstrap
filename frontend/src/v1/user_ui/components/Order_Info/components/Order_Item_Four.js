@@ -1,10 +1,19 @@
-import React, { Fragment, memo, useEffect, useState } from 'react'
+import React, { Fragment, memo, useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Order_Item_Four = ({ order_detail, quantity }) => {
-  order_detail.cart.map((item) => {
-
-  })
+const Order_Item_Four = ({ order_detail, routeId }) => {
+  const [sumQuantity, setSumQuantity] = useState(0)
+  const ShowTotalQuantity = () => {
+    let arr = []
+    order_detail.cart.map((item) => {
+      arr.push(Number(item.quantity))
+    })
+    const sum = arr.reduce((partialSum, a) => partialSum + a, 0);
+    setSumQuantity(sum)
+  }
+  useEffect(() => {
+    ShowTotalQuantity()
+  }, [routeId])
   return (
     <React.Fragment>
       <div className="row order-products justify-content-between">
@@ -79,7 +88,7 @@ const Order_Item_Four = ({ order_detail, quantity }) => {
                   <td>
                     <strong>Quantity</strong>
                   </td>
-                  <td>{quantity}</td>
+                  <td>{sumQuantity}</td>
                 </tr>
                 <tr>
                   <td>
