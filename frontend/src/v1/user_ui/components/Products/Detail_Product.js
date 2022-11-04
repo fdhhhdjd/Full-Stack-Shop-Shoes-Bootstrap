@@ -39,7 +39,7 @@ const Detail_Product = () => {
     ...state.Cart_user,
   }));
 
-  const handleAddToCart = useCallback((product_id, quantity) => {
+  const handleAddToCart = (product_id, quantity) => {
     const checkCart = cart?.some((rs) => product_id === rs.product_id[0]._id);
     if (checkCart) {
       HandleIncrement(product_id, quantity);
@@ -48,7 +48,7 @@ const Detail_Product = () => {
         Add_To_Cart_Initial({ product_id, quantity, accessToken })
       );
     }
-  }, [change_cart]);
+  };
   const HandleIncrement = useCallback((product_id) => {
     return dispatch(
       Increment_Quantity_Cart_Initial({

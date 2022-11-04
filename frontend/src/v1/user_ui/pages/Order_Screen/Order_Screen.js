@@ -10,7 +10,7 @@ const Order_Screen = () => {
     const [quantity, setQuantity] = useState(0);
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { order_detail, loading } = useSelector((state) => ({ ...state.order_user }))
+    const { order_detail, loading, stock_transaction } = useSelector((state) => ({ ...state.order_user }))
     const navigate = useNavigate();
     const accessToken = STORAGES.getLocalStorage("accessToken");
 
@@ -20,7 +20,6 @@ const Order_Screen = () => {
         }, 0);
         setQuantity(total);
     }, [order_detail]);
-
 
     useEffect(() => {
         if (id) {
