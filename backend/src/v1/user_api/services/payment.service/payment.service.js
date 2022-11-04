@@ -73,7 +73,8 @@ module.exports = {
         if (cart[i].cart[0].countInStock === 0 || cart[i].quantity > cart[i].cart[0].countInStock) {
           stockAvailable = false;
           outOfStock.push({
-            outOfStock: cart[i].cart[0],
+            outOfStock: cart[i].cart[0].name,
+            stock: cart[i].cart[0].countInStock,
           });
         }
       }
