@@ -49,7 +49,7 @@ const Payments = createSlice({
     },
     [Check_Stock_Product_Initial.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = action.payload.element;
     },
     //* Payment Check Total
     [Check_Total_Cart_Initial.pending]: (state, action) => {

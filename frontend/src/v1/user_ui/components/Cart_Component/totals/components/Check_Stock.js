@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { Check_Stock_Product_Initial, Check_Total_Cart_Initial } from '../../../../../redux/payment_slice/Api_Redux_Thunk_Payment';
+import { reset_stock_transaction } from '../../../../../redux/payment_slice/payment_slice';
 import STORAGES from '../../../../../utils/storage';
+import SwaleMessage from '../../../SwaleMessage/SwaleMessage';
 const Check_Stock = () => {
-    const { total_user, stock_transaction } = useSelector((state) => ({ ...state.payment_user }));
+    const { error } = useSelector((state) => ({ ...state.payment_user }));
 
     const dispatch = useDispatch();
     const accessToken = STORAGES.getLocalStorage("accessToken");
@@ -11,6 +13,12 @@ const Check_Stock = () => {
     const checkCountInStock = async () => {
         dispatch(Check_Stock_Product_Initial(accessToken))
     };
+    useEffect(() => {
+        if (error) {
+            SwaleMessage("Out Of Stock", 'warning')
+        }
+        dispatch(reset_stock_transaction())
+    }, [error])
     return (
         <React.Fragment>
             <button className="paypal" onClick={checkCountInStock}>
