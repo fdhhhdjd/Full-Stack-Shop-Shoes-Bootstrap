@@ -15,7 +15,9 @@ const Check_Stock = () => {
     };
     useEffect(() => {
         if (error) {
-            SwaleMessage("Out Of Stock", 'warning')
+            error?.outOfStock.map((rs) => {
+                return SwaleMessage(`OutOfStock: ${rs.outOfStock} ---- Stock: ${rs.stock}`, 'warning')
+            })
         }
         dispatch(reset_stock_transaction())
     }, [error])
