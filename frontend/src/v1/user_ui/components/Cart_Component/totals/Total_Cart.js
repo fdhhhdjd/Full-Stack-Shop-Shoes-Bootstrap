@@ -2,15 +2,16 @@ import React, { useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Del_Voucher_Initial } from "../../../../redux/voucher_slice/Api_Redux_Thunk_Voucher";
 import STORAGES from "../../../../utils/storage";
+import { TransactionPaypal } from "../../../imports/General_Global_Import";
 
 const Total_Cart = () => {
   const { total_user } = useSelector((state) => ({ ...state.payment_user }));
-  const { voucher } = useSelector((state) => ({
-    ...state.voucher_user,
-  }));
+
   const voucher_end = useRef();
   const dispatch = useDispatch();
+
   const accessToken = STORAGES.getLocalStorage("accessToken");
+
   const handleRemoveVoucher = () => {
     dispatch(Del_Voucher_Initial(accessToken));
   };
@@ -74,8 +75,11 @@ const Total_Cart = () => {
                 : total_user.total}
             </span>
           </div>
-
           <hr />
+
+          {/* Transaction Paypal */}
+          <TransactionPaypal />
+
         </>
       )}
     </React.Fragment>

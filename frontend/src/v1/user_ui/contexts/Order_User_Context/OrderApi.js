@@ -7,6 +7,7 @@ const OrderApi = () => {
         ...state.auth_user,
     }));
     const { order_delete } = useSelector((state) => ({ ...state.order_user }))
+    const { transaction } = useSelector((state) => ({ ...state.payment_user }));
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -14,7 +15,7 @@ const OrderApi = () => {
             const token_localStorage = STORAGES.getLocalStorage("accessToken");
             dispatch(History_Order_Initial(token_localStorage))
         }
-    }, [accessToken]);
+    }, [accessToken, transaction]);
     useEffect(() => {
         if (order_delete) {
             const token_localStorage = STORAGES.getLocalStorage("accessToken");

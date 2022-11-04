@@ -13,7 +13,7 @@ import STORAGES from "../../../utils/storage";
 import { useContextUser } from "../../contexts/GlobalStateUser";
 import { comment_png } from "../../imports/Assets_Import";
 import { Rating, SwaleMessage } from "../../imports/General_Global_Import";
-const Comment_product = () => {
+const Comment_product = ({ productId }) => {
   const initialState = {
     comment: "",
     commentId: "",
@@ -91,13 +91,10 @@ const Comment_product = () => {
       SwaleMessage(review_edit.msg, "success");
     }
     if (reviews || review_edit) {
-      dispatch(Get_Detail_Product_Initial(id))
-        .then((item) => {
-          ScrollToBottom();
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      console.log(result_product_detail, "result_product_detail")
+      setTimeout(() => {
+        ScrollToBottom()
+      }, [1300])
       return dispatch(reset_review());
     }
     if (edit) {

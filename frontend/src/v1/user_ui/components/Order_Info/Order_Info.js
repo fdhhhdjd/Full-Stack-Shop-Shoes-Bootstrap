@@ -40,7 +40,7 @@ const Order_Info = () => {
             confirmButtonColor: "#1cb803",
             showLoaderOnConfirm: true,
             preConfirm: (checkPass) => {
-              return dispatch(Delete_Flag_History_Order_Initial({ id, accessToken,password:checkPass })).then((rs) => {
+              return dispatch(Delete_Flag_History_Order_Initial({ id, accessToken, password: checkPass })).then((rs) => {
                 dispatch(reset_order_delete())
               }).catch((error) => {
                 console.log(error);
@@ -81,9 +81,10 @@ const Order_Info = () => {
           <tr>
             <th>ID</th>
             <th>STATUS</th>
-            <th>STATUS BILL</th>
             <th>DATE</th>
             <th>TOTAL</th>
+            <th>VOUCHER</th>
+            <th>DISCOUNT</th>
             <th>ACTION</th>
           </tr>
         </thead>
@@ -100,7 +101,6 @@ const Order_Info = () => {
                     {order._id}
                   </Link>
                 </td>
-                <td>{order.status ? "Paid" : "Not Paid"}</td>
                 <td>
                   {(order.order_status === "Delivered" && (
                     <span className="badge btn-success">
@@ -123,11 +123,12 @@ const Order_Info = () => {
                     ? moment(order.paidAt).calendar()
                     : moment(order.createdAt).calendar()}
                 </td>
-
+                <td>${order.cost}</td>
+                <td>{order.voucher === 0 ? "0" : order.voucher} %</td>
                 {order.voucher === 0 ? (
-                  <td>${order.cost}</td>
+                  <td>$0</td>
                 ) : (
-                  <td>${order.total}</td>
+                  <td>${order.discount}</td>
                 )}
                 <td className="text-align-center">
                   &nbsp;&nbsp;&nbsp;

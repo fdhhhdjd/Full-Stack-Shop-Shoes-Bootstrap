@@ -8,6 +8,7 @@ const {
 const { createPayment } = require("./curd_payment.service");
 const Products = require("../../../models/ProductModel");
 const STORAGE = require("../../../utils/storage");
+const REDIS = require("../../../db/redis_db")
 module.exports = {
   handlePaymentTotal: async ({ user_id }) => {
     try {
@@ -62,22 +63,24 @@ module.exports = {
       var cart = [];
       for (var key in data) {
         cart.push({
-          cart: await Products.find({ _id: key }),
+          cart: await Products.find({ '_id': { $in: [key] } }),
+          quantity: data[key]
         });
       }
       let stockAvailable = true;
       let outOfStock = [];
       for (let i = 0; i < cart.length; i++) {
-        if (cart[i].cart[0].countInStock === 0) {
+        if (cart[i].cart[0].countInStock === 0 || cart[i].quantity > cart[i].cart[0].countInStock) {
           stockAvailable = false;
           outOfStock.push({
-            outOfStock: cart[i].cart[0],
+            outOfStock: cart[i].cart[0].name,
+            stock: cart[i].cart[0].countInStock,
           });
         }
       }
       return {
-        status: 200,
-        success: true,
+        status: stockAvailable ? 200 : 400,
+        success: stockAvailable ? true : false,
         element: {
           stockAvailable,
           outOfStock,
@@ -143,7 +146,8 @@ module.exports = {
           cart[i].cart[0].countInStock
         );
       }
-      del(`cartUserId:${user_id}`);
+      let redis_multi = REDIS.pipeline().del(`cartUserId:${user_id}`).del("product_user").del(`voucher_userId:${user_id}`)
+      redis_multi.exec()
       return {
         status: 200,
         success: true,

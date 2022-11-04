@@ -10,7 +10,7 @@ const Order_Screen = () => {
     const [quantity, setQuantity] = useState(0);
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { order_detail, loading } = useSelector((state) => ({ ...state.order_user }))
+    const { order_detail, loading, stock_transaction } = useSelector((state) => ({ ...state.order_user }))
     const navigate = useNavigate();
     const accessToken = STORAGES.getLocalStorage("accessToken");
 
@@ -20,7 +20,6 @@ const Order_Screen = () => {
         }, 0);
         setQuantity(total);
     }, [order_detail]);
-
 
     useEffect(() => {
         if (id) {
@@ -52,12 +51,12 @@ const Order_Screen = () => {
                                 </li>
                             </ol>
                         </nav>
-                        <div className="row  order-detail">
+                        <div className="row order-detail">
                             <Order_Item_One order_detail={order_detail} />
                             <Order_Item_Two order_detail={order_detail} />
                             <Order_Item_Three order_detail={order_detail} />
                         </div>
-                        <Order_Item_Four order_detail={order_detail} quantity={quantity} />
+                        <Order_Item_Four order_detail={order_detail} routeId={id} />
                     </React.Fragment>
                 }
             </div >

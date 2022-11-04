@@ -28,8 +28,8 @@ const Write_Review_Product = () => {
   };
   const handleSubmitComment = (e) => {
     e.preventDefault();
-    if (!comment) {
-      return SwaleMessage("Please Content Comment 🤗 ", "error");
+    if (!comment || !rating) {
+      return SwaleMessage("Please Content or Star Comment 🤗 ", "error");
     }
     dispatch(Create_Comment_Initial({ id, rating, comment, accessToken }));
   };

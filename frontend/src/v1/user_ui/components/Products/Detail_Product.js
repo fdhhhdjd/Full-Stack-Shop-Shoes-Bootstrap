@@ -39,7 +39,11 @@ const Detail_Product = () => {
     ...state.Cart_user,
   }));
 
-  const handleAddToCart = useCallback((product_id, quantity) => {
+  const { reviews, review_edit } = useSelector((state) => ({
+    ...state.Comment_product,
+  }));
+
+  const handleAddToCart = (product_id, quantity) => {
     const checkCart = cart?.some((rs) => product_id === rs.product_id[0]._id);
     if (checkCart) {
       HandleIncrement(product_id, quantity);
@@ -48,7 +52,7 @@ const Detail_Product = () => {
         Add_To_Cart_Initial({ product_id, quantity, accessToken })
       );
     }
-  }, [change_cart]);
+  };
   const HandleIncrement = useCallback((product_id) => {
     return dispatch(
       Increment_Quantity_Cart_Initial({
@@ -65,7 +69,7 @@ const Detail_Product = () => {
     return () => {
       dispatch(reset_product_detail());
     };
-  }, [id]);
+  }, [id, reviews, review_edit]);
   useEffect(() => {
     if (error) {
       SwaleMessage(error?.msg, "warning");
@@ -123,18 +127,18 @@ const Detail_Product = () => {
                         )}
                       </div>
                     </div>
-                    <p>{result_product_detail.product_detail[0].description}</p>
+                    <p>{result_product_detail.product_detail[0]?.description}</p>
 
                     <div className="product-count col-lg-7 ">
                       <div className="flex-box d-flex justify-content-between align-items-center">
                         <h6>Price</h6>
                         <span>
-                          ${result_product_detail.product_detail[0].price}
+                          ${result_product_detail.product_detail[0]?.price}
                         </span>
                       </div>
                       <div className="flex-box d-flex justify-content-between align-items-center">
                         <h6>Status</h6>
-                        {result_product_detail.product_detail[0].countInStock >
+                        {result_product_detail.product_detail[0]?.countInStock >
                           0 ? (
                           <span>In Stock</span>
                         ) : (
