@@ -9,4 +9,16 @@ router.get("/payment/check/stock", VerifyAcceptToken, paymentCtrl.countInStock);
 
 //* payment paypal
 router.post("/payment/paypal", VerifyAcceptToken, paymentCtrl.paymentPaypal);
+
+//* payment stripe
+router.post("/payment/stripe", VerifyAcceptToken, paymentCtrl.paymentStripe);
+
+//* Payment Success
+router.get("/payment/stripe/success/:id/:user_id", paymentCtrl.paymentStripeSuccess);
+
+//* Payment Cancel
+router.get("/payment/cancel", paymentCtrl.paymentStripeCancel);
+
+
+
 module.exports = router;
