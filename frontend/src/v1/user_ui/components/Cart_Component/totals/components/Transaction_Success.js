@@ -3,14 +3,19 @@ import { BsBagCheckFill } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import { Metadata, runFireworks } from "../../../../imports/General_Global_Import";
 import { CartBuySuccessStyle } from "../../../../../styles/Transaction_Style/CartBuySuccessStyle";
+import { Transaction_Payment_Stripe_success_Initial } from "../../../../../redux/payment_slice/Api_Redux_Thunk_Payment";
+import STORAGES from "../../../../../utils/storage";
+import { useDispatch } from "react-redux";
 const Transaction_Success = () => {
     const { type, id } = useParams();
+    const dispatch = useDispatch();
+    const accessToken = STORAGES.getLocalStorage("accessToken");
     useEffect(() => {
         runFireworks();
     }, []);
     useEffect(() => {
         if (type === "stripe") {
-            console.log(id)
+            dispatch(Transaction_Payment_Stripe_success_Initial({ accessToken, id }))
         }
     }, [id])
     return (
