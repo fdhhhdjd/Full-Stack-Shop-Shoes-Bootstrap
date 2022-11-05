@@ -94,3 +94,26 @@ export const Transaction_Payment_Initial = createAsyncThunk(
     }
   }
 );
+
+export const Transaction_Payment_Stripe_Initial = createAsyncThunk(
+  "Payment/Transaction/Stripe",
+  async (accessToken, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    try {
+      const response = await axios.get(
+        `${API_PAYMENT.API_TRANSACTION_PAYMENT_STRIPE}`,
+        config
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);

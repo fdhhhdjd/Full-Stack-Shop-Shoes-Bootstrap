@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { Transaction_Payment_Initial } from '../../../../../redux/payment_slice/Api_Redux_Thunk_Payment';
 import STORAGES from '../../../../../utils/storage';
-import { Paypal, Check_Stock } from '../../../../imports/General_Global_Import'
+import { Paypal, Check_Stock, TransactionStripe } from '../../../../imports/General_Global_Import'
 const Transaction_Paypal = () => {
   const { stock_transaction, total_payment, transaction } = useSelector((state) => ({ ...state.payment_user }));
 
@@ -24,21 +24,29 @@ const Transaction_Paypal = () => {
   return (
     <React.Fragment>
       <div className="cart-buttons d-flex align-items-center row">
-        <Link to="/" className="col-md-6 ">
-          <button>Continue To Shopping.</button>
-        </Link>
-        <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
-          {stock_transaction && total_payment ? (
-            <button className="paypal">
-              <Paypal total={total_payment.total} tranSuccess={tranSuccess} />
-            </button>
-          ) : (
-            <Check_Stock />
-          )}
-        </div>
-
-      </div>
-    </React.Fragment>
+        {stock_transaction && total_payment ? (
+          <React.Fragment>
+            <div className="col-md-6 ">
+              <TransactionStripe />
+            </div>
+            <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+              <button className="paypal">
+                <Paypal total={total_payment.total} tranSuccess={tranSuccess} />
+              </button>
+            </div>
+          </React.Fragment>
+        ) :
+          <React.Fragment>
+            <Link to="/" className="col-md-6 ">
+              <button>Continue To Shopping.</button>
+            </Link>
+            <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+              <Check_Stock />
+            </div>
+          </React.Fragment>
+        }
+      </div >
+    </React.Fragment >
   )
 }
 

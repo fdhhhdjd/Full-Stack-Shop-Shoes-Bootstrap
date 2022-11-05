@@ -76,6 +76,9 @@ export { default as Paypal } from "../components/Paypal/Paypal"
 //* Transaction Paypal
 export { default as TransactionPaypal } from "../components/Cart_Component/totals/components/Transaction_Paypal"
 
+//* Transaction Stripe
+export { default as TransactionStripe } from "../components/Cart_Component/totals/components/Transaction_Stripe"
+
 //* Transaction check Stock
 export { default as Check_Stock } from "../components/Cart_Component/totals/components/Check_Stock"
 

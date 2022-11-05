@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Get_Detail_User_Payment_Initial, Check_Stock_Product_Initial, Check_Total_Cart_Initial, Transaction_Payment_Initial } from "./Api_Redux_Thunk_Payment";
+import {
+  Get_Detail_User_Payment_Initial, Check_Stock_Product_Initial, Check_Total_Cart_Initial,
+  Transaction_Payment_Initial, Transaction_Payment_Stripe_Initial
+} from "./Api_Redux_Thunk_Payment";
 const initialState = {
   loading: false,
   error: null,
@@ -63,7 +66,7 @@ const Payments = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    //* Transaction Payment
+    //* Transaction Payment Paypal
     [Transaction_Payment_Initial.pending]: (state, action) => {
       state.loading = true;
     },
@@ -72,6 +75,18 @@ const Payments = createSlice({
       state.transaction = action.payload.element;
     },
     [Transaction_Payment_Initial.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    //* Transaction Payment Paypal
+    [Transaction_Payment_Stripe_Initial.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Transaction_Payment_Stripe_Initial.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.transaction = action.payload.element;
+    },
+    [Transaction_Payment_Stripe_Initial.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

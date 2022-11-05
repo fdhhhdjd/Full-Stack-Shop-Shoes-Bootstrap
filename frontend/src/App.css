@@ -21,6 +21,9 @@ textarea:focus,
 .stripe {
   background-color: rgb(99, 91, 255) !important;
 }
+.stripe:hover{
+  font-size: 1rem;
+}
 .stripe1 {
   background-color: white !important;
 }
