@@ -9,7 +9,8 @@ const initialState = {
   total_user: null,
   total_payment: null,
   transaction: null,
-  stock_transaction: null
+  stock_transaction: null,
+  transaction_stripe: null
 };
 const Payments = createSlice({
   name: "payments",
@@ -22,6 +23,7 @@ const Payments = createSlice({
       state.total_user = null
       state.total_payment = null
       state.transaction = null
+      state.transaction_stripe = null
       state.stock_transaction = null
     },
     reset_stock_transaction: (state) => {
@@ -84,7 +86,7 @@ const Payments = createSlice({
     },
     [Transaction_Payment_Stripe_Initial.fulfilled]: (state, action) => {
       state.loading = false;
-      state.transaction = action.payload.element;
+      state.transaction_stripe = action.payload.element;
     },
     [Transaction_Payment_Stripe_Initial.rejected]: (state, action) => {
       state.loading = false;

@@ -5,7 +5,7 @@ import STORAGES from '../../../../../utils/storage';
 
 const Transaction_Stripe = () => {
     const dispatch = useDispatch();
-    const { transaction } = useSelector((state) => ({ ...state.payment_user }));
+    const { transaction_stripe } = useSelector((state) => ({ ...state.payment_user }));
 
     const accessToken = STORAGES.getLocalStorage("accessToken");
 
@@ -15,10 +15,10 @@ const Transaction_Stripe = () => {
         }
     }
     useEffect(() => {
-        if (transaction) {
-            window.location.href = `${transaction.payment_url}`;
+        if (transaction_stripe) {
+            window.location.href = `${transaction_stripe.payment_url}`;
         }
-    }, [transaction])
+    }, [transaction_stripe])
     return (
         <button className="stripe" onClick={handlePaymentStripe}>
             Transaction_Stripe

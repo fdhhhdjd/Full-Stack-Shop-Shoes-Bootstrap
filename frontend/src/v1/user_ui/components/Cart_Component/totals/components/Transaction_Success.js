@@ -1,12 +1,18 @@
 import React, { useEffect } from "react";
 import { BsBagCheckFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Metadata, runFireworks } from "../../../../imports/General_Global_Import";
 import { CartBuySuccessStyle } from "../../../../../styles/Transaction_Style/CartBuySuccessStyle";
 const Transaction_Success = () => {
+    const { type, id } = useParams();
     useEffect(() => {
         runFireworks();
     }, []);
+    useEffect(() => {
+        if (type === "stripe") {
+            console.log(id)
+        }
+    }, [id])
     return (
         <React.Fragment>
             <CartBuySuccessStyle />

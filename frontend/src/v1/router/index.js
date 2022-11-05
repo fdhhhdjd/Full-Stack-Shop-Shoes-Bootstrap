@@ -78,7 +78,7 @@ const RoutesDataUser = [
   },
   //* Transaction Success
   {
-    path: "transaction/success",
+    path: "payment/:type/success/:id",
     private: <User_Private_Router_Layout_Main />,
     main: <Transaction_Success />,
   },

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
+import { v4 as uuidv4 } from "uuid";
 import { Transaction_Payment_Initial } from '../../../../../redux/payment_slice/Api_Redux_Thunk_Payment';
 import STORAGES from '../../../../../utils/storage';
 import { Paypal, Check_Stock, TransactionStripe } from '../../../../imports/General_Global_Import'
@@ -17,7 +18,7 @@ const Transaction_Paypal = () => {
   };
   useEffect(() => {
     if (transaction) {
-      navigate("/transaction/success")
+      navigate(`/transaction/success/${uuidv4()}`)
     }
   }, [transaction])
 
