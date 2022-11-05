@@ -11,7 +11,7 @@ router.get("/payment/check/stock", VerifyAcceptToken, paymentCtrl.countInStock);
 router.post("/payment/paypal", VerifyAcceptToken, paymentCtrl.paymentPaypal);
 
 //* payment stripe
-router.post("/payment/stripe", VerifyAcceptToken, paymentCtrl.paymentStripe);
+router.get("/payment/stripe", VerifyAcceptToken, paymentCtrl.paymentStripe);
 
 //* Payment Success
 router.get("/payment/stripe/success/:id", VerifyAcceptToken, paymentCtrl.paymentStripeSuccess);
