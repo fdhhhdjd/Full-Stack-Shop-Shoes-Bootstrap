@@ -42,6 +42,7 @@ const { get, RedisPub, del } = require("../../../utils/limited_redis");
 const PASSWORD = require("../../../utils/password");
 const STORAGE = require("../../../utils/storage");
 const CONSTANTS = require("../../../configs/constants");
+const CONFIGS = require("../../../configs/config");
 const Users = require("../../../models/userModel");
 module.exports = {
   //*--------------- Handle Authentication Users  ---------------
@@ -305,9 +306,10 @@ module.exports = {
     const resetToken = user.getResetPasswordToken();
 
     await user.save({ validateBeforeSave: CONSTANTS.DELETED_DISABLE });
-    const resetPasswordUrl = `${req.protocol}://${req.get(
-      "host"
-    )}/user/password/reset/${resetToken}`;
+    // const resetPasswordUrl = `${req.protocol}://${req.get(
+    //   "host"
+    // )}/user/password/reset/${resetToken}`;
+    const resetPasswordUrl = `${CONFIGS.PORT_FRONTEND_ENV}/user/password/reset/${resetToken}`;
     await RedisPub(
       "user_forget_password",
       JSON.stringify({
@@ -345,7 +347,9 @@ module.exports = {
       user.password,
       salt
     );
-    await UpdatePassword(user.id, passwordHash);
+    await UpdatePassword({
+      user_id: user.id, password: passwordHash
+    });
     return {
       status: 200,
       success: true,

@@ -3,6 +3,7 @@ module.exports = {
    * * Environment Settings
    */
   NODE_ENV: process.env.NODE_ENV,
+  PORT_FRONTEND_ENV: process.env.FRONTEND_URL,
   /**
    * * SMTP Settings
    */
