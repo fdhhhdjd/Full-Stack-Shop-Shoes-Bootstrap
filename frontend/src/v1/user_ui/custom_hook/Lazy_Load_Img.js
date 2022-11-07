@@ -21,7 +21,7 @@ const Lazy_Load_Img = ({ url, style, scrollPosition }) => {
 
   return (
     <React.Fragment>
-      {/* {style ? (
+      {style ? (
         <img
           alt="...loading"
           ref={imgRef}
@@ -30,17 +30,17 @@ const Lazy_Load_Img = ({ url, style, scrollPosition }) => {
         />
       ) : (
         <img alt="...loading" ref={imgRef} className="lazy-load" />
-      )} */}
-      <LazyLoadImage
+      )}
+      {/* <LazyLoadImage
         src={url}
-        PlaceholderSrc={comment_png}
         effect="opacity"
         alt={url}
         placeholderSrc={url}
         scrollPosition={scrollPosition}
-      />
+      /> */}
     </React.Fragment>
   );
 };
 
-export default trackWindowScroll(Lazy_Load_Img);
+export default Lazy_Load_Img;
+// export default trackWindowScroll(Lazy_Load_Img);

@@ -11,13 +11,13 @@ router.get("/payment/check/stock", VerifyAcceptToken, paymentCtrl.countInStock);
 router.post("/payment/paypal", VerifyAcceptToken, paymentCtrl.paymentPaypal);
 
 //* payment stripe
-router.post("/payment/stripe", VerifyAcceptToken, paymentCtrl.paymentStripe);
+router.get("/payment/stripe", VerifyAcceptToken, paymentCtrl.paymentStripe);
 
 //* Payment Success
-router.get("/payment/stripe/success/:id/:user_id", paymentCtrl.paymentStripeSuccess);
+router.get("/payment/stripe/success/:id", VerifyAcceptToken, paymentCtrl.paymentStripeSuccess);
 
 //* Payment Cancel
-router.get("/payment/cancel", paymentCtrl.paymentStripeCancel);
+router.get("/payment/cancel", VerifyAcceptToken, paymentCtrl.paymentStripeCancel);
 
 
 

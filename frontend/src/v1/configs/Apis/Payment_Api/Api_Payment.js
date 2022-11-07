@@ -8,6 +8,13 @@ const API_PAYMENT = {
   // * TRANSACTION PAYPAL
   API_TRANSACTION_PAYMENT: "/api/payment/paypal",
 
+  // * TRANSACTION TRIPE
+  API_TRANSACTION_PAYMENT_STRIPE: "/api/payment/stripe",
+
+  //* TRANSACTION_PAYMENT_STRIPE_SUCCESS
+
+  API_TRANSACTION_PAYMENT_STRIPE_SUCCESS: "/api/payment/stripe/success",
+
   //* CHECK TOTAL PAYMENT
   API_TOTAL_PAYMENT: "/api/payment/total"
 };

@@ -229,10 +229,10 @@ module.exports = {
         };
       }),
 
-      success_url: `${req.protocol}://${req.get("host")}/api/payment/stripe/success/{CHECKOUT_SESSION_ID}/${UserId._id}`,
-      cancel_url: `${req.protocol}://${req.get("host")}/api/payment/cancel`,
-      // success_url: `http:localhost:3000/api/payment/stripe/success/{CHECKOUT_SESSION_ID}/${UserId._id}`,
-      // cancel_url: `http:localhost:3000/api/payment/cancel`,
+      // success_url: `${req.protocol}://${req.get("host")}/api/payment/stripe/success/{CHECKOUT_SESSION_ID}/${UserId._id}`,
+      // cancel_url: `${req.protocol}://${req.get("host")}/api/payment/cancel`,
+      success_url: `${CONFIGS.PORT_FRONTEND_ENV}/payment/stripe/success/{CHECKOUT_SESSION_ID}`,
+      cancel_url: `${CONFIGS.PORT_FRONTEND_ENV}/cart`,
     };
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create(params);

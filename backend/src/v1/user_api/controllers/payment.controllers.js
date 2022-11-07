@@ -95,7 +95,7 @@ const paymentCtrl = {
   paymentStripeSuccess: async (req, res) => {
     try {
       let payment_id = req.params.id;
-      let user_id = req.params.user_id;
+      let user_id = req.user.id || req.user.user_id;
 
       const { status, success, element } = await handlePaymentStripeSuccess({
         payment_id,

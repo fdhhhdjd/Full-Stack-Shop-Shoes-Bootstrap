@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import Lazy_Load_Img from "../../custom_hook/Lazy_Load_Img";
 const TransformWrappers = ({ url_image }) => {
+  console.log(url_image);
   return (
     <React.Fragment>
       <div className="col-md-6">
