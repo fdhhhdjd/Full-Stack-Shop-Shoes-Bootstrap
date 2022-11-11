@@ -28,6 +28,7 @@
     "ioredis": "^5.2.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.4",
+    "mongoose-algolia": "^1.10.1",
     "node-cron": "^3.0.1",
     "node-fetch": "^2.6.7",
     "nodemailer": "^6.7.2",
