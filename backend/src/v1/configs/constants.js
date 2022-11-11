@@ -41,6 +41,9 @@ module.exports = {
   //! KEY_SESSION
   KEY_SESSION: process.env.KEY_SESSION,
 
+  //! Algolia 
+  NAME_INDEX_ALGOLIA: 'product_search',
+
   //! STATUS_CODE
   STATUS_CODE_100: "Continue",
   STATUS_CODE_101: "Switching Protocols",

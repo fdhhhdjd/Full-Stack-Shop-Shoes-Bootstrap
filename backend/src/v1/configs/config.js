@@ -72,4 +72,10 @@ module.exports = {
   IPA_API_RATE_LIMIT_DURATION: process.env.IPA_API_RATE_LIMIT_DURATION,
   IPA_API_RATE_LIMIT: process.env.IPA_API_RATE_LIMIT,
 
+  /**
+    * * Algolia setting
+  */
+  APP_ID_ALGOLIA: process.env.APP_ID_ALGOLIA,
+  ADMIN_KEY_ALGOLIA: process.env.ADMIN_KEY_ALGOLIA,
+  USER_KEY_ALGOLIA: process.env.USER_KEY_ALGOLIA
 };

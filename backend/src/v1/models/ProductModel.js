@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const mongooseAlgolia = require('mongoose-algolia')
+const db_algolia = require('../db/algolia_search')
 const reviewSchema = mongoose.Schema(
   {
     rating: { type: Number, required: true },
@@ -74,4 +76,11 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-module.exports = mongoose.model("Product", productSchema);
+
+productSchema.plugin(mongooseAlgolia, db_algolia);
+let productSchemas = mongoose.model("Product", productSchema);
+productSchemas.SyncToAlgolia()
+productSchemas.SetAlgoliaSettings({
+  searchableAttributes: ['name', 'categories', 'price']
+})
+module.exports = productSchemas;
