@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import FooterData from "../../../utils/data/FooterData";
+import React, { memo } from 'react';
+import FooterData from '../../../utils/data/FooterData';
 const Footer = () => {
   return (
     <div className="footer">

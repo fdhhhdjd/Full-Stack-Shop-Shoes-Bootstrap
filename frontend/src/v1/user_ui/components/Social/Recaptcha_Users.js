@@ -1,6 +1,6 @@
-import React, { forwardRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
-import CONFIGS from "../../../configs/config";
+import React, { forwardRef } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import CONFIGS from '../../../configs/config';
 const Recaptcha_Users = (props, ref) => {
   const grecaptchaObject = window.grecaptcha;
   return (

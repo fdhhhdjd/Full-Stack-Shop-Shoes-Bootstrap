@@ -1,22 +1,18 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import API_UPLOAD from "../../configs/Apis/Upload_Api/Api_Upload";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import API_UPLOAD from '../../configs/Apis/Upload_Api/Api_Upload';
 
 export const Upload_Cloud_Initial = createAsyncThunk(
-  "Upload/Image/Cloud",
+  'Upload/Image/Cloud',
   async ({ formData, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
-        "content-type": "multipart/form-data",
+        'content-type': 'multipart/form-data',
         Authorization: `Bearer ${accessToken}`,
       },
     };
     try {
-      const response = await axios.post(
-        `${API_UPLOAD.UPLOAD_IMAGE_CLOUD}`,
-        formData,
-        config
-      );
+      const response = await axios.post(`${API_UPLOAD.UPLOAD_IMAGE_CLOUD}`, formData, config);
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -24,11 +20,11 @@ export const Upload_Cloud_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const Destroy_Cloud_Initial = createAsyncThunk(
-  "Destroy/Image/Cloud",
+  'Destroy/Image/Cloud',
   async ({ public_id, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -41,7 +37,7 @@ export const Destroy_Cloud_Initial = createAsyncThunk(
         {
           public_id,
         },
-        config
+        config,
       );
       return response.data;
     } catch (error) {
@@ -50,5 +46,5 @@ export const Destroy_Cloud_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );

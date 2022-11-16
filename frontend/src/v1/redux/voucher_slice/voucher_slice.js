@@ -1,15 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {
-  Add_Voucher_Initial,
-  Del_Voucher_Initial,
-} from "./Api_Redux_Thunk_Voucher";
+import { createSlice } from '@reduxjs/toolkit';
+import { Add_Voucher_Initial, Del_Voucher_Initial } from './Api_Redux_Thunk_Voucher';
 const initialState = {
   loading: false,
   error: null,
   voucher: null,
 };
 const Vouchers = createSlice({
-  name: "vouchers",
+  name: 'vouchers',
   initialState,
   reducers: {
     reset_voucher: (state) => {

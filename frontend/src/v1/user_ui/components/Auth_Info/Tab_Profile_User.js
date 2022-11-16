@@ -1,23 +1,20 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Update_Info_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import STORAGES from "../../../utils/storage";
-import useUploadCloud from "../../custom_hook/useUploadCloud";
-import {
-  Loading_Button,
-  SwaleMessage,
-} from "../../imports/General_Global_Import";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Update_Info_Users_Initial } from '../../../redux/authentication_slice/Api_Redux_Thunk';
+import STORAGES from '../../../utils/storage';
+import useUploadCloud from '../../custom_hook/useUploadCloud';
+import { Loading_Button, SwaleMessage } from '../../imports/General_Global_Import';
 const initialState = {
-  name: "",
-  phone_number: "",
-  sex: "",
-  date_of_birth: "",
+  name: '',
+  phone_number: '',
+  sex: '',
+  date_of_birth: '',
 };
 const Tab_Profile_User = () => {
   const [states, setState] = useState(initialState);
 
   const dispatch = useDispatch();
-  const accessToken = STORAGES.getLocalStorage("accessToken");
+  const accessToken = STORAGES.getLocalStorage('accessToken');
 
   const { result, loading } = useSelector((state) => ({
     ...state.upload_cloud,
@@ -43,13 +40,13 @@ const Tab_Profile_User = () => {
           url: result ? result?.url : profile.image.url,
         },
         accessToken,
-      })
+      }),
     )
       .then((item) => {
-        SwaleMessage(item.payload.element.msg, "success");
+        SwaleMessage(item.payload.element.msg, 'success');
       })
       .catch((err) => {
-        SwaleMessage(err.payload.element.msg, "error");
+        SwaleMessage(err.payload.element.msg, 'error');
       });
   };
   useEffect(() => {
@@ -59,7 +56,7 @@ const Tab_Profile_User = () => {
   }, [profile]);
 
   const styleUpload = {
-    display: result ? "block" : "none",
+    display: result ? 'block' : 'none',
   };
   return (
     <>
@@ -69,26 +66,12 @@ const Tab_Profile_User = () => {
             <div className="author-card-cover"></div>
             <div className="author-card-profile row">
               <div className="author-avatar col-md-4">
-                {!result &&
-                  (loading ? (
-                    ""
-                  ) : (
-                    <img
-                      src={profile.image.url}
-                      alt=""
-                      className="img-thumbnail"
-                    />
-                  ))}
+                {!result && (loading ? '' : <img src={profile.image.url} alt="" className="img-thumbnail" />)}
                 {loading ? (
                   <Loading_Button />
                 ) : (
                   <>
-                    <img
-                      src={result?.url}
-                      alt=""
-                      style={styleUpload}
-                      className="img-thumbnail"
-                    />
+                    <img src={result?.url} alt="" style={styleUpload} className="img-thumbnail" />
                   </>
                 )}
               </div>
@@ -127,7 +110,7 @@ const Tab_Profile_User = () => {
               className="form-control"
               type="text"
               required
-              value={states.name || ""}
+              value={states.name || ''}
               name="name"
               onChange={handleChange}
             />
@@ -140,7 +123,7 @@ const Tab_Profile_User = () => {
             <input
               className="form-control"
               type="email"
-              value={states.email || ""}
+              value={states.email || ''}
               name="email"
               disabled
               onChange={handleChange}
@@ -153,7 +136,7 @@ const Tab_Profile_User = () => {
             <input
               className="form-control"
               type="text"
-              value={states.phone_number || ""}
+              value={states.phone_number || ''}
               name="phone_number"
               onChange={handleChange}
             />
@@ -171,7 +154,7 @@ const Tab_Profile_User = () => {
               value="1"
               id="sex"
               name="sex"
-              checked={states.sex == 1 || ""}
+              checked={states.sex == 1 || ''}
               onChange={handleChange}
             />
             <label className="form-check-label" htmlFor="flexRadioDefault1">
@@ -185,7 +168,7 @@ const Tab_Profile_User = () => {
               value="0"
               id="sex"
               name="sex"
-              checked={states.sex == 0 || ""}
+              checked={states.sex == 0 || ''}
               onChange={handleChange}
             />
             <label className="form-check-label" htmlFor="flexRadioDefault2">

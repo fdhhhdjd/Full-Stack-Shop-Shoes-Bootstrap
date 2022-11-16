@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 const ScrollTop = () => {
   const [Scroll, setScroll] = useState(false);
   const handleScroll = () => {
@@ -13,20 +13,20 @@ const ScrollTop = () => {
   const handleClickTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [Scroll]);
   return (
     <>
       <ScrollTops>
         <div
-          className={`fas fa-angle-up scroll-top ${Scroll ? "active11" : ""}`}
+          className={`fas fa-angle-up scroll-top ${Scroll ? 'active11' : ''}`}
           id="scroll-top"
           onClick={handleClickTop}
         ></div>

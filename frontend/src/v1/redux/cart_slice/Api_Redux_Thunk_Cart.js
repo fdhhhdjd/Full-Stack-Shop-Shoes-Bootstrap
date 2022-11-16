@@ -1,9 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import API_CART from "../../configs/Apis/Cart_Api/Api_Cart";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import API_CART from '../../configs/Apis/Cart_Api/Api_Cart';
 
 export const Add_To_Cart_Initial = createAsyncThunk(
-  "Cart/AddToCart",
+  'Cart/AddToCart',
   async ({ product_id, quantity, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -17,7 +17,7 @@ export const Add_To_Cart_Initial = createAsyncThunk(
           product_id,
           quantity,
         },
-        config
+        config,
       );
       return response.data;
     } catch (error) {
@@ -26,11 +26,11 @@ export const Add_To_Cart_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const Increment_Quantity_Cart_Initial = createAsyncThunk(
-  "Cart/Increment",
+  'Cart/Increment',
   async ({ product_id, quantity, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -44,7 +44,7 @@ export const Increment_Quantity_Cart_Initial = createAsyncThunk(
           product_id,
           quantity,
         },
-        config
+        config,
       );
       return response.data;
     } catch (error) {
@@ -53,10 +53,10 @@ export const Increment_Quantity_Cart_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const Decrement_Quantity_Cart_Initial = createAsyncThunk(
-  "Cart/Decrement",
+  'Cart/Decrement',
   async ({ product_id, quantity, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -70,7 +70,7 @@ export const Decrement_Quantity_Cart_Initial = createAsyncThunk(
           product_id,
           quantity,
         },
-        config
+        config,
       );
       return response.data;
     } catch (error) {
@@ -79,10 +79,10 @@ export const Decrement_Quantity_Cart_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const Delete_Cart_Initial = createAsyncThunk(
-  "Cart/Delete",
+  'Cart/Delete',
   async ({ product_id, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -95,7 +95,7 @@ export const Delete_Cart_Initial = createAsyncThunk(
         {
           product_id,
         },
-        config
+        config,
       );
       return response.data;
     } catch (error) {
@@ -104,10 +104,10 @@ export const Delete_Cart_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const Get_Detail_User_Cart_Initial = createAsyncThunk(
-  "Cart/User/Detail",
+  'Cart/User/Detail',
   async ({ accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -115,10 +115,7 @@ export const Get_Detail_User_Cart_Initial = createAsyncThunk(
       },
     };
     try {
-      const response = await axios.get(
-        `${API_CART.API_DETAIL_USER_CART}`,
-        config
-      );
+      const response = await axios.get(`${API_CART.API_DETAIL_USER_CART}`, config);
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -126,5 +123,5 @@ export const Get_Detail_User_Cart_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );

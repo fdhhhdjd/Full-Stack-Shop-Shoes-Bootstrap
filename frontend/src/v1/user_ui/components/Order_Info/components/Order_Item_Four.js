@@ -1,19 +1,19 @@
-import React, { Fragment, memo, useCallback, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Fragment, memo, useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Order_Item_Four = ({ order_detail, routeId }) => {
-  const [sumQuantity, setSumQuantity] = useState(0)
+  const [sumQuantity, setSumQuantity] = useState(0);
   const ShowTotalQuantity = () => {
-    let arr = []
+    let arr = [];
     order_detail.cart.map((item) => {
-      arr.push(Number(item.quantity))
-    })
+      arr.push(Number(item.quantity));
+    });
     const sum = arr.reduce((partialSum, a) => partialSum + a, 0);
-    setSumQuantity(sum)
-  }
+    setSumQuantity(sum);
+  };
   useEffect(() => {
-    ShowTotalQuantity()
-  }, [routeId])
+    ShowTotalQuantity();
+  }, [routeId]);
   return (
     <React.Fragment>
       <div className="row order-products justify-content-between">
@@ -47,7 +47,7 @@ const Order_Item_Four = ({ order_detail, routeId }) => {
                     </div>
                   </Fragment>
                 );
-              })
+              });
             })}
         </div>
         {order_detail.cart && (
@@ -71,17 +71,13 @@ const Order_Item_Four = ({ order_detail, routeId }) => {
                     <strong>Shipping</strong>
                   </td>
                   <td>
-                    {(order_detail.order_status === "Delivered" && (
+                    {(order_detail.order_status === 'Delivered' && (
                       <span className="badge btn-success">Delivered</span>
                     )) ||
-                      (order_detail.order_status === "On Delivery" && (
-                        <span className="badge btn-warning">
-                          On Delivery
-                        </span>
+                      (order_detail.order_status === 'On Delivery' && (
+                        <span className="badge btn-warning">On Delivery</span>
                       )) ||
-                      (order_detail.order_status === "Ordered" && (
-                        <span className="badge btn-danger">Ordered</span>
-                      ))}
+                      (order_detail.order_status === 'Ordered' && <span className="badge btn-danger">Ordered</span>)}
                   </td>
                 </tr>
                 <tr>
@@ -95,11 +91,7 @@ const Order_Item_Four = ({ order_detail, routeId }) => {
                     <strong>Sale Code Voucher</strong>
                   </td>
 
-                  {order_detail.voucher === 0 ? (
-                    <td>No</td>
-                  ) : (
-                    <td>{order_detail.voucher} %</td>
-                  )}
+                  {order_detail.voucher === 0 ? <td>No</td> : <td>{order_detail.voucher} %</td>}
                 </tr>
                 <tr>
                   <td>
@@ -108,7 +100,7 @@ const Order_Item_Four = ({ order_detail, routeId }) => {
                   {order_detail.voucher === 0 ? (
                     <td>$ {order_detail.cost}</td>
                   ) : (
-                    <del style={{ color: "red" }}>
+                    <del style={{ color: 'red' }}>
                       <td>$ {order_detail.cost}</td>
                     </del>
                   )}
@@ -120,9 +112,7 @@ const Order_Item_Four = ({ order_detail, routeId }) => {
                   {order_detail.voucher === 0 ? (
                     <td>$ {order_detail.total}</td>
                   ) : (
-                    <td style={{ color: "green" }}>
-                      $ {order_detail.discount}
-                    </td>
+                    <td style={{ color: 'green' }}>$ {order_detail.discount}</td>
                   )}
                 </tr>
               </tbody>
@@ -131,7 +121,7 @@ const Order_Item_Four = ({ order_detail, routeId }) => {
         )}
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default memo(Order_Item_Four)
+export default memo(Order_Item_Four);

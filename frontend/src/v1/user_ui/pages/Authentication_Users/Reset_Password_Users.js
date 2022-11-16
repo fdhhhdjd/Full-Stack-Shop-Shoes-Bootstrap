@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import {
-  reset_auth,
-  reset_error,
-} from "../../../redux/authentication_slice/Authentication_Slice";
-import { Reset_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import {
-  Loading_Button,
-  Message_Auth,
-  Metadata,
-  SwaleMessage,
-} from "../../imports/General_Global_Import";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { reset_auth, reset_error } from '../../../redux/authentication_slice/Authentication_Slice';
+import { Reset_Users_Initial } from '../../../redux/authentication_slice/Api_Redux_Thunk';
+import { Loading_Button, Message_Auth, Metadata, SwaleMessage } from '../../imports/General_Global_Import';
 const initialState = {
-  password: "",
-  confirmPassword: "",
+  password: '',
+  confirmPassword: '',
 };
 const Reset_Password_Users = () => {
   const [state, setState] = useState(initialState);
@@ -32,14 +24,14 @@ const Reset_Password_Users = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!password || !confirmPassword) {
-      return toast.error("Please Enter Input 🥲");
+      return toast.error('Please Enter Input 🥲');
     }
     dispatch(Reset_Users_Initial({ token, password, confirmPassword }));
   };
   useEffect(() => {
     if (auth.status === 200) {
-      SwaleMessage(`${auth.element.msg}`, "success");
-      setState({ password: "", confirmPassword: "" });
+      SwaleMessage(`${auth.element.msg}`, 'success');
+      setState({ password: '', confirmPassword: '' });
       setTimeout(() => {
         window.close();
       }, 1500);
@@ -59,22 +51,9 @@ const Reset_Password_Users = () => {
     <>
       <Metadata title="Reset-ShoeShop" />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
-        {error && (
-          <Message_Auth variant="alert-danger">
-            {error.element.msg}
-          </Message_Auth>
-        )}
-        <form
-          className="Login col-md-8 col-lg-4 col-11"
-          onSubmit={submitHandler}
-        >
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            name="password"
-            onChange={handleChangeInput}
-          />
+        {error && <Message_Auth variant="alert-danger">{error.element.msg}</Message_Auth>}
+        <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
+          <input type="password" placeholder="Password" value={password} name="password" onChange={handleChangeInput} />
           <input
             type="password"
             placeholder="Confirm Password"

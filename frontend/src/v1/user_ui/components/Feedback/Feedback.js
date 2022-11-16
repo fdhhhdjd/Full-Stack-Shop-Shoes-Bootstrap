@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Send_FeedBack_Initial } from '../../../redux/feedback_slice/Api_Redux_Thunk_Feedback';
-import { reset_feedback } from "../../../redux/feedback_slice/Feedback_Slice";
+import { reset_feedback } from '../../../redux/feedback_slice/Feedback_Slice';
 import Loading_Button from '../General_Loading/Loading_Button';
 import SwaleMessage from '../SwaleMessage/SwaleMessage';
 const Feedback = () => {
   const initialState = {
-    fullname: "",
-    email: "",
-    content: "",
-    subject: "",
+    fullname: '',
+    email: '',
+    content: '',
+    subject: '',
   };
-  const { loading, feedback_data } = useSelector((state) => ({ ...state.feedback_user }))
+  const { loading, feedback_data } = useSelector((state) => ({ ...state.feedback_user }));
   const { profile } = useSelector((state) => ({
     ...state.auth_user,
   }));
@@ -28,19 +28,19 @@ const Feedback = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!fullname || !email || !subject || !content) {
-      return toast.error("Please Enter Input 🥲");
+      return toast.error('Please Enter Input 🥲');
     }
-    dispatch(Send_FeedBack_Initial({ fullname, email, content, subject }))
+    dispatch(Send_FeedBack_Initial({ fullname, email, content, subject }));
   };
   useEffect(() => {
     if (feedback_data) {
-      setState({ content: "", subject: "" });
-      SwaleMessage(feedback_data?.msg, "success");
+      setState({ content: '', subject: '' });
+      SwaleMessage(feedback_data?.msg, 'success');
       setTimeout(() => {
-        dispatch(reset_feedback())
-      }, 1000)
+        dispatch(reset_feedback());
+      }, 1000);
     }
-  }, [feedback_data])
+  }, [feedback_data]);
 
   useEffect(() => {
     if (profile) {
@@ -84,13 +84,7 @@ const Feedback = () => {
         <div className="col-md-6">
           <div className="form">
             <label htmlFor="account-confirm-pass">Subject</label>
-            <input
-              className="form-control"
-              type="type"
-              value={subject || ""}
-              name="subject"
-              onChange={handleChange}
-            />
+            <input className="form-control" type="type" value={subject || ''} name="subject" onChange={handleChange} />
           </div>
         </div>
         <div className="col-md-6">
@@ -100,15 +94,16 @@ const Feedback = () => {
               className="form-control"
               cols="10"
               rows="5"
-              value={content || ""}
+              value={content || ''}
               name="content"
               onChange={handleChange}
             ></textarea>
           </div>
         </div>
         {loading ? <Loading_Button /> : <button type="submit">Send Feedback</button>}
-      </form></React.Fragment>
-  )
-}
+      </form>
+    </React.Fragment>
+  );
+};
 
-export default Feedback
+export default Feedback;
