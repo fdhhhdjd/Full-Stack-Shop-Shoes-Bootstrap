@@ -1,7 +1,7 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import LoadingToRedirect_Login from "./LoadingToRedirect_Login";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import LoadingToRedirect_Login from './LoadingToRedirect_Login';
+import { useSelector } from 'react-redux';
 function PrivateRouter({ element: Element, ...rest }) {
   const { accessToken } = useSelector((state) => ({
     ...state.auth_user,

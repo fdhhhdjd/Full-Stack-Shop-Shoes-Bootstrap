@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Home_Jpg } from "../../user_ui/imports/Assets_Import";
+import styled from 'styled-components';
+import { Home_Jpg } from '../../user_ui/imports/Assets_Import';
 export const Loading_Page_Style = styled.div`
   .loader-container {
     position: fixed;

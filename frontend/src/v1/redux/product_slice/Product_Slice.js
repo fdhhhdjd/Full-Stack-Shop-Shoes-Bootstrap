@@ -1,8 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {
-  Get_All_Product_Initial,
-  Get_Detail_Product_Initial,
-} from "./Api_Redux_Thunk_Products";
+import { createSlice } from '@reduxjs/toolkit';
+import { Get_All_Product_Initial, Get_Detail_Product_Initial } from './Api_Redux_Thunk_Products';
 const initialState = {
   loading: false,
   error: null,
@@ -10,7 +7,7 @@ const initialState = {
   result_product_detail: null,
 };
 const Products = createSlice({
-  name: "products",
+  name: 'products',
   initialState,
   reducers: {
     reset_product: (state) => {

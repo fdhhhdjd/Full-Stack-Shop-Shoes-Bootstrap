@@ -1,20 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Forget_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import {
-  reset_auth,
-  reset_error,
-} from "../../../redux/authentication_slice/Authentication_Slice";
-import {
-  Loading_Button,
-  Message_Auth,
-  Metadata,
-  SwaleMessage,
-} from "../../imports/General_Global_Import";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Forget_Users_Initial } from '../../../redux/authentication_slice/Api_Redux_Thunk';
+import { reset_auth, reset_error } from '../../../redux/authentication_slice/Authentication_Slice';
+import { Loading_Button, Message_Auth, Metadata, SwaleMessage } from '../../imports/General_Global_Import';
 const initialState = {
-  email: "",
+  email: '',
 };
 const Forget_Password_Users = () => {
   const [state, setState] = useState(initialState);
@@ -26,7 +18,7 @@ const Forget_Password_Users = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!email) {
-      return toast.error("Please Enter A Valid Email 🥲");
+      return toast.error('Please Enter A Valid Email 🥲');
     }
     dispatch(Forget_Users_Initial({ email }));
   };
@@ -36,8 +28,8 @@ const Forget_Password_Users = () => {
   };
   useEffect(() => {
     if (auth.status === 200) {
-      SwaleMessage(`${auth.element.msg}`, "success");
-      setState({ email: "" });
+      SwaleMessage(`${auth.element.msg}`, 'success');
+      setState({ email: '' });
       dispatch(reset_auth());
     }
     if (error) {
@@ -54,22 +46,9 @@ const Forget_Password_Users = () => {
     <>
       <Metadata title="Forget" />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
-        {error && (
-          <Message_Auth variant="alert-danger">
-            {error.element.msg}
-          </Message_Auth>
-        )}
-        <form
-          className="Login col-md-8 col-lg-4 col-11"
-          onSubmit={submitHandler}
-        >
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            name="email"
-            onChange={handleChange}
-          />
+        {error && <Message_Auth variant="alert-danger">{error.element.msg}</Message_Auth>}
+        <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
+          <input type="email" placeholder="Email" value={email} name="email" onChange={handleChange} />
 
           {loading ? <Loading_Button /> : <button type="submit">Forget</button>}
 

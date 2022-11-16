@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import STORAGES from "../../../utils/storage";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import STORAGES from '../../../utils/storage';
 import {
   Lazy_Loading_Image,
   Loading_Button,
@@ -9,13 +9,13 @@ import {
   Rating,
   SwaleMessage,
   useDebounce,
-} from "../../imports/General_Global_Import";
+} from '../../imports/General_Global_Import';
 
 const Products = () => {
   const { loading, result_product, error } = useSelector((state) => ({
     ...state.Products_user,
   }));
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const debouncedValue = useDebounce(search, 500);
 
   //*Pagination
@@ -33,8 +33,7 @@ const Products = () => {
 
   const currentItems = debouncedValue
     ? result_product
-    : result_product &&
-      result_product?.slice(indexOfFirstItem, indexOfLastItem);
+    : result_product && result_product?.slice(indexOfFirstItem, indexOfLastItem);
 
   //* render product
   const renderData = (data, index) => {
@@ -43,11 +42,9 @@ const Products = () => {
         {data &&
           data
             .filter((value) => {
-              if (debouncedValue === "") {
+              if (debouncedValue === '') {
                 return value;
-              } else if (
-                value?.name.toLowerCase().includes(debouncedValue.toLowerCase())
-              ) {
+              } else if (value?.name.toLowerCase().includes(debouncedValue.toLowerCase())) {
                 return value;
               }
             })
@@ -56,34 +53,22 @@ const Products = () => {
                 <div className="shop col-lg-4 col-md-6 col-sm-6" key={index}>
                   <div className="border-product">
                     <Link to={`/product/${product._id}`}>
-                      <div className="shopBack">
-                        {product.image && (
-                          <Lazy_Loading_Image url={product?.image.url} />
-                        )}
-                      </div>
+                      <div className="shopBack">{product.image && <Lazy_Loading_Image url={product?.image.url} />}</div>
                     </Link>
 
                     <div className="shoptext">
                       <p>
-                        <Link to={`/product/${product._id}`}>
-                          {STORAGES.except(product.name, 25)}
-                        </Link>
+                        <Link to={`/product/${product._id}`}>{STORAGES.except(product.name, 25)}</Link>
                       </p>
-                      <Rating
-                        value={product.rating}
-                        text={`${product.numReviews} reviews`}
-                      />
+                      <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                       <p
                         style={
                           product.countInStock > 0
-                            ? { color: "green", fontWeight: "bold" }
-                            : { color: "red", fontWeight: "bold" }
+                            ? { color: 'green', fontWeight: 'bold' }
+                            : { color: 'red', fontWeight: 'bold' }
                         }
                       >
-                        Stock:{" "}
-                        {product.countInStock > 0
-                          ? product.countInStock + " " + `( shoes )`
-                          : "Out Of Stock"}
+                        Stock: {product.countInStock > 0 ? product.countInStock + ' ' + `( shoes )` : 'Out Of Stock'}
                       </p>
                       <h3>${product.price}</h3>
                     </div>
@@ -107,11 +92,7 @@ const Products = () => {
   };
   const pages = [];
   if (!debouncedValue) {
-    for (
-      let i = 1;
-      i <= Math.ceil(result_product && result_product.length / itemsPerPage);
-      i++
-    ) {
+    for (let i = 1; i <= Math.ceil(result_product && result_product.length / itemsPerPage); i++) {
       pages.push(i);
     }
   }
@@ -123,7 +104,7 @@ const Products = () => {
           key={number}
           id={number}
           onClick={handleClick}
-          className={` page-link  ${currentPage == number ? "active1" : null}`}
+          className={` page-link  ${currentPage == number ? 'active1' : null}`}
         >
           {number}
         </li>
@@ -162,7 +143,7 @@ const Products = () => {
 
   const handleLoadMore = () => {
     if (itemsPerPage === result_product && result_product.length) {
-      return SwaleMessage("It's over, my friend 😄", "error");
+      return SwaleMessage("It's over, my friend 😄", 'error');
     }
     setitemsPerPage(itemsPerPage + 3);
   };
@@ -186,11 +167,7 @@ const Products = () => {
                 <nav className="float-end mt-4" aria-label="Page navigation">
                   <ul className="pagination  justify-content-center">
                     <li className="page-item disabled ">
-                      <button
-                        onClick={handlePrevbtn}
-                        disabled={currentPage == pages[0] ? true : false}
-                        id="page-link"
-                      >
+                      <button onClick={handlePrevbtn} disabled={currentPage == pages[0] ? true : false} id="page-link">
                         Previous
                       </button>
                     </li>
@@ -201,9 +178,7 @@ const Products = () => {
                       <button
                         id="page-link"
                         onClick={handleNextbtn}
-                        disabled={
-                          currentPage == pages[pages.length - 1] ? true : false
-                        }
+                        disabled={currentPage == pages[pages.length - 1] ? true : false}
                       >
                         Next
                       </button>
@@ -214,7 +189,7 @@ const Products = () => {
                   <ul className="pagination  justify-content-center">
                     <li className="page-item">
                       {itemsPerPage > result_product?.length ? (
-                        ""
+                        ''
                       ) : (
                         <button className="page-link" onClick={handleLoadMore}>
                           Load More

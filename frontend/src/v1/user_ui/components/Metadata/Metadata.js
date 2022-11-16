@@ -1,5 +1,5 @@
-import React from "react";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 const Metadata = ({ title }) => {
   return (
     <React.Fragment>

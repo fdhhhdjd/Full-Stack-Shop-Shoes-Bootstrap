@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   Add_To_Cart_Initial,
   Decrement_Quantity_Cart_Initial,
   Increment_Quantity_Cart_Initial,
   Delete_Cart_Initial,
   Get_Detail_User_Cart_Initial,
-} from "./Api_Redux_Thunk_Cart";
+} from './Api_Redux_Thunk_Cart';
 const initialState = {
   loading: false,
   error: null,
@@ -14,7 +14,7 @@ const initialState = {
   total_quantity: 0,
 };
 const Cart_User = createSlice({
-  name: "Cart",
+  name: 'Cart',
   initialState,
   reducers: {
     reset_cart: (state) => {
@@ -93,6 +93,5 @@ const Cart_User = createSlice({
   },
 });
 const Cart_Slice = Cart_User.reducer;
-export const { reset_cart, reset_change_cart, reset_change_error } =
-  Cart_User.actions;
+export const { reset_cart, reset_change_cart, reset_change_error } = Cart_User.actions;
 export default Cart_Slice;

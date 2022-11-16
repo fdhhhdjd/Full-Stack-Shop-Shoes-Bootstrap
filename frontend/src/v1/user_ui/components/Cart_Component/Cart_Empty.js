@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Cart_Empty = () => {
   return (
@@ -10,7 +10,7 @@ const Cart_Empty = () => {
           className="btn btn-success mx-5 px-5 py-3"
           to="/"
           style={{
-            fontSize: "12px",
+            fontSize: '12px',
           }}
         >
           SHOPPING NOW

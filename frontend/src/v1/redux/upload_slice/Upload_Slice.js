@@ -1,8 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {
-  Destroy_Cloud_Initial,
-  Upload_Cloud_Initial,
-} from "./Api_Redux_Thunk_Upload";
+import { createSlice } from '@reduxjs/toolkit';
+import { Destroy_Cloud_Initial, Upload_Cloud_Initial } from './Api_Redux_Thunk_Upload';
 const initialState = {
   loading: false,
   error: null,
@@ -10,7 +7,7 @@ const initialState = {
   result_destroy: null,
 };
 const Upload_Cloud = createSlice({
-  name: "Upload_Cloud",
+  name: 'Upload_Cloud',
   initialState,
   reducers: {
     reset_upload: (state) => {

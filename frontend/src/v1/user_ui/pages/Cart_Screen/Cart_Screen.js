@@ -1,5 +1,5 @@
-import React from "react";
-import { Info_Cart, Metadata } from "../../imports/General_Global_Import";
+import React from 'react';
+import { Info_Cart, Metadata } from '../../imports/General_Global_Import';
 
 const Cart_Screen = () => {
   return (

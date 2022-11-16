@@ -1,8 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
-  Get_Detail_User_Payment_Initial, Check_Stock_Product_Initial, Check_Total_Cart_Initial,
-  Transaction_Payment_Initial, Transaction_Payment_Stripe_Initial, Transaction_Payment_Stripe_success_Initial
-} from "./Api_Redux_Thunk_Payment";
+  Get_Detail_User_Payment_Initial,
+  Check_Stock_Product_Initial,
+  Check_Total_Cart_Initial,
+  Transaction_Payment_Initial,
+  Transaction_Payment_Stripe_Initial,
+  Transaction_Payment_Stripe_success_Initial,
+} from './Api_Redux_Thunk_Payment';
 const initialState = {
   loading: false,
   error: null,
@@ -10,26 +14,26 @@ const initialState = {
   total_payment: null,
   transaction: null,
   stock_transaction: null,
-  transaction_stripe: null
+  transaction_stripe: null,
 };
 const Payments = createSlice({
-  name: "payments",
+  name: 'payments',
   initialState,
   reducers: {
     reset_total: (state) => {
-      state.total_user = null
+      state.total_user = null;
     },
     reset_payment: (state) => {
-      state.total_user = null
-      state.total_payment = null
-      state.transaction = null
-      state.transaction_stripe = null
-      state.stock_transaction = null
+      state.total_user = null;
+      state.total_payment = null;
+      state.transaction = null;
+      state.transaction_stripe = null;
+      state.stock_transaction = null;
     },
     reset_stock_transaction: (state) => {
-      state.stock_transaction = null
-      state.total_payment = null
-    }
+      state.stock_transaction = null;
+      state.total_payment = null;
+    },
   },
   extraReducers: {
     //* Payment UserId

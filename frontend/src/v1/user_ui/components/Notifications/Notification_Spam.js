@@ -1,18 +1,18 @@
-import swal from "sweetalert";
+import swal from 'sweetalert';
 
 const ToastNotification_Spam = (count) => {
   if (count === 0) {
     swal(`${`Unlocked Login Account 😊`}`, {
-      icon: "warning",
+      icon: 'warning',
       closeOnClickOutside: true,
-      buttons: ["No", "Yes"], //with custom label
+      buttons: ['No', 'Yes'], //with custom label
       dangerMode: false,
     });
   } else {
     swal(`${`You Block ${count}s,Thank You 🙃`}`, {
-      icon: "warning",
+      icon: 'warning',
       closeOnClickOutside: false,
-      buttons: ["No"], //with custom label
+      buttons: ['No'], //with custom label
       dangerMode: true,
     });
   }
