@@ -1,18 +1,12 @@
-import React, { memo } from "react";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import Lazy_Load_Img from "../../custom_hook/Lazy_Load_Img";
+import React, { memo } from 'react';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import Lazy_Load_Img from '../../custom_hook/Lazy_Load_Img';
 const TransformWrappers = ({ url_image }) => {
   console.log(url_image);
   return (
     <React.Fragment>
       <div className="col-md-6">
-        <TransformWrapper
-          initialScale={1}
-          minScale={0.5}
-          maxScale={7}
-          initialPositionX={200}
-          initialPositionY={100}
-        >
+        <TransformWrapper initialScale={1} minScale={0.5} maxScale={7} initialPositionX={200} initialPositionY={100}>
           {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
             <React.Fragment>
               <div className="single-image">
@@ -29,10 +23,7 @@ const TransformWrappers = ({ url_image }) => {
                 Zoom Out -
               </button>
               &nbsp;&nbsp;
-              <button
-                className="btn btn-danger"
-                onClick={() => resetTransform()}
-              >
+              <button className="btn btn-danger" onClick={() => resetTransform()}>
                 Return-X
               </button>
               <br />

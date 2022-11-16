@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Detail_Profile_Account_Comment_Initial } from "../../../redux/comment_Slice/Api_Redux_Thunk_Comment";
-import { reset_profile_account } from "../../../redux/comment_Slice/Comment_Slice";
-import "../../../styles/Profile_Customers/Profile_Customers.css";
-import Loading_Button from "../General_Loading/Loading_Button";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Detail_Profile_Account_Comment_Initial } from '../../../redux/comment_Slice/Api_Redux_Thunk_Comment';
+import { reset_profile_account } from '../../../redux/comment_Slice/Comment_Slice';
+import '../../../styles/Profile_Customers/Profile_Customers.css';
+import Loading_Button from '../General_Loading/Loading_Button';
 const Profile_Customers = () => {
   const { review_profile, loading } = useSelector((state) => ({
     ...state.Comment_product,
@@ -13,17 +13,17 @@ const Profile_Customers = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const handleRandomIcon = () => {
-    let icon = ["🔥", "😃", "😍", "😉", "🤑", "🤪", "🤓"];
+    let icon = ['🔥', '😃', '😍', '😉', '🤑', '🤪', '🤓'];
     const random = Math.floor(Math.random() * icon.length);
     return icon[random];
   };
   const handleCheckNumber = (number) => {
     if (number === 0) {
-      return "Khách Mới";
+      return 'Khách Mới';
     } else if (number < 10) {
-      return "Khách ổn định";
+      return 'Khách ổn định';
     } else {
-      return "Khách Sộp";
+      return 'Khách Sộp';
     }
   };
   useEffect(() => {
@@ -81,29 +81,18 @@ const Profile_Customers = () => {
                             </h4>
                             <p className="text-secondary mb-1">
                               <b>
-                                <i className="fas fa-shopping-cart text-success"></i>{" "}
-                                :
-                              </b>{" "}
-                              {review_profile.order_user === 0
-                                ? "Chưa mua hàng"
-                                : review_profile.order_user}{" "}
-                              {`(${handleCheckNumber(
-                                review_profile.order_user
-                              )})`}
+                                <i className="fas fa-shopping-cart text-success"></i> :
+                              </b>{' '}
+                              {review_profile.order_user === 0 ? 'Chưa mua hàng' : review_profile.order_user}{' '}
+                              {`(${handleCheckNumber(review_profile.order_user)})`}
                             </p>
                             <p className="text-muted font-size-sm">
                               <b>
-                                <i
-                                  className="fa fa-male"
-                                  aria-hidden="true"
-                                ></i>{" "}
-                                :
-                              </b>{" "}
-                              {review_profile.info.sex === 0 &&
-                                "Nữ (Giới tính)"}
-                              {review_profile.info.sex === 1 &&
-                                "Nam (Giới tính)"}
-                              {!review_profile.info.sex && "Không có dữ liệu"}
+                                <i className="fa fa-male" aria-hidden="true"></i> :
+                              </b>{' '}
+                              {review_profile.info.sex === 0 && 'Nữ (Giới tính)'}
+                              {review_profile.info.sex === 1 && 'Nam (Giới tính)'}
+                              {!review_profile.info.sex && 'Không có dữ liệu'}
                             </p>
                           </div>
                         </div>
@@ -118,18 +107,14 @@ const Profile_Customers = () => {
                           <div className="col-sm-3">
                             <h6 className="mb-0">Full Name</h6>
                           </div>
-                          <div className="col-sm-9 text-secondary">
-                            {review_profile.info.name}
-                          </div>
+                          <div className="col-sm-9 text-secondary">{review_profile.info.name}</div>
                         </div>
                         <hr />
                         <div className="row">
                           <div className="col-sm-3">
                             <h6 className="mb-0">Email</h6>
                           </div>
-                          <div className="col-sm-9 text-secondary">
-                            {review_profile.info.email}
-                          </div>
+                          <div className="col-sm-9 text-secondary">{review_profile.info.email}</div>
                         </div>
                         <hr />
                         <div className="row">
@@ -137,8 +122,8 @@ const Profile_Customers = () => {
                             <h6 className="mb-0">Phone</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            {review_profile.info.phone_number == ""
-                              ? "Không có dữ liệu"
+                            {review_profile.info.phone_number == ''
+                              ? 'Không có dữ liệu'
                               : review_profile.info.phone_number}
                           </div>
                         </div>
@@ -148,9 +133,9 @@ const Profile_Customers = () => {
                             <h6 className="mb-0">Male</h6>
                           </div>
                           <div className="col-sm-9 text-secondary">
-                            {review_profile.info.sex === 0 && "Nữ"}
-                            {review_profile.info.sex === 1 && "Nam"}
-                            {!review_profile.info.sex && "Không có dữ liệu"}
+                            {review_profile.info.sex === 0 && 'Nữ'}
+                            {review_profile.info.sex === 1 && 'Nam'}
+                            {!review_profile.info.sex && 'Không có dữ liệu'}
                           </div>
                         </div>
                         <hr />
@@ -160,8 +145,7 @@ const Profile_Customers = () => {
                           </div>
                           <div className="col-sm-9 text-secondary">
                             {review_profile.info.date_of_birth}
-                            {!review_profile.info.date_of_birth &&
-                              "Không có dữ liệu"}
+                            {!review_profile.info.date_of_birth && 'Không có dữ liệu'}
                           </div>
                         </div>
                         <hr />

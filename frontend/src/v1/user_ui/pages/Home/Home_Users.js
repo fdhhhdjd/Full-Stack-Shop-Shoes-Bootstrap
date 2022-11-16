@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Metadata } from "../../imports/General_Global_Import";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Metadata } from '../../imports/General_Global_Import';
 import {
   Footer,
   InfoPhone,
@@ -8,7 +8,7 @@ import {
   Help_User_Button,
   Carousels,
   Product,
-} from "../../imports/Page_Layout_Main_Import";
+} from '../../imports/Page_Layout_Main_Import';
 const Home_Users = () => {
   const { accessToken } = useSelector((state) => ({
     ...state.auth_user,

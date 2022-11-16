@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import FacebookLogin from "react-facebook-login";
-import { useDispatch } from "react-redux";
-import CONFIGS from "../../../configs/config";
-import { Login_Facebook_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
+import React, { memo } from 'react';
+import FacebookLogin from 'react-facebook-login';
+import { useDispatch } from 'react-redux';
+import CONFIGS from '../../../configs/config';
+import { Login_Facebook_Initial } from '../../../redux/authentication_slice/Api_Redux_Thunk';
 const Login_Facebook = () => {
   const dispatch = useDispatch();
   const responseFacebook = (response) => {

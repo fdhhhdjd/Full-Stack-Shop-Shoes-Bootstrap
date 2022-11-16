@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Get_All_Carousel_Initial } from "./Api_Redux_Thunk_Carousel";
+import { createSlice } from '@reduxjs/toolkit';
+import { Get_All_Carousel_Initial } from './Api_Redux_Thunk_Carousel';
 const initialState = {
   loading: false,
   error: null,
   result_carousel: null,
 };
 const Carousels = createSlice({
-  name: "carousels",
+  name: 'carousels',
   initialState,
   reducers: {
     reset_carousel: (state) => {

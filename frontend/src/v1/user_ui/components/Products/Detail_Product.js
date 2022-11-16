@@ -1,20 +1,17 @@
-import React, { memo, useEffect, useMemo } from "react";
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { memo, useEffect, useMemo } from 'react';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   Add_To_Cart_Initial,
   Get_Detail_User_Cart_Initial,
   Increment_Quantity_Cart_Initial,
-} from "../../../redux/cart_slice/Api_Redux_Thunk_Cart";
-import {
-  reset_change_cart,
-  reset_change_error,
-} from "../../../redux/cart_slice/Cart_Slice";
-import { Get_Detail_User_Payment_Initial } from "../../../redux/payment_slice/Api_Redux_Thunk_Payment";
-import { Get_Detail_Product_Initial } from "../../../redux/product_slice/Api_Redux_Thunk_Products";
-import { reset_product_detail } from "../../../redux/product_slice/Product_Slice";
-import STORAGES from "../../../utils/storage";
+} from '../../../redux/cart_slice/Api_Redux_Thunk_Cart';
+import { reset_change_cart, reset_change_error } from '../../../redux/cart_slice/Cart_Slice';
+import { Get_Detail_User_Payment_Initial } from '../../../redux/payment_slice/Api_Redux_Thunk_Payment';
+import { Get_Detail_Product_Initial } from '../../../redux/product_slice/Api_Redux_Thunk_Products';
+import { reset_product_detail } from '../../../redux/product_slice/Product_Slice';
+import STORAGES from '../../../utils/storage';
 import {
   Comment_Product,
   Loading_Button,
@@ -24,13 +21,13 @@ import {
   SwaleMessage,
   TransformWrappers,
   Write_Review_Product,
-} from "../../imports/General_Global_Import";
+} from '../../imports/General_Global_Import';
 const Detail_Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const accessToken = STORAGES.getLocalStorage("accessToken");
+  const accessToken = STORAGES.getLocalStorage('accessToken');
   const { result_product_detail, loading } = useSelector((state) => ({
     ...state.Products_user,
   }));
@@ -48,20 +45,21 @@ const Detail_Product = () => {
     if (checkCart) {
       HandleIncrement(product_id, quantity);
     } else {
-      return dispatch(
-        Add_To_Cart_Initial({ product_id, quantity, accessToken })
-      );
+      return dispatch(Add_To_Cart_Initial({ product_id, quantity, accessToken }));
     }
   };
-  const HandleIncrement = useCallback((product_id) => {
-    return dispatch(
-      Increment_Quantity_Cart_Initial({
-        product_id,
-        quantity: 1,
-        accessToken,
-      })
-    );
-  }, [change_cart]);
+  const HandleIncrement = useCallback(
+    (product_id) => {
+      return dispatch(
+        Increment_Quantity_Cart_Initial({
+          product_id,
+          quantity: 1,
+          accessToken,
+        }),
+      );
+    },
+    [change_cart],
+  );
   useEffect(() => {
     if (id) {
       dispatch(Get_Detail_Product_Initial(id));
@@ -72,7 +70,7 @@ const Detail_Product = () => {
   }, [id, reviews, review_edit]);
   useEffect(() => {
     if (error) {
-      SwaleMessage(error?.msg, "warning");
+      SwaleMessage(error?.msg, 'warning');
     }
     return dispatch(reset_change_error());
   }, [error]);
@@ -80,7 +78,7 @@ const Detail_Product = () => {
     if (change_cart) {
       dispatch(Get_Detail_User_Cart_Initial({ accessToken }));
       dispatch(Get_Detail_User_Payment_Initial(accessToken));
-      return SwaleMessage("Add To Cart Success !", "success");
+      return SwaleMessage('Add To Cart Success !', 'success');
     }
     return () => {
       dispatch(reset_change_cart());
@@ -112,19 +110,12 @@ const Detail_Product = () => {
               </nav>
               <div className="row">
                 {/* TransformWrapper */}
-                <TransformWrappers
-                  url_image={
-                    result_product_detail?.product_detail[0]?.image?.url
-                  }
-                />
+                <TransformWrappers url_image={result_product_detail?.product_detail[0]?.image?.url} />
                 <div className="col-md-6">
                   <div className="product-dtl">
                     <div className="product-info">
                       <div className="product-name">
-                        {STORAGES.except(
-                          result_product_detail.product_detail[0]?.name,
-                          35
-                        )}
+                        {STORAGES.except(result_product_detail.product_detail[0]?.name, 35)}
                       </div>
                     </div>
                     <p>{result_product_detail.product_detail[0]?.description}</p>
@@ -132,14 +123,11 @@ const Detail_Product = () => {
                     <div className="product-count col-lg-7 ">
                       <div className="flex-box d-flex justify-content-between align-items-center">
                         <h6>Price</h6>
-                        <span>
-                          ${result_product_detail.product_detail[0]?.price}
-                        </span>
+                        <span>${result_product_detail.product_detail[0]?.price}</span>
                       </div>
                       <div className="flex-box d-flex justify-content-between align-items-center">
                         <h6>Status</h6>
-                        {result_product_detail.product_detail[0]?.countInStock >
-                          0 ? (
+                        {result_product_detail.product_detail[0]?.countInStock > 0 ? (
                           <span>In Stock</span>
                         ) : (
                           <span>End In Stock</span>
@@ -148,9 +136,7 @@ const Detail_Product = () => {
                       <div className="flex-box d-flex justify-content-between align-items-center">
                         <h6>Sold</h6>
                         {result_product_detail.product_detail[0]?.sold > 0 ? (
-                          <span>
-                            {result_product_detail.product_detail[0].sold}{" "}
-                          </span>
+                          <span>{result_product_detail.product_detail[0].sold} </span>
                         ) : (
                           <span>No Yet Has Bought</span>
                         )}
@@ -158,32 +144,19 @@ const Detail_Product = () => {
                       <div className="flex-box d-flex justify-content-between align-items-center">
                         <h6>Reviews</h6>
                         <Rating
-                          value={
-                            result_product_detail.product_detail[0]?.rating
-                          }
+                          value={result_product_detail.product_detail[0]?.rating}
                           text={`${result_product_detail.product_detail[0]?.numReviews} reviews`}
                         />
                       </div>
-                      {result_product_detail.product_detail[0]?.countInStock >
-                        0 ? (
+                      {result_product_detail.product_detail[0]?.countInStock > 0 ? (
                         <>
                           <div className="flex-box d-flex justify-content-between align-items-center">
                             <h6>CountIn Stock</h6>
-                            <span>
-                              {
-                                result_product_detail.product_detail[0]
-                                  ?.countInStock
-                              }
-                            </span>
+                            <span>{result_product_detail.product_detail[0]?.countInStock}</span>
                           </div>
                           <button
                             className="round-black-btn"
-                            onClick={() =>
-                              handleAddToCart(
-                                result_product_detail.product_detail[0]._id,
-                                1
-                              )
-                            }
+                            onClick={() => handleAddToCart(result_product_detail.product_detail[0]._id, 1)}
                           >
                             Add To Cart
                           </button>
@@ -191,7 +164,7 @@ const Detail_Product = () => {
                       ) : (
                         <div className="flex-box d-flex justify-content-between align-items-center">
                           <h6>CountIn Stock</h6>
-                          <span style={{ color: "red" }}>Out Of Stock</span>
+                          <span style={{ color: 'red' }}>Out Of Stock</span>
                         </div>
                       )}
                     </div>

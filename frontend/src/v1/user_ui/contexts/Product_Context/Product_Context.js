@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Get_All_Product_Initial } from "../../../redux/product_slice/Api_Redux_Thunk_Products";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Get_All_Product_Initial } from '../../../redux/product_slice/Api_Redux_Thunk_Products';
 const ProductApi = () => {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);

@@ -1,18 +1,13 @@
-import moment from "moment";
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Tab_Change_Password from "../../components/Auth_Info/Tab_Change_Password";
-import Tab_Profile_User from "../../components/Auth_Info/Tab_Profile_User";
-import {
-  Feedback,
-  Lazy_Loading_Image,
-  Metadata,
-  Order_Info,
-} from "../../imports/General_Global_Import";
+import moment from 'moment';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Tab_Change_Password from '../../components/Auth_Info/Tab_Change_Password';
+import Tab_Profile_User from '../../components/Auth_Info/Tab_Profile_User';
+import { Feedback, Lazy_Loading_Image, Metadata, Order_Info } from '../../imports/General_Global_Import';
 const Profile_USers = () => {
   const { profile } = useSelector((state) => ({ ...state.auth_user }));
-  const { order } = useSelector((state) => ({ ...state.order_user }))
+  const { order } = useSelector((state) => ({ ...state.order_user }));
   return (
     <>
       <Metadata title={`${profile && profile.name}`} />
@@ -45,8 +40,7 @@ const Profile_USers = () => {
                     </h5>
                     <span className="author-card-position">
                       <>
-                        Joined:{" "}
-                        <strong>{moment(profile.createAt).format("LL")}</strong>
+                        Joined: <strong>{moment(profile.createAt).format('LL')}</strong>
                       </>
                     </span>
                   </div>
@@ -96,11 +90,7 @@ const Profile_USers = () => {
                       aria-selected="false"
                     >
                       Orders List
-                      <span className="badge2">
-                        {order && order.history
-                          ? order.history.length
-                          : 0}
-                      </span>
+                      <span className="badge2">{order && order.history ? order.history.length : 0}</span>
                     </button>
                     <button
                       className="nav-link "
@@ -120,10 +110,7 @@ const Profile_USers = () => {
             </div>
 
             {/* panels */}
-            <div
-              className="tab-content col-lg-8 pb-5 pt-lg-0 pt-3"
-              id="v-pills-tabContent"
-            >
+            <div className="tab-content col-lg-8 pb-5 pt-lg-0 pt-3" id="v-pills-tabContent">
               <div
                 className="tab-pane fade show active"
                 id="v-pills-home"
@@ -140,12 +127,7 @@ const Profile_USers = () => {
               >
                 <Tab_Change_Password />
               </div>
-              <div
-                className="tab-pane fade"
-                id="v-pills-profile"
-                role="tabpanel"
-                aria-labelledby="v-pills-profile-tab"
-              >
+              <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <Order_Info />
               </div>
               <div

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ContactInfo = () => {
   return (
@@ -28,7 +28,7 @@ const ContactInfo = () => {
               <i className="fas fa-fax"></i>
             </div>
             <h5>WebSite Company</h5>
-            <a href="https://profile-forme.surge.sh/" target="_blank">
+            <a href="https://profile-forme.surge.sh/" target="_blank" rel="noreferrer">
               https://profile-forme.surge.sh/
             </a>
           </div>

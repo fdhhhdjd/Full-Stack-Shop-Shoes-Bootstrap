@@ -1,5 +1,5 @@
-import React from "react";
-import "../../../styles/Phone_Right/PhoneRight.css";
+import React from 'react';
+import '../../../styles/Phone_Right/PhoneRight.css';
 const PhoneRight = () => {
   return (
     <React.Fragment>

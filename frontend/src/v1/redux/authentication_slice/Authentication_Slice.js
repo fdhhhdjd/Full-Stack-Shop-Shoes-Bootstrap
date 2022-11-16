@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   Change_Password_Users_Initial,
   Forget_Users_Initial,
@@ -12,7 +12,7 @@ import {
   Register_Users_Initial,
   Reset_Users_Initial,
   Update_Info_Users_Initial,
-} from "./Api_Redux_Thunk";
+} from './Api_Redux_Thunk';
 const initialState = {
   loading: false,
   loading_profile: false,
@@ -26,7 +26,7 @@ const initialState = {
   update_users: null,
 };
 const Authentication = createSlice({
-  name: "Authentication_Users",
+  name: 'Authentication_Users',
   initialState,
   reducers: {
     reset_auth: (state) => {
@@ -189,6 +189,5 @@ const Authentication = createSlice({
   },
 });
 const AuthenticationSlice = Authentication.reducer;
-export const { reset_auth, reset_error, reset_changePassword } =
-  Authentication.actions;
+export const { reset_auth, reset_error, reset_changePassword } = Authentication.actions;
 export default AuthenticationSlice;
