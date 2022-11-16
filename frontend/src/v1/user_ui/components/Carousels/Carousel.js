@@ -2,7 +2,7 @@ import lottie from 'lottie-web';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 const Carousels = () => {
-                const Scroll = useRef();
+  const Scroll = useRef();
   const { result_carousel } = useSelector((state) => ({
     ...state.carousel_user,
   }));
