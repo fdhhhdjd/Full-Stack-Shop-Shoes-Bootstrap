@@ -17,13 +17,11 @@ import { DataProviderUser } from "./v1/user_ui/contexts/GlobalStateUser";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <DataProviderAdmin>
         <DataProviderUser>
           <Router>
             <App />
           </Router>
         </DataProviderUser>
-      </DataProviderAdmin>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
