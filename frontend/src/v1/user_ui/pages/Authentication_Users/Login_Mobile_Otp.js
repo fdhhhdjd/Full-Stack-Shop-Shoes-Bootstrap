@@ -1,19 +1,19 @@
-import { Fragment, useEffect, useState } from "react";
-import { Alert, Button, Container, Form } from "react-bootstrap";
-import PhoneInput from "react-phone-number-input";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Login_Phone_Otp_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import STORAGES from "../../../utils/storage";
-import { Loading_Button, Metadata } from "../../imports/General_Global_Import";
+import { Fragment, useEffect, useState } from 'react';
+import { Alert, Button, Container, Form } from 'react-bootstrap';
+import PhoneInput from 'react-phone-number-input';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Login_Phone_Otp_Initial } from '../../../redux/authentication_slice/Api_Redux_Thunk';
+import STORAGES from '../../../utils/storage';
+import { Loading_Button, Metadata } from '../../imports/General_Global_Import';
 const Login_Mobile_Otp = () => {
-  const [error, setError] = useState("");
-  const [number, setNumber] = useState("");
+  const [error, setError] = useState('');
+  const [number, setNumber] = useState('');
   const [flag, setFlag] = useState(false);
   const location = useLocation();
-  const [otp, setOtp] = useState("");
-  const [result, setResult] = useState("");
+  const [otp, setOtp] = useState('');
+  const [result, setResult] = useState('');
   const navigate = useNavigate();
   const { loading, auth } = useSelector((state) => ({
     ...state.auth_user,
@@ -21,9 +21,9 @@ const Login_Mobile_Otp = () => {
   const dispatch = useDispatch();
   const getOtp = async (e) => {
     e.preventDefault();
-    setError("");
-    if (number === "" || number === undefined) {
-      setError("Please enter a valid phone number!");
+    setError('');
+    if (number === '' || number === undefined) {
+      setError('Please enter a valid phone number!');
       setTimeout(() => {
         setError(null);
       }, 2000);
@@ -42,9 +42,9 @@ const Login_Mobile_Otp = () => {
   };
   const verifyOtp = async (e) => {
     e.preventDefault();
-    setError("");
-    if (otp === "" || otp === null) {
-      setError("Please enter OTP");
+    setError('');
+    if (otp === '' || otp === null) {
+      setError('Please enter OTP');
       setTimeout(() => {
         setError(null);
       }, 2000);
@@ -63,12 +63,12 @@ const Login_Mobile_Otp = () => {
   };
   useEffect(() => {
     if (auth && auth.status === 200) {
-      STORAGES.saveLocalStorage("Login_Users", true);
+      STORAGES.saveLocalStorage('Login_Users', true);
       if (location.state?.from) {
         navigate(location.state.from);
         window.location.reload();
       } else {
-        window.location.href = "/";
+        window.location.href = '/';
       }
     }
     if (error) {
@@ -79,11 +79,11 @@ const Login_Mobile_Otp = () => {
   return (
     <Fragment>
       <Metadata title="Login-Phone" />
-      <Container style={{ width: "400px" }}>
+      <Container style={{ width: '400px' }}>
         <div className="p-4 box">
           <h2 className="mb-3">Login Phone</h2>
           {error && <Alert variant="danger">{error.msg}</Alert>}
-          <Form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
+          <Form onSubmit={getOtp} style={{ display: !flag ? 'block' : 'none' }}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <PhoneInput
                 defaultCountry="IN"
@@ -105,16 +105,9 @@ const Login_Mobile_Otp = () => {
             </div>
           </Form>
 
-          <Form
-            onSubmit={verifyOtp}
-            style={{ display: flag ? "block" : "none" }}
-          >
+          <Form onSubmit={verifyOtp} style={{ display: flag ? 'block' : 'none' }}>
             <Form.Group className="mb-3" controlId="formBasicOtp">
-              <Form.Control
-                type="otp"
-                placeholder="Enter OTP"
-                onChange={(e) => setOtp(e.target.value)}
-              />
+              <Form.Control type="otp" placeholder="Enter OTP" onChange={(e) => setOtp(e.target.value)} />
             </Form.Group>
             <div className="button-right">
               {loading ? (

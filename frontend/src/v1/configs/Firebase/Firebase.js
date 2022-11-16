@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import CONFIGS from "../../configs/config";
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import CONFIGS from '../../configs/config';
 const firebaseConfig = {
   apiKey: CONFIGS.REACT_APP_API_KEY,
   authDomain: CONFIGS.REACT_APP_AUTH_DOMAIN,

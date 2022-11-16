@@ -1,25 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Register_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import {
-  reset_auth,
-  reset_error,
-} from "../../../redux/authentication_slice/Authentication_Slice";
-import {
-  Message_Auth,
-  Metadata,
-  Loading_Button,
-} from "../../imports/General_Global_Import";
+import { useEffect, useRef, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Register_Users_Initial } from '../../../redux/authentication_slice/Api_Redux_Thunk';
+import { reset_auth, reset_error } from '../../../redux/authentication_slice/Authentication_Slice';
+import { Message_Auth, Metadata, Loading_Button } from '../../imports/General_Global_Import';
 const initialState = {
-  name: "",
-  phone_number: "",
-  date_of_birth: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
+  name: '',
+  phone_number: '',
+  date_of_birth: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
 };
 const Register_Users = () => {
   const [state, setState] = useState(initialState);
@@ -30,18 +23,11 @@ const Register_Users = () => {
   const { loading, error, auth } = useSelector((state) => ({
     ...state.auth_user,
   }));
-  const {
-    name,
-    email,
-    password,
-    confirmPassword,
-    date_of_birth,
-    phone_number,
-  } = state;
+  const { name, email, password, confirmPassword, date_of_birth, phone_number } = state;
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!name || !email || !password || !confirmPassword) {
-      return toast.error("Please Enter Input 🥲");
+      return toast.error('Please Enter Input 🥲');
     }
     dispatch(
       Register_Users_Initial({
@@ -51,7 +37,7 @@ const Register_Users = () => {
         confirmPassword,
         date_of_birth,
         phone_number,
-      })
+      }),
     );
   };
   const handleChange = (e) => {
@@ -61,7 +47,7 @@ const Register_Users = () => {
   useEffect(() => {
     if (auth.status === 200) {
       reCaptcha.current.reset();
-      navigate("/login");
+      navigate('/login');
       toast.success(auth?.element?.msg);
       dispatch(reset_auth());
     }
@@ -79,50 +65,13 @@ const Register_Users = () => {
     <>
       <Metadata title="Register" />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
-        {error && (
-          <Message_Auth variant="alert-danger">
-            {error.element.msg}
-          </Message_Auth>
-        )}
-        <form
-          className="Login col-md-8 col-lg-4 col-11"
-          onSubmit={submitHandler}
-        >
-          <input
-            type="type"
-            placeholder="Full Name"
-            value={name}
-            name="name"
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            name="email"
-            onChange={handleChange}
-          />
-          <input
-            type="phone"
-            placeholder="Phone"
-            value={phone_number}
-            name="phone_number"
-            onChange={handleChange}
-          />
-          <input
-            type="date"
-            placeholder="Date"
-            value={date_of_birth}
-            name="date_of_birth"
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            name="password"
-            onChange={handleChange}
-          />
+        {error && <Message_Auth variant="alert-danger">{error.element.msg}</Message_Auth>}
+        <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
+          <input type="type" placeholder="Full Name" value={name} name="name" onChange={handleChange} />
+          <input type="email" placeholder="Email" value={email} name="email" onChange={handleChange} />
+          <input type="phone" placeholder="Phone" value={phone_number} name="phone_number" onChange={handleChange} />
+          <input type="date" placeholder="Date" value={date_of_birth} name="date_of_birth" onChange={handleChange} />
+          <input type="password" placeholder="Password" value={password} name="password" onChange={handleChange} />
           <input
             type="password"
             placeholder="confirmPassword"
@@ -138,11 +87,7 @@ const Register_Users = () => {
             badge="bottomleft"
             grecaptcha={grecaptchaObject}
           />
-          {loading ? (
-            <Loading_Button />
-          ) : (
-            <button type="submit">Register</button>
-          )}
+          {loading ? <Loading_Button /> : <button type="submit">Register</button>}
           <p>
             <Link to="/login">Back Login</Link>
           </p>

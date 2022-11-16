@@ -1,11 +1,11 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Help_User_Button = () => {
   const navigate = useNavigate();
   const handleSignupTip = (e) => {
     e.preventDefault();
-    navigate("/register");
+    navigate('/register');
   };
   return (
     <div className="subscribe-section bg-with-black">

@@ -1,9 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import API_COMMENT from "../../configs/Apis/Comment_Api/Api_Comment";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import API_COMMENT from '../../configs/Apis/Comment_Api/Api_Comment';
 
 export const Create_Comment_Initial = createAsyncThunk(
-  "Comment/Create",
+  'Comment/Create',
   async ({ id, rating, comment, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -17,7 +17,7 @@ export const Create_Comment_Initial = createAsyncThunk(
           rating,
           comment,
         },
-        config
+        config,
       );
       return response.data;
     } catch (error) {
@@ -26,15 +26,12 @@ export const Create_Comment_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const Update_Comment_Initial = createAsyncThunk(
-  "Comment/Update",
-  async (
-    { productId, commentId, comment, accessToken },
-    { rejectWithValue }
-  ) => {
+  'Comment/Update',
+  async ({ productId, commentId, comment, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -46,7 +43,7 @@ export const Update_Comment_Initial = createAsyncThunk(
         {
           comment,
         },
-        config
+        config,
       );
       return response.data;
     } catch (error) {
@@ -55,10 +52,10 @@ export const Update_Comment_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 export const Delete_Comment_Initial = createAsyncThunk(
-  "Comment/Delete",
+  'Comment/Delete',
   async ({ productId, commentId, accessToken }, { rejectWithValue }) => {
     const config = {
       headers: {
@@ -66,10 +63,7 @@ export const Delete_Comment_Initial = createAsyncThunk(
       },
     };
     try {
-      const response = await axios.delete(
-        `${API_COMMENT.API_DELETE_COMMENT}/${productId}/delete/${commentId}`,
-        config
-      );
+      const response = await axios.delete(`${API_COMMENT.API_DELETE_COMMENT}/${productId}/delete/${commentId}`, config);
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -77,21 +71,16 @@ export const Delete_Comment_Initial = createAsyncThunk(
       }
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
-export const Detail_Profile_Account_Comment_Initial = createAsyncThunk(
-  "Comment/Detail/Profile/Account",
-  async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_COMMENT.API_DETAIL_CUSTOMER_COMMENT}/${id}`
-      );
-      return response.data;
-    } catch (error) {
-      if (!error.response) {
-        throw error;
-      }
-      return error.response.data;
+export const Detail_Profile_Account_Comment_Initial = createAsyncThunk('Comment/Detail/Profile/Account', async (id) => {
+  try {
+    const response = await axios.get(`${API_COMMENT.API_DETAIL_CUSTOMER_COMMENT}/${id}`);
+    return response.data;
+  } catch (error) {
+    if (!error.response) {
+      throw error;
     }
+    return error.response.data;
   }
-);
+});

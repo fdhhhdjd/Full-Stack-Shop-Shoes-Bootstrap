@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Get_Detail_User_Cart_Initial } from "../../../redux/cart_slice/Api_Redux_Thunk_Cart";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Get_Detail_User_Cart_Initial } from '../../../redux/cart_slice/Api_Redux_Thunk_Cart';
 
 const Cart_Context = () => {
   const { accessToken } = useSelector((state) => ({
@@ -18,7 +18,7 @@ const Cart_Context = () => {
     if (transaction) {
       dispatch(Get_Detail_User_Cart_Initial({ accessToken }));
     }
-  }, [transaction])
+  }, [transaction]);
   return {};
 };
 export default Cart_Context;

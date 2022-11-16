@@ -1,7 +1,10 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Check_Total_Cart_Initial, Get_Detail_User_Payment_Initial } from "../../../redux/payment_slice/Api_Redux_Thunk_Payment";
-import { reset_payment, reset_stock_transaction } from "../../../redux/payment_slice/payment_slice";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  Check_Total_Cart_Initial,
+  Get_Detail_User_Payment_Initial,
+} from '../../../redux/payment_slice/Api_Redux_Thunk_Payment';
+import { reset_payment, reset_stock_transaction } from '../../../redux/payment_slice/payment_slice';
 
 const Payment_Context = () => {
   const { accessToken } = useSelector((state) => ({
@@ -20,19 +23,19 @@ const Payment_Context = () => {
 
   useEffect(() => {
     if (stock_transaction) {
-      dispatch(Check_Total_Cart_Initial(accessToken))
+      dispatch(Check_Total_Cart_Initial(accessToken));
     }
-  }, [stock_transaction])
+  }, [stock_transaction]);
   useEffect(() => {
     if (transaction) {
-      dispatch(reset_payment())
+      dispatch(reset_payment());
     }
-  }, [transaction])
+  }, [transaction]);
   useEffect(() => {
     if (change_cart) {
-      dispatch(reset_stock_transaction())
+      dispatch(reset_stock_transaction());
     }
-  }, [change_cart])
+  }, [change_cart]);
   return {};
 };
 export default Payment_Context;

@@ -1,5 +1,5 @@
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { auth } from "../configs/Firebase/Firebase";
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { auth } from '../configs/Firebase/Firebase';
 const STORAGES = {
   //* LocalStorage No JSON
   saveLocalStorage: (key, value) => {
@@ -26,18 +26,14 @@ const STORAGES = {
   //* Limit Character
   except: (str, number) => {
     if (str?.length > number) {
-      str = str.substring(0, number) + " " + "...";
+      str = str.substring(0, number) + ' ' + '...';
     }
     return str;
   },
   //* Check Recaptcha Firebase
   checkRecapChaFirebase: (number) => {
-    console.log(number, "-----phone_number----");
-    const recaptchaVerifier = new RecaptchaVerifier(
-      "recaptcha-container",
-      {},
-      auth
-    );
+    console.log(number, '-----phone_number----');
+    const recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
     recaptchaVerifier.render();
     return signInWithPhoneNumber(auth, number, recaptchaVerifier);
   },

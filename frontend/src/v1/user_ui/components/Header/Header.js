@@ -1,11 +1,11 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Logout_Users_Initial } from "../../../redux/authentication_slice/Api_Redux_Thunk";
-import HeaderData from "../../../utils/data/HeaderData";
-import STORAGES from "../../../utils/storage";
-import { Logo_Png } from "../../imports/Assets_Import";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Logout_Users_Initial } from '../../../redux/authentication_slice/Api_Redux_Thunk';
+import HeaderData from '../../../utils/data/HeaderData';
+import STORAGES from '../../../utils/storage';
+import { Logo_Png } from '../../imports/Assets_Import';
 const Header = () => {
   const dispatch = useDispatch();
   const { profile, accessToken, loading_profile } = useSelector((state) => ({
@@ -19,10 +19,10 @@ const Header = () => {
     dispatch(Logout_Users_Initial(accessToken))
       .then((item) => {
         STORAGES.clearLocalStorageAll();
-        window.location.href = "/login";
+        window.location.href = '/login';
       })
       .catch((err) => {
-        toast.error("Logout Fail !!!");
+        toast.error('Logout Fail !!!');
       });
   };
   const submitHandler = (e) => {
@@ -35,15 +35,12 @@ const Header = () => {
           <div className="row">
             <div className="col-md-6 d-flex align-items-center display-none">
               <p>
-                <a href="tel:+0798805741" style={{ color: "white" }}>
+                <a href="tel:+0798805741" style={{ color: 'white' }}>
                   +079 880 5741
                 </a>
               </p>
               <p>
-                <a
-                  href="mailto:nguyentientai10@gmail.com"
-                  style={{ color: "white" }}
-                >
+                <a href="mailto:nguyentientai10@gmail.com" style={{ color: 'white' }}>
                   nguyentientai10@gmail.com
                 </a>
               </p>
@@ -93,11 +90,7 @@ const Header = () => {
                         <Link className="dropdown-item" to="/cart ">
                           Payment
                         </Link>
-                        <Link
-                          className="dropdown-item"
-                          to="#"
-                          onClick={logoutHandler}
-                        >
+                        <Link className="dropdown-item" to="#" onClick={logoutHandler}>
                           Logout
                         </Link>
                       </div>
@@ -127,18 +120,12 @@ const Header = () => {
 
                   <Link to="/cart" className="cart-mobile-icon">
                     <i className="fas fa-shopping-bag"></i>
-                    <span className="badge1">
-                      {total_quantity.quantity_sum}
-                    </span>
+                    <span className="badge1">{total_quantity.quantity_sum}</span>
                   </Link>
                 </div>
                 <div className="col-12 d-flex align-items-center">
                   <form onSubmit={submitHandler} className="input-group">
-                    <input
-                      type="search"
-                      className="form-control rounded search"
-                      placeholder="Search"
-                    />
+                    <input type="search" className="form-control rounded search" placeholder="Search" />
                     <button type="submit" className="search-button">
                       search
                     </button>
@@ -158,11 +145,7 @@ const Header = () => {
               </div>
               <div className="col-md-6 col-8 d-flex align-items-center">
                 <form onSubmit={submitHandler} className="input-group">
-                  <input
-                    type="search"
-                    className="form-control rounded search"
-                    placeholder="Search"
-                  />
+                  <input type="search" className="form-control rounded search" placeholder="Search" />
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
@@ -194,11 +177,7 @@ const Header = () => {
                       <Link className="dropdown-item" to="/cart">
                         Payment
                       </Link>
-                      <Link
-                        className="dropdown-item"
-                        to="#"
-                        onClick={logoutHandler}
-                      >
+                      <Link className="dropdown-item" to="#" onClick={logoutHandler}>
                         Logout
                       </Link>
                     </div>
@@ -212,9 +191,7 @@ const Header = () => {
 
                 <Link to="/cart">
                   <i className="fas fa-shopping-bag"></i>
-                  <span className="badge1 badge">
-                    {total_quantity.quantity_sum}
-                  </span>
+                  <span className="badge1 badge">{total_quantity.quantity_sum}</span>
                 </Link>
               </div>
             </div>

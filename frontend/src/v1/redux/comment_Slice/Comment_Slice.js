@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   Create_Comment_Initial,
   Update_Comment_Initial,
   Delete_Comment_Initial,
   Detail_Profile_Account_Comment_Initial,
-} from "./Api_Redux_Thunk_Comment";
+} from './Api_Redux_Thunk_Comment';
 const initialState = {
   loading: false,
   error: null,
@@ -13,7 +13,7 @@ const initialState = {
   review_profile: null,
 };
 const Comment_Product = createSlice({
-  name: "Comment",
+  name: 'Comment',
   initialState,
   reducers: {
     reset_review: (state) => {
@@ -79,6 +79,5 @@ const Comment_Product = createSlice({
   },
 });
 const Comment_Slice = Comment_Product.reducer;
-export const { reset_review, reset_review_error, reset_profile_account } =
-  Comment_Product.actions;
+export const { reset_review, reset_review_error, reset_profile_account } = Comment_Product.actions;
 export default Comment_Slice;

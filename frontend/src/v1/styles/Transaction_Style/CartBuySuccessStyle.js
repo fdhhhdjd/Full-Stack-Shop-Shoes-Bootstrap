@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const CartBuySuccessStyle = createGlobalStyle`
 .success-wrapper, .cancel-wrapper{
