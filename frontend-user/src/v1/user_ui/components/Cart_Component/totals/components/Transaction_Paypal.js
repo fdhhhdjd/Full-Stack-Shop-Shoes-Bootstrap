@@ -18,7 +18,7 @@ const Transaction_Paypal = () => {
   };
   useEffect(() => {
     if (transaction) {
-      navigate(`/transaction/paypal/success/${uuidv4()}`);
+      navigate(`/payment/paypal/success/${uuidv4()}`);
     }
   }, [transaction]);
 
