@@ -1,5 +1,5 @@
 {
-  "name": "admin",
+  "name": "frontend-admin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -53,10 +53,10 @@
   },
   "lint-staged": {
     "src/**/*.{js,vue}": [
-        "eslint --fix",
-        "git add"
+      "eslint --fix",
+      "git add"
     ]
-    },
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
