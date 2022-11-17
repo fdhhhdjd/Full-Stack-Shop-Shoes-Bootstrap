@@ -1,4 +1,9 @@
 ###! Frontend ###
+/frontend-user/node_modules
+/frontend-user/.env
+/frontend-user/.git
+
+###! Frontend ###
 /frontend/node_modules
 /frontend/.env
 /frontend/.git
