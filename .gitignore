@@ -3,6 +3,11 @@
 /frontend/.env
 /frontend/.git
 
+###! Frontend-admin ###
+/frontend-admin/node_modules
+/frontend-admin/.env
+/frontend-admin/.git
+
 
 ###! backend ###
 /backend/node_modules

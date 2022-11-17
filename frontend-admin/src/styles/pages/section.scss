@@ -1,0 +1,16 @@
+.section {
+    &__title {
+        text-transform: capitalize;
+    }
+
+    &__list {
+        &--link {
+            color: #606266;
+            text-transform: capitalize;
+
+            &.is-disabled {
+                color: #bbb !important;
+            }
+        }
+    }
+}
