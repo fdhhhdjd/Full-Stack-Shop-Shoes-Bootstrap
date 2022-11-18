@@ -131,7 +131,6 @@ module.exports = {
     confirmPassword,
     user_id,
   }) => {
-    console.log("oke");
     const user = await getDetailUser(user_id);
     if (!password)
       return {

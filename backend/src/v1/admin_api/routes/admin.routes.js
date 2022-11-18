@@ -22,7 +22,7 @@ router.get(
 //! Check Otp
 router.post("/admin/verification/otp", adminCtrl.verifyOtpAdmin);
 //! new access token
-router.post(
+router.get(
   "/admin/new/access",
   VerifyRefreshToken,
   adminCtrl.createNewAccessTokens

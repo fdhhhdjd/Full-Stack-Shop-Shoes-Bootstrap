@@ -42,7 +42,7 @@ module.exports = {
     const refreshToken = await STORAGE.GenerateRefreshToken({
       id: result_admin._id,
     });
-    STORAGE.saveCookies(res, refreshToken);
+    STORAGE.saveCookiesAdmin(res, refreshToken);
     return {
       status: 200,
       success: true,

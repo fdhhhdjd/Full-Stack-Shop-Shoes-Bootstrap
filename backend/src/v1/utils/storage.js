@@ -188,6 +188,16 @@ module.exports = {
       maxAge: CONSTANTS._7_DAY,
     });
   },
+  //* cookie Admin
+  saveCookiesAdmin(res, refreshToken) {
+    res.cookie("refreshtoken", refreshToken, {
+      httpOnly: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
+      sameSite: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
+      secure: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
+      path: "/api/admin/new/access",
+      maxAge: CONSTANTS._7_DAY,
+    });
+  },
   //*Handle RefetchToken
   async GenerateRefreshToken(user) {
     const refresh = await get(user.id.toString());
