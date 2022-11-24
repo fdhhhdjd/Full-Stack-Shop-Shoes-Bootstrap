@@ -15,9 +15,7 @@ export default {
     return {};
   },
   computed: {},
-  created() {
-    console.log('abacc');
-  },
+  created() {},
   methods: {}
 };
 </script>
