@@ -194,7 +194,7 @@ module.exports = {
       httpOnly: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       sameSite: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       secure: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
-      path: "/api/admin/new/access",
+      path: "http://localhost:8080/v1/api/admin/new/access",
       maxAge: CONSTANTS._7_DAY,
     });
   },

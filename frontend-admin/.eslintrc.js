@@ -10,6 +10,7 @@ module.exports = {
         node: true,
         es6: true
     },
+
     plugins: ["vue", "prettier"],
     rules: {
         "prettier/prettier": [
@@ -32,5 +33,7 @@ module.exports = {
                 after: true
             }
         ],
+        'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
     }
 }

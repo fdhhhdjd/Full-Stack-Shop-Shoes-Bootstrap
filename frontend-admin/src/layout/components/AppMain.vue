@@ -20,7 +20,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.tagsView.cachedViews);
+    // console.log(this.$store.state.tagsView.cachedViews);
   }
 };
 </script>

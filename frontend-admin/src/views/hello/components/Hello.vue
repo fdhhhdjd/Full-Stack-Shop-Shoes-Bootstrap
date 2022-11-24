@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     getListData() {
-      this.$store.dispatch('api/getApi').then(data => {
+      this.$store.dispatch('permission/getInfo').then(data => {
         console.log(data);
       });
     }
