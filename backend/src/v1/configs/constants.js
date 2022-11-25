@@ -71,7 +71,14 @@ module.exports = {
   STATUS_LOGIN_FACEBOOK: "facebook",
   STATUS_LOGIN_PHONE: "phone",
   STATUS_LOGIN_EMAIL: "email",
+
   //! Connect Take Data
   STORAGE_GRAPH_FACEBOOK:
     "https://graph.facebook.com/v13.0/${userID}/?fields=picture.width(300).height(300),id,name,email&access_token=${accessToken}",
+
+  //! Key Redis 
+  REDIS_BLACK_LIST: "black_list",
+  REDIS_MIN_LIST: 0,
+  REDIS_MAX_LIST: 9999999,
 };
+

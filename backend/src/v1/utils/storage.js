@@ -179,13 +179,14 @@ module.exports = {
     });
   },
   //* cookie
-  saveCookies(res, refreshToken) {
+  saveCookies(res, refreshToken, req) {
     res.cookie("refreshtoken", refreshToken, {
       httpOnly: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       sameSite: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       secure: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       path: "/api/user/new/accessToken",
       maxAge: CONSTANTS._7_DAY,
+      domain: req.host.split(':')[0] || ''
     });
   },
   //* cookie Admin
@@ -194,8 +195,9 @@ module.exports = {
       httpOnly: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       sameSite: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       secure: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
-      path: "http://localhost:8080/v1/api/admin/new/access",
+      path: "/v1/api/admin/new/access",
       maxAge: CONSTANTS._7_DAY,
+      domain: req.host.split(':')[0] || ''
     });
   },
   //*Handle RefetchToken

@@ -35,6 +35,7 @@ const userCtrl = {
         GetIPUser,
         res,
         session,
+        req
       });
       return res.status(status).json({
         status,

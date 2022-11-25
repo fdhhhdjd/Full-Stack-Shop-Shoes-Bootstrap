@@ -240,7 +240,7 @@ module.exports = {
   handleLogoutAdmin: async ({ user_id, token, session, res }) => {
     await del(`cartUserId:${user_id}`);
     res.clearCookie("refreshtoken", {
-      path: "/api/auth/refresh_token",
+      path: "/v1/api/admin/new/access",
     });
     session.destroy();
     return {

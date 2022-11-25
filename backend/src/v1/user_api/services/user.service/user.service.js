@@ -38,12 +38,13 @@ const {
   getInfoEveryUser,
   getOrderInfoEveryUser,
 } = require("./getalluser.service");
-const { get, RedisPub, del } = require("../../../utils/limited_redis");
+const { get, RedisPub } = require("../../../utils/limited_redis");
 const PASSWORD = require("../../../utils/password");
 const STORAGE = require("../../../utils/storage");
 const CONSTANTS = require("../../../configs/constants");
 const CONFIGS = require("../../../configs/config");
 const Users = require("../../../models/userModel");
+const REDIS = require("../../../db/redis_db")
 module.exports = {
   //*--------------- Handle Authentication Users  ---------------
   checkLoginUser: async ({
@@ -53,6 +54,7 @@ module.exports = {
     GetIPUser,
     res,
     session,
+    req
   }) => {
     const { status, _ttl, msg } = UserSpam(GetIPUser);
     if (status === 400) {
@@ -85,7 +87,7 @@ module.exports = {
     session.save();
     const accessToken = createAccessToken({ id: result_user._id });
     const refreshToken = await GenerateRefreshToken({ id: result_user._id });
-    saveCookies(res, refreshToken);
+    saveCookies(res, refreshToken, req);
     return {
       status: 200,
       success: true,
@@ -280,17 +282,33 @@ module.exports = {
     };
   },
   LogoutRemoveAllUser: async ({ user_id, token, session, res }) => {
-    await del(user_id);
-    res.clearCookie("refreshtoken", {
-      path: "/api/user/new/accessToken",
-    });
-    session.destroy();
-    return {
-      status: 200,
-      success: true,
-      element: { msg: "Logged out success" },
-    };
+    let redis_multi = REDIS.pipeline()
+      .lpush(`${CONSTANTS.REDIS_BLACK_LIST}:${user_id}`, token)
+      .del(user_id)
+
+    redis_multi.exec().then(rs => {
+      if (rs) {
+        res.clearCookie("refreshtoken", {
+          path: "/api/user/new/accessToken",
+        });
+        session.destroy();
+      }
+      return {
+        status: 200,
+        success: true,
+        element: { msg: "Logged out success" },
+      };
+    }).catch(err => {
+      return {
+        status: 503,
+        success: false,
+        element: { msg: "Server busy" },
+      };
+    })
+
+
   },
+
   HandleForgerPasswordUser: async ({ email, req }) => {
     const { status, success, element } = await CheckForget({
       email,
