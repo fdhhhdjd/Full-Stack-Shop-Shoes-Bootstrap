@@ -2,7 +2,7 @@
     "name": "vue-element-admin",
     "version": "2.0.0",
     "description": "A magical vue admin. An out-of-box UI solution for enterprise applications. Newest development stack of vue. Lots of awesome features",
-    "author": "Pan <panfree23@gmail.com>",
+    "author": "Nguyễn Tiến Tài",
     "scripts": {
         "dev": "vue-cli-service serve",
         "lint": "eslint --ext .js,.vue src",
@@ -76,7 +76,7 @@
         "last 2 versions"
     ],
     "bugs": {
-        "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
+        "url": "https://github.com/fdhhhdjd/Full-Stack-Shop-Shoes-Bootstrap"
     },
     "engines": {
         "node": ">=8.9",
