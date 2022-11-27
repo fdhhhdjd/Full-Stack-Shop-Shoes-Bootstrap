@@ -46,6 +46,9 @@ const actions = {
     setLanguage({ commit }, language) {
         commit('SET_LANGUAGE', language);
     },
+    toggleSideBar({ commit }) {
+        commit('TOGGLE_SIDEBAR')
+    },
     closeSideBar({ commit }, { withoutAnimation }) {
         commit('CLOSE_SIDEBAR', withoutAnimation)
     },

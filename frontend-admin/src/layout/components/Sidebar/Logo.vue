@@ -1,7 +1,12 @@
 <template>
   <div :class="{ collapse: collapse }" class="sidebar-logo-container">
     <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
+      <router-link
+        v-if="collapse"
+        key="collapse"
+        class="sidebar-logo-link"
+        to="/"
+      >
         <img :src="getSystemInfo.cms_icon" class="sidebar-logo" />
         <h1 class="sidebar-title">{{ getSystemInfo.cms_title }}</h1>
       </router-link>
@@ -15,27 +20,30 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import mixin from '@/views/mixin';
+import { mapGetters } from "vuex";
+import mixin from "@/views/mixin";
 
 export default {
-  name: 'SidebarLogo',
+  name: "SidebarLogo",
   mixins: [mixin],
   props: {
     collapse: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-    ...mapGetters(['metaData']),
+    ...mapGetters(["metaData"]),
     getSystemInfo() {
       return {
-        cms_title: this.metaData?.general?.GENERAL_OPTIONS?.cms_title ?? 'Billiard CMS',
-        cms_icon: this.metaData?.general?.GENERAL_OPTIONS?.cms_icon ?? ''
+        cms_title:
+          this.metaData?.general?.GENERAL_OPTIONS?.cms_title ?? "ShopShoes CMS",
+        cms_icon:
+          this.metaData?.general?.GENERAL_OPTIONS?.cms_icon ??
+          "https://res.cloudinary.com/ecommerce2021/image/upload/v1669475574/avatars/favicon_obqp4x.png",
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

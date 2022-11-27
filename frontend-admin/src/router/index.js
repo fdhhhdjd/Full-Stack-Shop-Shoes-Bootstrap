@@ -1,19 +1,33 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import CONS from '../utils/constants'
 /* Layout */
 import Layout from '@/layout';
 Vue.use(Router);
 
 export const constantRoutes = [
     {
+        path: '/redirect',
+        component: Layout,
+        hidden: true,
+        children: [
+            {
+                path: '/redirect/:path(.*)',
+                component: () => import('@/views/redirect/index')
+            }
+        ]
+    },
+    {
         path: '/',
         component: Layout,
-        name: 'Dashboard',
+        redirect: '/dashboard',
+        hidden: true,
         children: [
             {
                 path: '/',
-                component: () => import('@/views/hello/index'),
-                name: 'Hello'
+                component: () => import('@/views/dashboard/index'),
+                name: 'Dashboard',
+                meta: { title: 'Bảng Điều Khiển', icon: 'dashboard', affix: true }
             }
         ]
     },
@@ -22,9 +36,57 @@ export const constantRoutes = [
         component: () => import('@/views/login/index'),
         hidden: true
     },
+    {
+        path: '/auth-redirect',
+        component: () => import('@/views/login/auth-redirect'),
+        hidden: true
+    },
+    {
+        path: '/404',
+        component: () => import('@/views/error-page/404'),
+        hidden: true
+    },
+    {
+        path: '/401',
+        component: () => import('@/views/error-page/401'),
+        hidden: true
+    },
+    {
+        path: '/profile',
+        component: Layout,
+        redirect: '/profile',
+        hidden: true,
+        children: [
+            {
+                path: '/',
+                component: () => import('@/views/profile'),
+                name: 'Profile',
+                meta: { title: 'Tài khoản của tôi', icon: 'user', noCache: true }
+            }
+        ]
+    }
 ];
 
-export const asyncRoutes = [];
+export const asyncRoutes = [
+    {
+        path: '/user',
+        component: Layout,
+        meta: {
+            roles: [CONS.ROLE_ADMIN, CONS.ROLE_USER]
+        },
+        children: [
+            {
+                path: 'list',
+                component: () => import('@/views/user'),
+                name: 'UserList',
+                meta: {
+                    icon: 'el-icon-s-custom',
+                    title: 'Quản lý khách hàng'
+                }
+            },
+        ]
+    },
+];
 
 /**
  * asyncRoutes
