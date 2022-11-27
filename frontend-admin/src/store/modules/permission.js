@@ -1,4 +1,4 @@
-import { asyncRoutes, constantRoutes, resetRouter } from '@/router'
+import router, { asyncRoutes, constantRoutes, resetRouter } from '@/router'
 import { getID, getToken, setToken, removeToken } from '@/utils/auth'
 import axios from 'axios'
 import CONSTANTS from '@/utils/constants'
@@ -47,7 +47,6 @@ const state = {
     addRoutes: [],
     renewPool: [],
     role: ''
-
 }
 
 const mutations = {
@@ -165,6 +164,33 @@ const actions = {
                 });
 
         });
+    },
+
+    // dynamically modify permissions
+    async changeRoles({ commit, dispatch }) {
+        // get user info
+        // note: roles must be a object array! such as: ['administrator'] or ,['developer','editor']
+        const userInfo = await dispatch('getInfo')
+        commit('SET_ROLES', [userInfo.element.role])
+        commit('SET_ROLE', userInfo.element.role)
+        commit('SET_NAME', userInfo.element.name)
+        commit('SET_AVATAR', userInfo.element.image)
+
+        // generate accessible routes map based on roles
+        const accessRoutes = await dispatch('permission/generateRoutes',
+            [userInfo.element.role],
+            {
+                root: true
+            }
+        )
+        console.log(accessRoutes)
+        // dynamically add accessible routes
+        router.addRoutes(accessRoutes)
+
+        // reset visited views and cached views
+        await dispatch('tagsView/delAllViews', null, {
+            root: true
+        })
     },
 
     logout({ commit, state }) {

@@ -1,33 +1,78 @@
 <template>
-  <div></div>
+  <div v-if="!item.hidden">
+    <template
+      v-if="
+        hasOneShowingChild(item.children, item) &&
+        (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+        !item.alwaysShow
+      "
+    >
+      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
+        <el-menu-item-group v-if="item.group" :title="item.group" />
+
+        <el-menu-item
+          :class="{ 'submenu-title-noDropdown': !isNest }"
+          :index="resolvePath(onlyOneChild.path)"
+        >
+          <item
+            :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
+            :title="generateTitle(onlyOneChild.meta.title)"
+          />
+        </el-menu-item>
+      </app-link>
+    </template>
+
+    <el-submenu
+      v-else
+      ref="subMenu"
+      :index="resolvePath(item.path)"
+      popper-append-to-body
+    >
+      <template slot="title">
+        <item
+          v-if="item.meta"
+          :icon="item.meta && item.meta.icon"
+          :title="generateTitle(item.meta.title)"
+        />
+      </template>
+      <sidebar-item
+        v-for="child in item.children"
+        :key="child.path"
+        :base-path="resolvePath(child.path)"
+        :is-nest="true"
+        :item="child"
+        class="nest-menu"
+      />
+    </el-submenu>
+  </div>
 </template>
 
 <script>
-import path from 'path';
-import { generateTitle } from '@/utils/i18n';
-import { isExternal } from '@/utils/validate';
-import Item from './Item';
-import AppLink from './Link';
-import FixiOSBug from './FixiOSBug';
+import path from "path";
+import { generateTitle } from "@/utils/i18n";
+import { isExternal } from "@/utils/validate";
+import Item from "./Item";
+import AppLink from "./Link";
+import FixiOSBug from "./FixiOSBug";
 
 export default {
-  name: 'SidebarItem',
+  name: "SidebarItem",
   components: { Item, AppLink },
   mixins: [FixiOSBug],
   props: {
     // route object
     item: {
       type: Object,
-      required: true
+      required: true,
     },
     isNest: {
       type: Boolean,
-      default: false
+      default: false,
     },
     basePath: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
   data() {
     // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
@@ -37,7 +82,7 @@ export default {
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
-      const showingChildren = children.filter(item => {
+      const showingChildren = children.filter((item) => {
         if (item.hidden) {
           return false;
         } else {
@@ -54,7 +99,7 @@ export default {
 
       // Show parent if there are no child router to display
       if (showingChildren.length === 0) {
-        this.onlyOneChild = { ...parent, path: '', noShowingChildren: true };
+        this.onlyOneChild = { ...parent, path: "", noShowingChildren: true };
         return true;
       }
 
@@ -70,7 +115,7 @@ export default {
       return path.resolve(this.basePath, routePath);
     },
 
-    generateTitle
-  }
+    generateTitle,
+  },
 };
 </script>

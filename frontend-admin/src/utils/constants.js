@@ -173,7 +173,11 @@ const CONSTANTS = {
     // Status Report User
     STATUS_REPORT_USER_PROCESSING: 10, // Chờ giải quyết
     STATUS_REPORT_USER_DONE: 20, // Đã giải quyết
-    STATUS_REPORT_USER_SKIP: 30 // Bỏ qua
+    STATUS_REPORT_USER_SKIP: 30, // Bỏ qua
+
+    // determined Role
+    ROLE_ADMIN: 1, // admin
+    ROLE_USER: 0, // user
 }
 
 export default CONSTANTS
