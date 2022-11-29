@@ -1,7 +1,0 @@
-build/*.js
-src/assets
-src/main.js
-public
-dist
-src/store
-src/layout
