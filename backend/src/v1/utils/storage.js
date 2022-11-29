@@ -62,6 +62,8 @@ module.exports = {
       email: email,
       // role: CONSTANTS.ACCOUNT_USER,
     });
+
+    console.log(email)
     return user;
   },
   async checkUserIdExit(id) {
@@ -195,9 +197,9 @@ module.exports = {
       httpOnly: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       sameSite: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
       secure: CONFIGS.NODE_ENV === "PRODUCTION" ? true : false,
-      path: "/v1/api/admin/new/access",
+      path: "http://localhost:8080/v1/api/admin/new/access",
       maxAge: CONSTANTS._7_DAY,
-      domain: req.host.split(':')[0] || ''
+      // domain: req.host.split(':')[0] || ''
     });
   },
   //*Handle RefetchToken

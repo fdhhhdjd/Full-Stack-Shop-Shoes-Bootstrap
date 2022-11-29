@@ -24,14 +24,18 @@ const userCtrl = {
   //* Login Email and Phone
   loginUser: async (req, res) => {
     try {
-      const { email_phone, password, token } = req.body;
+      const { email_phone, password } = req.body;
+      if (!email_phone) {
+        return res.status(400).json({
+          errors: 'invalid'
+        });
+      }
       const GetIPUser =
         req.headers["x-forwarded-for"] || req.connection.remoteAddress;
       let session = req.session;
       const { status, success, element } = await checkLoginUser({
         email_phone,
         password,
-        token,
         GetIPUser,
         res,
         session,
@@ -40,7 +44,7 @@ const userCtrl = {
       return res.status(status).json({
         status,
         success,
-        msg: returnReasons(status.toString()),
+        message: returnReasons(status.toString()),
         element,
       });
     } catch (error) {

@@ -50,7 +50,6 @@ module.exports = {
   checkLoginUser: async ({
     email_phone,
     password,
-    token,
     GetIPUser,
     res,
     session,
@@ -73,6 +72,7 @@ module.exports = {
     } else {
       result_user = await LoginPhone(email_phone);
     }
+
     if (!result_user || result_user.success === false) {
       return {
         status: result_user?.status,

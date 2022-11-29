@@ -77,10 +77,10 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-productSchema.plugin(mongooseAlgolia, db_algolia);
+// productSchema.plugin(mongooseAlgolia, db_algolia);
 let productSchemas = mongoose.model("Product", productSchema);
-productSchemas.SyncToAlgolia()
-productSchemas.SetAlgoliaSettings({
-  searchableAttributes: ['name', 'categories', 'price']
-})
+// productSchemas.SyncToAlgolia()
+// productSchemas.SetAlgoliaSettings({
+//   searchableAttributes: ['name', 'categories', 'price']
+// })
 module.exports = productSchemas;
