@@ -20,7 +20,7 @@ const {
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.get("/api", async (req, res) => {
+app.get("/api/email", async (req, res) => {
   const healthcheck = {
     uptime: process.uptime(),
     message: "Server Send Email ",
@@ -77,6 +77,6 @@ REDIS.on("pmessage", (pattern, channel, message) => {
 
 //!Auth Users
 
-const PORT = process.env.PORT || 5002;
-app.listen(PORT);
-console.log(`Running on http://localhost:${PORT}`);
+const PORTEMAIL = process.env.PORTEMAIL || 5002;
+app.listen(PORTEMAIL);
+console.log(`Running on http://localhost:${PORTEMAIL}`);
