@@ -1,18 +1,18 @@
 version: "3.7"
 
 services:
-###! Backend ###
+  ###! Backend ###
   backend:
     container_name: backend
     depends_on:
-      - mongodb
+      # - mongodb
       - redis
     restart: always
     build:
       dockerfile: Dockerfile.dev
       context: ./backend
     environment:
-      PORT: '${PORT}' 
+      PORT: "${PORT}"
     ports:
       - ${PORT}:${PORT}
     volumes:
@@ -23,75 +23,102 @@ services:
     command: npm run dev
     networks:
       - shopshoe
-
-###! NoSql: MongoDB ###  
-  mongodb:
-    image: mongo
+  ###! server_send_email ###
+  server_send_email:
+    container_name: server_send_email
+    depends_on:
+      # - mongodb
+      - redis
     restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server_send_email
+    environment:
+      PORT: "${PORTEMAIL}"
+    ports:
+      - ${PORTEMAIL}:${PORTEMAIL}
+    volumes:
+      - /app/node_modules
+      - ./server_send_email:/app
     env_file:
       - .env
-    environment:
-      MONGO_PORT: '${MONGO_PORT}'
-      MONGODB_URL: '${MONGODB_URL}'
-      MONGO_USER: '${MONGO_USER}'
-      MONGO_PASSWORD: '${MONGO_PASSWORD}'
-    volumes:
-      - ./backend/mongo-entrypoint:/docker-entrypoint-initdb.d
-      - ./backend/data:/data/db
-      - ./backend/mongoconfig:/data/configdb
-    ports:
-      - ${MONGO_PORT}:${MONGO_PORT}    
-
+    command: npm run dev
     networks:
       - shopshoe
 
-###! Redis ###  
+  ###! NoSql: MongoDB ###
+  # mongodb:
+  #   image: mongo
+  #   restart: always
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     MONGO_PORT: "${MONGO_PORT}"
+  #     MONGODB_URL: "${MONGODB_URL}"
+  #     MONGO_USER: "${MONGO_USER}"
+  #     MONGO_PASSWORD: "${MONGO_PASSWORD}"
+  #   volumes:
+  #     - ./backend/mongo-entrypoint:/docker-entrypoint-initdb.d
+  #     - ./backend/data:/data/db
+  #     - ./backend/mongoconfig:/data/configdb
+  #   ports:
+  #     - ${MONGO_PORT}:${MONGO_PORT}
+
+  #   networks:
+  #     - shopshoe
+
+  ###! Redis ###
   redis:
     image: redis:6.2
     restart: always
     environment:
-      REDIS_PASSWORD: '${REDIS_PASSWORD}'
+      REDIS_PASSWORD: "${REDIS_PASSWORD}"
     env_file:
       - .env
     networks:
-      - shopshoe 
-###! Frontend ###
-  frontend:
+      - shopshoe
+  ###! Frontend ###
+  frontend-user:
     depends_on:
       - backend
+      - server_send_email
     stdin_open: true
     tty: true
-    container_name: frontend
+    container_name: frontend-user
     build:
       dockerfile: Dockerfile.dev
-      context: ./frontend
+      context: ./frontend-user
 
     volumes:
       - /app/node_modules
-      - ./frontend:/app
+      - ./frontend-user:/app
     ports:
       - 3001:3000
     environment:
       - CHOKIDAR_USEPOLLING=true
     networks:
       - shopshoe
-###! WebServer:NGINX ###     
+  ###! WebServer:NGINX ###
   nginx:
     image: nginx:1.21.3
     container_name: nginx
     depends_on:
       - backend
-      - frontend
+      - server_send_email
+      - frontend-user
     restart: always
     build:
       dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - "8084:80"
-    networks: 
-      - shopshoe 
-      
+      - "${PORT_NGINX_SERVER}"
+      - "${PORT_NGINX_FRONTEND}"
+    env_file:
+      - .env
+    networks:
+      - shopshoe
+
 ###! Networks general ###
 networks:
-    shopshoe:
-      driver: bridge
+  shopshoe:
+    driver: bridge

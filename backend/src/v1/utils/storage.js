@@ -63,7 +63,6 @@ module.exports = {
       // role: CONSTANTS.ACCOUNT_USER,
     });
 
-    console.log(email)
     return user;
   },
   async checkUserIdExit(id) {

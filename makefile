@@ -11,3 +11,7 @@ stg:
 run-dev:
 	docker-compose up -d --build
 	docker-compose -f docker-compose.yml up -d --build
+nginx:
+cd /etc 
+cd nginx
+cd conf.d

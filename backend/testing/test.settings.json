@@ -1,0 +1,10 @@
+{
+  "Values": {
+    "COSMOS_DB_URI": "http://localhost:5000",
+    "COSMOS_DB_KEY": "key",
+    "COSMOS_DB_ID": "notification",
+    "COSMOS_DB_CONTAINER_DEVICE_MAPPING": "device-mapping",
+    "COSMOS_DB_CONTAINER_NOTIFICATION": "notification",
+    "COSMOS_DB_TIMEOUT": "5000"
+  }
+}
